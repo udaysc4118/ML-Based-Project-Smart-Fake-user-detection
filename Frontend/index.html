@@ -1,1716 +1,772 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    
 <head>
-    
     <meta charset="UTF-8">
-    
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>RecomAI - Smart Product Recommendation</title>
-
-    <!-- Google Font -->
+    <title>RecomAI | Premium Access</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <style>
-        /* ==============================
-           GLOBAL
-        ============================== */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 27, 43, 0.6);
+            --primary: #6c5ce7;
+            --primary-hover: #5a4bcf;
+            --accent: #00cec9;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --input-bg: rgba(15, 23, 42, 0.6);
+            --error: #ef4444;
+            --success: #10b981;
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
         }
 
         body {
-            font-family: "Inter", sans-serif;
-            background: #f5f7fb;
-            color: #172033;
-        }
-
-        button,
-        input {
-            font-family: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        /* ==============================
-           HEADER
-        ============================== */
-
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid #e6e9ef;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .topbar {
-            height: 72px;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(108, 92, 231, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 206, 201, 0.15), transparent 25%);
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 25px;
-            padding: 0 6%;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 190px;
-        }
-
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #6c5ce7, #00cec9);
-            display: flex;
             justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 20px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .logo h1 {
-            font-size: 22px;
-            font-weight: 800;
+        .glow-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: floatOrb 10s infinite alternate ease-in-out;
+            z-index: 0;
         }
 
-        .logo span {
-            color: #6c5ce7;
+        .glow-orb.orb-2 {
+            background: var(--accent);
+            width: 200px;
+            height: 200px;
+            right: 10%;
+            bottom: 10%;
+            animation-duration: 8s;
+            animation-delay: -4s;
         }
 
-        /* SEARCH */
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
 
-        .search-box {
+            100% {
+                transform: translate(50px, 50px) scale(1.2);
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            display: flex;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .visual-side {
             flex: 1;
-            max-width: 650px;
-            height: 44px;
-            background: #f1f3f8;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-        }
-
-        .search-box i {
-            color: #7c8495;
-        }
-
-        .search-box input {
-            width: 100%;
-            border: none;
-            outline: none;
-            background: transparent;
-            padding: 0 12px;
-            font-size: 14px;
-        }
-
-        /* HEADER ICONS */
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .header-action {
             position: relative;
-            color: #4d5566;
-            font-size: 19px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.8), rgba(108, 92, 231, 0.2));
         }
 
-        .badge {
+        .visual-side::before {
+            content: '';
             position: absolute;
-            top: -9px;
-            right: -10px;
-            background: #ff4757;
-            color: white;
-            font-size: 9px;
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80') center/cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
         }
 
-        /* USER */
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-        }
-
-        .user-profile small {
-            color: #8991a1;
-            display: block;
-            font-size: 11px;
-        }
-
-        /* ==============================
-           NAVIGATION
-        ============================== */
-
-        .nav {
-            height: 48px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            padding: 0 6%;
-            border-top: 1px solid #f0f1f5;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #555d6d;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .nav a:hover {
-            color: #6c5ce7;
-        }
-
-        /* ==============================
-           HERO
-        ============================== */
-
-        .hero {
-            margin: 25px 6%;
-            min-height: 280px;
-            border-radius: 22px;
-            padding: 45px;
-            background:
-                linear-gradient(120deg,
-                    rgba(38, 35, 92, .97),
-                    rgba(108, 92, 231, .90)),
-                url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d");
-            background-size: cover;
-            background-position: center;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 620px;
-        }
-
-        .ai-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(255, 255, 255, .15);
-            padding: 8px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
-        .hero h2 {
-            font-size: 38px;
-            line-height: 1.15;
-            margin-bottom: 14px;
-        }
-
-        .hero p {
-            color: #dedcff;
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 22px;
-        }
-
-        .hero-btn {
-            border: none;
-            padding: 12px 22px;
-            border-radius: 9px;
-            background: white;
-            color: #5546c7;
-            font-weight: 700;
-        }
-
-        /* AI CARD */
-
-        .ai-card {
-            width: 260px;
-            padding: 20px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, .12);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, .18);
-        }
-
-        .ai-card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 17px;
-            font-size: 13px;
-        }
-
-        .ai-circle {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #00cec9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .trust-score {
-            font-size: 32px;
-            font-weight: 800;
-        }
-
-        .trust-bar {
-            height: 7px;
-            background: rgba(255, 255, 255, .2);
-            border-radius: 20px;
-            margin: 10px 0;
-        }
-
-        .trust-progress {
-            width: 94%;
-            height: 100%;
-            border-radius: 20px;
-            background: #00cec9;
-        }
-
-        .safe {
-            color: #55efc4;
-            font-size: 12px;
-        }
-
-        /* ==============================
-           MAIN
-        ============================== */
-
-        main {
-            padding: 0 6% 50px;
-        }
-
-        /* ==============================
-           SECTION HEADER
-        ============================== */
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 32px 0 20px;
-        }
-
-        .section-header h2 {
-            font-size: 21px;
-        }
-
-        .section-header p {
-            color: #8991a1;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        .view-all {
-            color: #6c5ce7;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        /* ==============================
-           CATEGORY
-        ============================== */
-
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 14px;
-        }
-
-        .category {
-            background: white;
-            border: 1px solid #e8ebf2;
-            border-radius: 15px;
-            padding: 18px 10px;
-            text-align: center;
-            transition: .25s;
-        }
-
-        .category:hover {
-            transform: translateY(-4px);
-            border-color: #6c5ce7;
-            box-shadow: 0 10px 25px rgba(108, 92, 231, .10);
-        }
-
-        .category-icon {
-            width: 45px;
-            height: 45px;
-            margin: auto;
-            border-radius: 12px;
-            background: #f0efff;
-            color: #6c5ce7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 19px;
-            margin-bottom: 9px;
-        }
-
-        .category span {
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        /* ==============================
-           PRODUCT GRID
-        ============================== */
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .product-card {
-            background: white;
-            border: 1px solid #e7eaf1;
-            border-radius: 18px;
-            overflow: hidden;
-            position: relative;
-            transition: .25s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(20, 30, 60, .09);
-        }
-
-        .product-image {
-            height: 210px;
-            background: #f6f7fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 18px;
-            mix-blend-mode: multiply;
-        }
-
-        .discount {
+        .brand {
             position: absolute;
-            left: 12px;
-            top: 12px;
-            background: #00b894;
-            color: white;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 5px 8px;
-            border-radius: 6px;
-        }
-
-        .wishlist {
-            position: absolute;
-            right: 12px;
-            top: 12px;
-            width: 32px;
-            height: 32px;
-            border: none;
-            border-radius: 50%;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-            color: #747b8c;
-        }
-
-        .product-info {
-            padding: 17px;
-        }
-
-        .product-category {
-            color: #8991a1;
-            font-size: 10px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .product-name {
-            font-size: 14px;
-            font-weight: 700;
-            margin: 7px 0;
-            line-height: 1.4;
-        }
-
-        .rating-row {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            margin: 8px 0;
-        }
-
-        .rating {
-            background: #00b894;
-            color: white;
-            padding: 4px 7px;
-            border-radius: 5px;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .reviews {
-            color: #8a92a2;
-            font-size: 10px;
-        }
-
-        .price-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .price {
-            font-size: 19px;
-            font-weight: 800;
-        }
-
-        .old-price {
-            color: #9da3af;
-            text-decoration: line-through;
-            font-size: 11px;
-        }
-
-        .add-cart {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: #6c5ce7;
-            color: white;
-            font-weight: 700;
-            font-size: 12px;
-            transition: .2s;
-        }
-
-        .add-cart:hover {
-            background: #5546c7;
-        }
-
-        /* ==============================
-           AI RECOMMENDATION
-        ============================== */
-
-        .recommendation-box {
-            background: linear-gradient(120deg, #f0efff, #eafdfb);
-            border: 1px solid #dedcff;
-            border-radius: 20px;
-            padding: 22px;
-            margin-top: 35px;
-        }
-
-        .recommendation-title {
+            top: 40px;
+            left: 40px;
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 18px;
+            z-index: 2;
         }
 
-        .recommendation-title i {
+        .brand-icon {
             width: 40px;
             height: 40px;
-            background: #6c5ce7;
-            color: white;
-            border-radius: 11px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
         }
 
-        .recommendation-title h2 {
-            font-size: 19px;
+        .brand-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        .recommendation-title p {
-            color: #747c8e;
-            font-size: 11px;
-            margin-top: 3px;
+        .brand-text h1 span {
+            color: var(--accent);
         }
 
-        /* ==============================
-           TRUST DASHBOARD
-        ============================== */
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 18px;
-            margin-top: 30px;
+        .hero-text {
+            z-index: 2;
+            margin-top: 60px;
         }
 
-        .dashboard-card {
-            background: white;
-            border: 1px solid #e7eaf1;
-            border-radius: 18px;
-            padding: 22px;
+        .hero-text h2 {
+            font-size: 42px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        .dashboard-card h3 {
-            font-size: 14px;
-            margin-bottom: 17px;
+        .hero-text h2 span {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            color: transparent;
         }
 
-        .metric {
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.5;
+            max-width: 80%;
+        }
+
+        .form-side {
+            flex: 1;
+            padding: 50px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 13px 0;
-            font-size: 12px;
-        }
-
-        .metric span:last-child {
-            font-weight: 800;
-        }
-
-        .metric-bar {
-            height: 7px;
-            background: #edf0f5;
-            border-radius: 10px;
-            margin-top: 5px;
-        }
-
-        .metric-fill {
-            height: 100%;
-            border-radius: 10px;
-            background: #6c5ce7;
-        }
-
-        .green {
-            color: #00a884;
-        }
-
-        .orange {
-            color: #f39c12;
-        }
-
-        .red {
-            color: #e74c3c;
-        }
-
-        /* ==============================
-           FOOTER
-        ============================== */
-
-        footer {
-            margin-top: 40px;
-            background: #17192b;
-            color: #aeb3c5;
-            padding: 35px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        footer strong {
-            color: white;
-        }
-
-        footer p {
-            font-size: 11px;
-        }
-
-        /* ==============================
-           MODAL
-        ============================== */
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(10, 12, 25, .65);
-            display: none;
+            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            width: 600px;
-            max-width: 100%;
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
             position: relative;
         }
 
-        .close {
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px 14px 45px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .input-icon {
             position: absolute;
-            right: 20px;
-            top: 17px;
+            left: 16px;
+            top: 38px;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .eye-btn {
+            position: absolute;
+            right: 16px;
+            top: 38px;
+            background: none;
             border: none;
-            background: #f1f2f6;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
         }
 
-        .modal-product {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 25px;
+        .eye-btn:hover {
+            color: var(--text-main);
         }
 
-        .modal-product img {
-            width: 200px;
-            height: 220px;
-            object-fit: contain;
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
-        .modal-product h2 {
-            margin: 15px 0;
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(108, 92, 231, 0.4);
         }
 
-        .stars {
-            color: #f5a623;
+        .btn-main:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .options a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .options a:hover {
+            color: #fff;
+        }
+
+        .alert {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            display: block;
+        }
+
+        .alert.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            display: block;
+        }
+
+        .link-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .link-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: var(--text-main);
+        }
+
+        .otp-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .otp {
+            width: 50px;
+            height: 55px;
+            border-radius: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 24px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .otp:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 206, 201, 0.2);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--input-bg);
+            border-radius: 2px;
             margin: 10px 0;
+            overflow: hidden;
         }
 
-        /* ==============================
-           RESPONSIVE
-        ============================== */
-
-        @media(max-width:1000px) {
-
-            .products {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .categories {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .ai-card {
-                display: none;
-            }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--error);
+            transition: all 0.3s ease;
         }
 
-        @media(max-width:700px) {
-
-            .topbar {
-                padding: 0 4%;
-                gap: 10px;
-            }
-
-            .logo {
-                min-width: auto;
-            }
-
-            .logo h1 {
-                display: none;
-            }
-
-            .user-profile div {
-                display: none;
-            }
-
-            .nav {
-                overflow-x: auto;
-                padding: 0 4%;
-            }
-
-            .hero {
-                margin: 18px 4%;
-                padding: 30px;
-            }
-
-            .hero h2 {
-                font-size: 28px;
-            }
-
-            main {
-                padding: 0 4%;
-            }
-
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .categories {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-product {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-product img {
-                margin: auto;
-            }
+        .strength-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: right;
         }
     </style>
 </head>
 
 <body>
-
-    <!-- =====================================================
-     HEADER
-===================================================== -->
-
-    <header>
-
-        <div class="topbar">
-
-            <div class="logo">
-
-                <div class="logo-icon">
-                    <i class="fa-solid fa-brain"></i>
+    <div class="glow-orb"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="container">
+        <div class="visual-side">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-brain"></i></div>
+                <div class="brand-text">
+                    <h1>Recom<span>AI</span></h1>
                 </div>
-
-                <h1>Recom<span>AI</span></h1>
-
             </div>
-
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input type="text" id="searchInput" placeholder="Search products, brands and categories..."
-                    onkeyup="searchProducts()">
-
+            <div class="hero-text">
+                <h2>Discover.<br><span>Recommend.</span><br>Protect.</h2>
+                <p>Experience the next generation of AI-powered product recommendations and intelligent fake-user
+                    detection.</p>
             </div>
-
-            <div class="header-actions">
-
-                <div class="header-action">
-                    <i class="fa-regular fa-heart"></i>
-                    <span class="badge">2</span>
-                </div>
-
-                <div class="header-action">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="badge" id="cartCount">0</span>
-                </div>
-
-                <div class="user-profile">
-
-                    <div class="avatar">
-                        U
-                    </div>
-
-                    <div>
-                        <strong>Uday</strong>
-                        <small>Verified User</small>
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
 
-
-        <nav class="nav">
-
-            <a href="#">Home</a>
-            <a href="#recommended">Recommended</a>
-            <a href="#products">Products</a>
-            <a href="#categories">Categories</a>
-            <a href="#trust">Trust Score</a>
-            <a href="#">My Orders</a>
-
-        </nav>
-
-    </header>
-
-
-    <!-- =====================================================
-     HERO
-===================================================== -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <div class="ai-label">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                AI POWERED SHOPPING
+        <div class="form-side">
+            <div id="loginScreen" class="screen active">
+                <div class="tab-group">
+                    <div class="tab active" id="userTab" onclick="setLoginType('user')">User</div>
+                    <div class="tab" id="adminTab" onclick="setLoginType('admin')">Admin</div>
+                </div>
+                <div class="header">
+                    <h2 id="loginTitle">Welcome back</h2>
+                    <p id="loginSubtitle">Sign in to your RecomAI account</p>
+                </div>
+                <div id="loginAlert" class="alert"></div>
+                <form onsubmit="login(event)">
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                        <input type="text" id="email" class="input-field" placeholder="user@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+                        <button type="button" class="eye-btn" onclick="togglePassword()"><i id="eyeIcon"
+                                class="fa-regular fa-eye"></i></button>
+                    </div>
+                    <div class="options">
+                        <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input
+                                type="checkbox"> Remember me</label>
+                        <a href="#" onclick="showForgot()">Forgot password?</a>
+                    </div>
+                    <button type="submit" id="loginButton" class="btn-main"><span id="loginText">Sign In</span> <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </form>
+                <p class="link-text">Don\'t have an account? <a onclick="showSignup()">Create account</a></p>
             </div>
 
-            <h2>
-                Shopping that<br>
-                understands you.
-            </h2>
+            <div id="signupScreen" class="screen">
+                <button class="back-btn" onclick="showLogin()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <div class="header">
+                    <h2>Create account</h2>
+                    <p>Join RecomAI to experience premium AI features.</p>
+                </div>
+                <div id="signupAlert" class="alert"></div>
+                <div class="input-group">
+                    <label>Username</label>
+                    <i class="fa-regular fa-user input-icon"></i>
+                    <input type="text" id="signupUsername" class="input-field" placeholder="john_doe" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <i class="fa-regular fa-envelope input-icon"></i>
+                    <input type="email" id="signupEmail" class="input-field" placeholder="user@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="signupPassword" class="input-field" placeholder="••••••••" required>
+                </div>
+                <button type="button" id="signupOtpButton" class="btn-main" onclick="signupSendOTP()">Create Account & Send OTP <i
+                        class="fa-solid fa-paper-plane"></i></button>
+                <p class="link-text">Already have an account? <a onclick="showLogin()">Sign in</a></p>
+            </div>
 
-            <p>
-                Our intelligent recommendation engine learns from your
-                browsing behaviour, ratings and purchase history to
-                recommend products that actually match your interests.
-            </p>
+            <div id="forgotScreen" class="screen">
+                <button class="back-btn" onclick="showLogin()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <div class="header">
+                    <h2>Reset password</h2>
+                    <p>Enter your email to receive a verification code.</p>
+                </div>
+                <div id="forgotAlert" class="alert"></div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <i class="fa-regular fa-envelope input-icon"></i>
+                    <input type="email" id="forgotEmail" class="input-field" placeholder="user@example.com" required>
+                </div>
+                <button type="button" id="forgotOtpButton" class="btn-main" onclick="sendOTP()">Send Reset Link <i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
 
-            <button class="hero-btn" onclick="scrollToRecommendations()">
-                Explore Recommendations
-                <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            <div id="otpScreen" class="screen">
+                <button class="back-btn" onclick="showLogin()"><i class="fa-solid fa-arrow-left"></i> Back to
+                    login</button>
+                <div class="header" style="text-align: center;">
+                    <h2>Verify Email</h2>
+                    <p>Enter the 6-digit code sent to your email.</p>
+                </div>
+                <div id="otpAlert" class="alert"></div>
+                <div class="otp-group">
+                    <input type="text" class="otp" maxlength="1">
+                    <input type="text" class="otp" maxlength="1">
+                    <input type="text" class="otp" maxlength="1">
+                    <input type="text" class="otp" maxlength="1">
+                    <input type="text" class="otp" maxlength="1">
+                    <input type="text" class="otp" maxlength="1">
+                </div>
+                <button type="button" class="btn-main" onclick="verifyOTP()">Verify Code <i
+                        class="fa-solid fa-check"></i></button>
+                <p class="link-text">Didn\'t receive code? <a onclick="resendOTP()">Resend</a></p>
+            </div>
 
+            <div id="resetScreen" class="screen">
+                <div class="header">
+                    <h2>Set new password</h2>
+                    <p>Please enter your new secure password.</p>
+                </div>
+                <div id="resetAlert" class="alert"></div>
+                <div class="input-group">
+                    <label>New Password</label>
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="newPassword" class="input-field" placeholder="••••••••"
+                        oninput="passwordStrength()" required>
+                    <button type="button" class="eye-btn" onclick="toggleNewPassword()"><i id="newEyeIcon"
+                            class="fa-regular fa-eye"></i></button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="strengthProgress"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText">Enter password</div>
+                </div>
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input type="password" id="confirmPassword" class="input-field" placeholder="••••••••" required>
+                </div>
+                <button type="button" class="btn-main" onclick="resetPassword()">Save Password <i
+                        class="fa-solid fa-check"></i></button>
+            </div>
         </div>
-
-
-        <!-- AI TRUST CARD -->
-
-        <div class="ai-card">
-
-            <div class="ai-card-title">
-
-                <div class="ai-circle">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-
-                <div>
-                    <strong>AI Trust Analysis</strong>
-                    <br>
-                    <small>Account security</small>
-                </div>
-
-            </div>
-
-            <div class="trust-score">
-                94%
-            </div>
-
-            <div class="trust-bar">
-                <div class="trust-progress"></div>
-            </div>
-
-            <div class="safe">
-                <i class="fa-solid fa-circle-check"></i>
-                Genuine user detected
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-     MAIN
-===================================================== -->
-
-    <main>
-
-
-        <!-- ================= CATEGORIES ================= -->
-
-        <section id="categories">
-
-            <div class="section-header">
-
-                <div>
-                    <h2>Browse Categories</h2>
-                    <p>Explore products based on your interests</p>
-                </div>
-
-            </div>
-
-
-            <div class="categories">
-
-                <div class="category">
-                    <div class="category-icon">
-                        <i class="fa-solid fa-mobile-screen"></i>
-                    </div>
-                    <span>Electronics</span>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">
-                        <i class="fa-solid fa-shirt"></i>
-                    </div>
-                    <span>Fashion</span>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">
-                        <i class="fa-solid fa-laptop"></i>
-                    </div>
-                    <span>Laptops</span>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">
-                        <i class="fa-solid fa-headphones"></i>
-                    </div>
-                    <span>Audio</span>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                    </div>
-                    <span>Backpacks</span>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">
-                        <i class="fa-solid fa-dumbbell"></i>
-                    </div>
-                    <span>GYM</span>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= RECOMMENDATIONS ================= -->
-
-        <section id="recommended">
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2>
-                        <i class="fa-solid fa-wand-magic-sparkles" style="color:#6c5ce7"></i>
-
-                        Recommended For You
-                    </h2>
-
-                    <p>
-                        Personalized using your browsing and rating behaviour
-                    </p>
-
-                </div>
-
-                <span class="view-all">
-                    AI Confidence: 92%
-                </span>
-
-            </div>
-
-
-            <div class="recommendation-box">
-
-                <div class="recommendation-title">
-
-                    <i class="fa-solid fa-robot"></i>
-
-                    <div>
-
-                        <h2>
-                            AI Recommendation Engine
-                        </h2>
-
-                        <p>
-                            Based on products you viewed recently
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="products" id="recommendedProducts">
-
-                    <!-- Products inserted using JavaScript -->
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= ALL PRODUCTS ================= -->
-
-        <section id="products">
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2>Popular Products</h2>
-
-                    <p>
-                        Highly rated products from verified users
-                    </p>
-
-                </div>
-
-                <span class="view-all">
-                    View All
-                </span>
-
-            </div>
-
-
-            <div class="products" id="productContainer">
-
-                <!-- Products generated by JS -->
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= TRUST DASHBOARD ================= -->
-
-        <section id="trust">
-
-            <div class="section-header">
-
-                <div>
-
-                    <h2>
-                        <i class="fa-solid fa-shield-halved" style="color:#00a884"></i>
-
-                        User Trust & Security
-                    </h2>
-
-                    <p>
-                        ML-based fake user detection analysis
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="dashboard">
-
-
-                <!-- USER BEHAVIOUR -->
-
-                <div class="dashboard-card">
-
-                    <h3>
-                        <i class="fa-solid fa-chart-line"></i>
-                        Behaviour Analysis
-                    </h3>
-
-
-                    <div class="metric">
-
-                        <span>Browsing consistency</span>
-
-                        <span class="green">92%</span>
-
-                    </div>
-
-                    <div class="metric-bar">
-                        <div class="metric-fill" style="width:92%">
-                        </div>
-                    </div>
-
-
-                    <div class="metric">
-
-                        <span>Rating behaviour</span>
-
-                        <span class="green">88%</span>
-
-                    </div>
-
-                    <div class="metric-bar">
-                        <div class="metric-fill" style="width:88%">
-                        </div>
-                    </div>
-
-
-                    <div class="metric">
-
-                        <span>Purchase consistency</span>
-
-                        <span class="green">95%</span>
-
-                    </div>
-
-                    <div class="metric-bar">
-                        <div class="metric-fill" style="width:95%">
-                        </div>
-                    </div>
-
-
-                    <div class="metric">
-
-                        <span>Suspicious activity</span>
-
-                        <span class="green">Low</span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TRUST SCORE -->
-
-                <div class="dashboard-card">
-
-                    <h3>
-                        <i class="fa-solid fa-user-shield"></i>
-                        User Trust Score
-                    </h3>
-
-                    <div style="font-size:42px;font-weight:800;">
-                        94
-                    </div>
-
-                    <p style="font-size:11px;color:#8991a1;margin-top:5px;">
-                        Out of 100
-                    </p>
-
-                    <div style="
-                    margin-top:18px;
-                    padding:10px;
-                    background:#eafaf6;
-                    color:#00a884;
-                    border-radius:8px;
-                    font-size:11px;
-                    font-weight:700;
-                ">
-
-                        <i class="fa-solid fa-circle-check"></i>
-                        Low Risk User
-
-                    </div>
-
-                </div>
-
-
-                <!-- ML STATUS -->
-
-                <div class="dashboard-card">
-
-                    <h3>
-                        <i class="fa-solid fa-microchip"></i>
-                        ML Detection
-                    </h3>
-
-                    <div style="
-                    font-size:31px;
-                    font-weight:800;
-                    color:#00a884;
-                ">
-                        Genuine
-                    </div>
-
-                    <p style="
-                    color:#8991a1;
-                    font-size:11px;
-                    margin-top:6px;
-                ">
-                        Prediction confidence
-                    </p>
-
-                    <div style="
-                    margin-top:15px;
-                    font-size:20px;
-                    font-weight:800;
-                ">
-                        96.4%
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =====================================================
-     FOOTER
-===================================================== -->
-
-    <footer>
-
-        <div>
-            <strong>RecomAI</strong>
-            <p>AI-powered secure recommendation platform</p>
-        </div>
-
-        <p>
-            ML-Based Fake User Detection © 2026
-        </p>
-
-    </footer>
-
-
-    <!-- =====================================================
-     PRODUCT MODAL
-===================================================== -->
-
-    <div class="modal" id="productModal">
-
-        <div class="modal-content">
-
-            <button class="close" onclick="closeModal()">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="modal-product">
-
-                <img id="modalImage" src="" alt="Product">
-
-                <div>
-
-                    <small id="modalCategory" style="color:#8991a1">
-                    </small>
-
-                    <h2 id="modalName">
-                        Product Name
-                    </h2>
-
-                    <div class="stars">
-                        ★★★★★
-                    </div>
-
-                    <h2 id="modalPrice">
-                        ₹0
-                    </h2>
-
-                    <p id="modalDescription" style="
-                    color:#747c8e;
-                    font-size:13px;
-                    line-height:1.7;
-                    margin:15px 0;
-                    ">
-                    </p>
-
-                    <button class="add-cart" onclick="addToCart()">
-
-                        <i class="fa-solid fa-cart-shopping"></i>
-
-                        Add to Cart
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
 
-
     <script>
+        let loginType = "user";
+        let otpRequestInFlight = false;
+        const ADMIN_CREDENTIALS = { email: "admin", password: "admin123" };
 
-        /* =====================================================
-           PRODUCT DATABASE
-        ===================================================== */
-
-        const products = [
-
-            {
-                id: 1,
-                name: "Apple iPhone 15",
-                category: "Electronics",
-                price: 69999,
-                oldPrice: 79999,
-                rating: 4.6,
-                reviews: 12453,
-                discount: "12% OFF",
-                image: "https://images.unsplash.com/photo-1592286927505-2fdc8b8c7c6f",
-                description:
-                    "Latest Apple smartphone with powerful performance, premium design and advanced camera system."
-            },
-
-            {
-                id: 2,
-                name: "Sony WH-1000XM5",
-                category: "Audio",
-                price: 29990,
-                oldPrice: 34990,
-                rating: 4.7,
-                reviews: 8231,
-                discount: "14% OFF",
-                image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b",
-                description:
-                    "Premium wireless headphones with industry-leading noise cancellation."
-            },
-
-            {
-                id: 3,
-                name: "Nike Air Max Shoes",
-                category: "Fashion",
-                price: 8499,
-                oldPrice: 10999,
-                rating: 4.4,
-                reviews: 5321,
-                discount: "23% OFF",
-                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-                description:
-                    "Comfortable running shoes designed for everyday performance and style."
-            },
-
-            {
-                id: 4,
-                name: "MacBook Air M3",
-                category: "Laptops",
-                price: 104999,
-                oldPrice: 119999,
-                rating: 4.8,
-                reviews: 4267,
-                discount: "13% OFF",
-                image: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8",
-                description:
-                    "Powerful Apple laptop with M3 chip, long battery life and premium Retina display."
-            },
-
-            {
-                id: 5,
-                name: "Samsung Galaxy S24",
-                category: "Electronics",
-                price: 64999,
-                oldPrice: 74999,
-                rating: 4.5,
-                reviews: 9367,
-                discount: "13% OFF",
-                image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c",
-                description:
-                    "Flagship Android smartphone with AI-powered features and excellent camera."
-            },
-
-            {
-                id: 6,
-                name: "JBL Tune 770NC",
-                category: "Audio",
-                price: 5999,
-                oldPrice: 7999,
-                rating: 4.3,
-                reviews: 6212,
-                discount: "25% OFF",
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-                description:
-                    "Wireless headphones with adaptive noise cancellation and powerful bass."
-            },
-
-            {
-                id: 7,
-                name: "Dell Inspiron Laptop",
-                category: "Laptops",
-                price: 67999,
-                oldPrice: 74999,
-                rating: 4.2,
-                reviews: 3214,
-                discount: "9% OFF",
-                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
-                description:
-                    "Reliable performance laptop suitable for students and professionals."
-            },
-
-            {
-                id: 8,
-                name: "Adidas Running Shoes",
-                category: "Fashion",
-                price: 5499,
-                oldPrice: 6999,
-                rating: 4.4,
-                reviews: 2876,
-                discount: "21% OFF",
-                image: "https://images.unsplash.com/photo-1556906781-9a412961c28c",
-                description:
-                    "Lightweight Adidas running shoes designed for daily training."
+        function setLoginType(type) {
+            loginType = type;
+            const userTab = document.getElementById("userTab");
+            const adminTab = document.getElementById("adminTab");
+            const title = document.getElementById("loginTitle");
+            const subtitle = document.getElementById("loginSubtitle");
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+            if (type === "user") {
+                userTab.classList.add("active");
+                adminTab.classList.remove("active");
+                title.innerHTML = "Welcome back";
+                subtitle.innerHTML = "Sign in to your RecomAI account.";
+                email.placeholder = "user@example.com";
+                email.readOnly = false;
+                password.readOnly = false;
+                email.value = "";
+                password.value = "";
+            } else {
+                adminTab.classList.add("active");
+                userTab.classList.remove("active");
+                title.innerHTML = "Admin Control";
+                subtitle.innerHTML = "Sign in to manage the platform.";
+                email.placeholder = "Enter admin username";
+                password.placeholder = "Enter admin password";
+                email.readOnly = false;
+                password.readOnly = false;
+                email.value = "";
+                password.value = "";
             }
-
-        ];
-
-
-        /* =====================================================
-           DISPLAY PRODUCTS
-        ===================================================== */
-
-        function displayProducts(list, elementId) {
-
-            const container =
-                document.getElementById(elementId);
-
-            container.innerHTML = "";
-
-            list.forEach(product => {
-
-                container.innerHTML += `
-
-                <div class="product-card"
-                     onclick="openProduct(${product.id})">
-
-                    <div class="product-image">
-
-                        <span class="discount">
-                            ${product.discount}
-                        </span>
-
-                        <button
-                            class="wishlist"
-                            onclick="event.stopPropagation(); addWishlist()">
-
-                            <i class="fa-regular fa-heart"></i>
-
-                        </button>
-
-                        <img
-                            src="${product.image}"
-                            alt="${product.name}"
-                        >
-
-                    </div>
-
-
-                    <div class="product-info">
-
-                        <div class="product-category">
-                            ${product.category}
-                        </div>
-
-                        <div class="product-name">
-                            ${product.name}
-                        </div>
-
-
-                        <div class="rating-row">
-
-                            <span class="rating">
-                                ★ ${product.rating}
-                            </span>
-
-                            <span class="reviews">
-                                ${product.reviews.toLocaleString()}
-                                ratings
-                            </span>
-
-                        </div>
-
-
-                        <div class="price-row">
-
-                            <span class="price">
-                                ₹${product.price.toLocaleString()}
-                            </span>
-
-                            <span class="old-price">
-                                ₹${product.oldPrice.toLocaleString()}
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            class="add-cart"
-                            onclick="
-                            event.stopPropagation();
-                            addToCart();
-                            ">
-
-                            <i class="fa-solid fa-cart-plus"></i>
-
-                            Add to Cart
-
-                        </button>
-
-                    </div>
-
-                </div>
-            `;
-            });
+        }
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const icon = document.getElementById("eyeIcon");
+            if (password.type === "password") { password.type = "text"; icon.className = "fa-regular fa-eye-slash"; }
+            else { password.type = "password"; icon.className = "fa-regular fa-eye"; }
+        }
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const alertBox = document.getElementById("loginAlert");
+            const button = document.getElementById("loginButton");
+            const text = document.getElementById("loginText");
+            if (!email || !password) { showAlert(alertBox, "Please enter your email and password.", "error"); return; }
+            button.disabled = true; text.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Authenticating...";
+            fetch("http://localhost:3000/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, loginType }) })
+                .then(async (res) => {
+                    const data = await res.json().catch(() => ({}));
+                    button.disabled = false; text.innerHTML = "Sign In";
+                    if (res.ok && data.success) {
+                        if (data.role === "admin") { showAlert(alertBox, "Admin authentication successful.", "success"); window.location.href = "admin.html"; }
+                        else { showAlert(alertBox, "User login successful.", "success"); window.location.href = "index.html"; }
+                    } else { showAlert(alertBox, data.message || "Authentication failed.", "error"); }
+                }).catch(() => { button.disabled = false; text.innerHTML = "Sign In"; showAlert(alertBox, "Network error. Please try again.", "error"); });
+        }
+        function hideScreens() {
+            document.getElementById("loginScreen").classList.remove("active");
+            document.getElementById("forgotScreen").classList.remove("active");
+            document.getElementById("signupScreen").classList.remove("active");
+            document.getElementById("otpScreen").classList.remove("active");
+            document.getElementById("resetScreen").classList.remove("active");
+        }
+        function showLogin() { hideScreens(); document.getElementById("loginScreen").classList.add("active"); }
+        function showForgot() { hideScreens(); document.getElementById("forgotScreen").classList.add("active"); }
+        function showSignup() { hideScreens(); document.getElementById("signupScreen").classList.add("active"); }
+        function setOtpButtonLoading(button, loading, label) {
+            if (!button) return;
+            button.disabled = loading;
+            button.innerHTML = loading ? `<span><i class='fa-solid fa-spinner fa-spin'></i> ${label}</span>` : label;
         }
 
-
-        /* =====================================================
-           INITIAL PRODUCTS
-        ===================================================== */
-
-        displayProducts(
-            products.slice(0, 4),
-            "recommendedProducts"
-        );
-
-        displayProducts(
-            products.slice(4),
-            "productContainer"
-        );
-
-
-        /* =====================================================
-           SEARCH
-        ===================================================== */
-
-        function searchProducts() {
-
-            const search =
-                document
-                    .getElementById("searchInput")
-                    .value
-                    .toLowerCase();
-
-            const filtered =
-                products.filter(product =>
-                    product.name
-                        .toLowerCase()
-                        .includes(search)
-                );
-
-            displayProducts(
-                filtered,
-                "productContainer"
-            );
-        }
-
-
-        /* =====================================================
-           PRODUCT MODAL
-        ===================================================== */
-
-        function openProduct(id) {
-
-            const product =
-                products.find(p => p.id === id);
-
-            document
-                .getElementById("modalImage")
-                .src = product.image;
-
-            document
-                .getElementById("modalName")
-                .innerText = product.name;
-
-            document
-                .getElementById("modalCategory")
-                .innerText = product.category;
-
-            document
-                .getElementById("modalPrice")
-                .innerText =
-                "₹" + product.price.toLocaleString();
-
-            document
-                .getElementById("modalDescription")
-                .innerText = product.description;
-
-            document
-                .getElementById("productModal")
-                .classList.add("active");
-
-        }
-
-
-        function closeModal() {
-
-            document
-                .getElementById("productModal")
-                .classList.remove("active");
-
-        }
-
-
-        /* =====================================================
-           CART
-        ===================================================== */
-
-        let cart = 0;
-
-        function addToCart() {
-
-            cart++;
-
-            document
-                .getElementById("cartCount")
-                .innerText = cart;
-
-            alert("Product added to cart!");
-
-        }
-
-
-        /* =====================================================
-           WISHLIST
-        ===================================================== */
-
-        function addWishlist() {
-
-            alert("Product added to wishlist ❤️");
-
-        }
-
-
-        /* =====================================================
-           SCROLL
-        ===================================================== */
-
-        function scrollToRecommendations() {
-
-            document
-                .getElementById("recommended")
-                .scrollIntoView({
-                    behavior: "smooth"
+        function sendOTP() {
+            if (otpRequestInFlight) return;
+            const email = document.getElementById("forgotEmail").value.trim();
+            const alertBox = document.getElementById("forgotAlert");
+            const button = document.getElementById("forgotOtpButton");
+            if (!email || !email.includes("@")) { showAlert(alertBox, "Please enter a valid email.", "error"); return; }
+            window._otpEmail = email; window._otpAction = "forgot";
+            otpRequestInFlight = true;
+            setOtpButtonLoading(button, true, "Sending...");
+            fetch("http://localhost:3000/api/forgot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) })
+                .then(async res => {
+                    const data = await res.json().catch(() => ({}));
+                    if (data && data.duplicate) {
+                        showAlert(alertBox, "OTP already sent recently. Please wait a moment.", "success");
+                    } else {
+                        showAlert(alertBox, "Verification code sent successfully.", "success");
+                        setTimeout(() => { hideScreens(); document.getElementById("otpScreen").classList.add("active"); document.querySelector(".otp").focus(); }, 600);
+                    }
+                })
+                .catch(() => showAlert(alertBox, "Network error. Try again.", "error"))
+                .finally(() => {
+                    otpRequestInFlight = false;
+                    setOtpButtonLoading(button, false, 'Send Reset Link <i class="fa-solid fa-paper-plane"></i>');
                 });
-
         }
-
-
-        /* =====================================================
-           CLOSE MODAL OUTSIDE
-        ===================================================== */
-
-        document
-            .getElementById("productModal")
-            .addEventListener("click", function (e) {
-
-                if (e.target === this) {
-                    closeModal();
-                }
-
-            });
-
+        function signupSendOTP() {
+            if (otpRequestInFlight) return;
+            const username = document.getElementById("signupUsername").value.trim();
+            const email = document.getElementById("signupEmail").value.trim();
+            const password = document.getElementById("signupPassword").value;
+            const alertBox = document.getElementById("signupAlert");
+            const button = document.getElementById("signupOtpButton");
+            if (!username || !email || !password || !email.includes("@")) { showAlert(alertBox, "Please fill valid details.", "error"); return; }
+            window._otpEmail = email; window._otpAction = "signup"; window._signupTemp = { username, password };
+            otpRequestInFlight = true;
+            setOtpButtonLoading(button, true, "Sending...");
+            fetch("http://localhost:3000/api/forgot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, username, newPassword: password }) })
+                .then(async res => {
+                    const data = await res.json().catch(() => ({}));
+                    if (data && data.duplicate) {
+                        showAlert(alertBox, "OTP already sent recently. Please wait a moment.", "success");
+                    } else {
+                        showAlert(alertBox, "Verification code sent to email.", "success");
+                        setTimeout(() => { hideScreens(); document.getElementById("otpScreen").classList.add("active"); document.querySelector(".otp").focus(); }, 600);
+                    }
+                })
+                .catch(() => showAlert(alertBox, "Network error. Try again.", "error"))
+                .finally(() => {
+                    otpRequestInFlight = false;
+                    setOtpButtonLoading(button, false, 'Create Account & Send OTP <i class="fa-solid fa-paper-plane"></i>');
+                });
+        }
+        const otpInputs = document.querySelectorAll(".otp");
+        otpInputs.forEach((input, index) => {
+            input.addEventListener("input", function () { this.value = this.value.replace(/\D/g, ""); if (this.value && index < otpInputs.length - 1) otpInputs[index + 1].focus(); });
+            input.addEventListener("keydown", function (event) { if (event.key === "Backspace" && !this.value && index > 0) otpInputs[index - 1].focus(); });
+        });
+        function verifyOTP() {
+            const otp = Array.from(otpInputs).map(i => i.value).join("");
+            const alertBox = document.getElementById("otpAlert");
+            if (otp.length !== 6) { showAlert(alertBox, "Enter 6-digit code.", "error"); return; }
+            const email = window._otpEmail; const action = window._otpAction || "forgot";
+            fetch("http://localhost:3000/api/verify-otp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, code: otp }) })
+                .then(async res => {
+                    const data = await res.json().catch(() => ({}));
+                    if (res.ok && data.success) {
+                        showAlert(alertBox, "Email verified successfully.", "success");
+                        setTimeout(() => {
+                            if (action === "signup") {
+                                const creds = window._signupTemp || {};
+                                fetch("http://localhost:3000/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password: creds.password, loginType: "user" }) })
+                                    .then(r => r.json()).then(d => { if (d && d.success) window.location.href = "index.html"; else { showLogin(); showAlert(document.getElementById("loginAlert"), "Signup complete. Sign in.", "success"); } })
+                                    .catch(() => { showLogin(); showAlert(document.getElementById("loginAlert"), "Signup complete. Sign in.", "success"); });
+                            } else { hideScreens(); document.getElementById("resetScreen").classList.add("active"); }
+                        }, 600);
+                    } else showAlert(alertBox, data.message || "Invalid code", "error");
+                }).catch(() => showAlert(alertBox, "Network error. Try again.", "error"));
+        }
+        function resendOTP() { showAlert(document.getElementById("otpAlert"), "A new verification code has been sent.", "success"); }
+        function toggleNewPassword() {
+            const password = document.getElementById("newPassword"); const icon = document.getElementById("newEyeIcon");
+            if (password.type === "password") { password.type = "text"; icon.className = "fa-regular fa-eye-slash"; } else { password.type = "password"; icon.className = "fa-regular fa-eye"; }
+        }
+        function passwordStrength() {
+            const password = document.getElementById("newPassword").value; const progress = document.getElementById("strengthProgress"); const text = document.getElementById("strengthText"); let score = 0;
+            if (password.length >= 8) score += 25; if (/[A-Z]/.test(password)) score += 25; if (/[0-9]/.test(password)) score += 25; if (/[^A-Za-z0-9]/.test(password)) score += 25;
+            progress.style.width = score + "%";
+            if (score <= 25) { progress.style.background = "#e74c3c"; text.innerText = "Weak password"; }
+            else if (score <= 50) { progress.style.background = "#f39c12"; text.innerText = "Fair password"; }
+            else if (score <= 75) { progress.style.background = "#00b894"; text.innerText = "Good password"; }
+            else { progress.style.background = "#00a884"; text.innerText = "Strong password"; }
+        }
+        function resetPassword() {
+            const password = document.getElementById("newPassword").value; const confirmPassword = document.getElementById("confirmPassword").value; const alertBox = document.getElementById("resetAlert");
+            if (password.length < 8) { showAlert(alertBox, "Password > 8 characters.", "error"); return; }
+            if (password !== confirmPassword) { showAlert(alertBox, "Passwords do not match.", "error"); return; }
+            fetch("http://localhost:3000/api/reset-password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: window._otpEmail, newPassword: password }) })
+                .then(async res => { const data = await res.json().catch(() => ({})); if (res.ok && data.success) { showAlert(alertBox, "Password updated.", "success"); setTimeout(() => showLogin(), 1000); } else showAlert(alertBox, data.message || "Error.", "error"); })
+                .catch(() => showAlert(alertBox, "Network error.", "error"));
+        }
+        function showAlert(element, message, type) { element.innerText = message; element.className = "alert " + type; }
     </script>
-
 </body>
 
 </html>
-< ! - -   V e r c e l   l o g i n   r e d i r e c t   u p d a t e   - - > 
- 
- 
