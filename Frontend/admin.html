@@ -1,0 +1,3561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RecomAI | Admin Control Center</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    height: 72px;
+    background: #ffffff;
+    border-bottom: 1px solid #e6e9ef;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 5%;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 240px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c5ce7,
+            #00cec9
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 19px;
+}
+
+.logo h1 {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.logo span {
+    color: #6c5ce7;
+}
+
+.admin-label {
+    display: block;
+    color: #8991a1;
+    font-size: 9px;
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   HEADER RIGHT
+========================================================= */
+
+.header-right {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.notification {
+    position: relative;
+
+    font-size: 19px;
+    color: #596174;
+}
+
+.notification-badge {
+    position: absolute;
+
+    top: -8px;
+    right: -9px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ff4757;
+    color: white;
+
+    font-size: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c5ce7,
+            #a29bfe
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+}
+
+.admin-profile strong {
+    font-size: 12px;
+}
+
+.admin-profile small {
+    display: block;
+    color: #8991a1;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 72px);
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 240px;
+
+    background: #ffffff;
+
+    border-right: 1px solid #e7eaf0;
+
+    padding: 25px 15px;
+
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    color: #a0a6b3;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    padding: 0 12px;
+
+    margin-bottom: 12px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    margin-bottom: 5px;
+
+    color: #697184;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: .2s;
+}
+
+.sidebar-item i {
+    width: 18px;
+    text-align: center;
+}
+
+.sidebar-item:hover {
+    background: #f0efff;
+    color: #6c5ce7;
+}
+
+.sidebar-item.active {
+    background: #6c5ce7;
+    color: white;
+
+    box-shadow:
+        0 8px 20px
+        rgba(108,92,231,.20);
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: #eef0f4;
+    margin: 20px 5px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    flex: 1;
+
+    padding: 30px 35px;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.page-header p {
+    color: #8991a1;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.date-box {
+    background: white;
+
+    border: 1px solid #e7eaf1;
+
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    color: #697184;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   KPI CARDS
+========================================================= */
+
+.kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 25px;
+}
+
+.kpi-card {
+    background: white;
+
+    border: 1px solid #e7eaf1;
+
+    border-radius: 16px;
+
+    padding: 18px;
+
+    transition: .2s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(20,30,60,.07);
+}
+
+.kpi-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kpi-icon {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0efff;
+    color: #6c5ce7;
+}
+
+.kpi-number {
+    font-size: 24px;
+    font-weight: 800;
+
+    margin-top: 15px;
+}
+
+.kpi-label {
+    font-size: 10px;
+    color: #8991a1;
+    margin-top: 3px;
+}
+
+.kpi-change {
+    font-size: 9px;
+    color: #00a884;
+    margin-top: 7px;
+}
+
+
+/* =========================================================
+   ANALYTICS ROW
+========================================================= */
+
+.analytics-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr;
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.analytics-card {
+    background: white;
+
+    border: 1px solid #e7eaf1;
+
+    border-radius: 17px;
+
+    padding: 20px;
+}
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.card-title h3 {
+    font-size: 14px;
+}
+
+.card-title span {
+    font-size: 10px;
+    color: #8991a1;
+}
+
+
+/* RATING ANALYSIS */
+
+.rating-chart {
+    display: flex;
+    align-items: flex-end;
+
+    height: 130px;
+
+    gap: 18px;
+
+    padding: 0 10px;
+}
+
+.chart-column {
+    flex: 1;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bar-wrapper {
+    height: 100px;
+
+    width: 25px;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar {
+    width: 100%;
+
+    border-radius: 6px 6px 2px 2px;
+
+    background: #6c5ce7;
+}
+
+.bar.genuine {
+    background: #00b894;
+}
+
+.bar.fake {
+    background: #ff7675;
+}
+
+.bar-label {
+    font-size: 9px;
+    color: #8991a1;
+
+    margin-top: 7px;
+}
+
+
+/* =========================================================
+   TRUST SUMMARY
+========================================================= */
+
+.trust-score-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.big-score {
+    width: 95px;
+    height: 95px;
+
+    border-radius: 50%;
+
+    border: 8px solid #6c5ce7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+    font-weight: 800;
+
+    color: #6c5ce7;
+}
+
+.trust-details p {
+    font-size: 11px;
+    color: #8991a1;
+
+    margin-bottom: 8px;
+}
+
+.trust-status {
+    display: inline-block;
+
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    background: #eafaf6;
+
+    color: #00a884;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SUSPICIOUS ACTIVITY
+========================================================= */
+
+.alert-box {
+    background: #fff7ed;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: 11px;
+
+    padding: 12px;
+
+    display: flex;
+    gap: 10px;
+}
+
+.alert-icon {
+    color: #f39c12;
+}
+
+.alert-box strong {
+    font-size: 11px;
+}
+
+.alert-box p {
+    color: #8991a1;
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+.review-button {
+    margin-top: 13px;
+
+    border: none;
+
+    background: #fff;
+
+    border: 1px solid #f39c12;
+
+    color: #d68910;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   USER MANAGEMENT
+========================================================= */
+
+.users-section {
+    background: white;
+
+    border: 1px solid #e7eaf1;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+}
+
+.users-header {
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #eef0f4;
+}
+
+.users-header h3 {
+    font-size: 15px;
+}
+
+.users-header p {
+    font-size: 10px;
+    color: #8991a1;
+    margin-top: 4px;
+}
+
+.user-controls {
+    display: flex;
+    gap: 9px;
+}
+
+.user-search {
+    width: 210px;
+
+    border: 1px solid #e3e6ed;
+
+    border-radius: 8px;
+
+    padding: 9px 11px;
+
+    outline: none;
+
+    font-size: 10px;
+}
+
+.user-filter {
+    border: 1px solid #e3e6ed;
+
+    border-radius: 8px;
+
+    padding: 9px;
+
+    outline: none;
+
+    color: #697184;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 1050px;
+}
+
+thead {
+    background: #fafbfc;
+}
+
+th {
+    text-align: left;
+
+    padding: 13px 15px;
+
+    font-size: 9px;
+
+    color: #8991a1;
+
+    text-transform: uppercase;
+
+    letter-spacing: .4px;
+}
+
+td {
+    padding: 14px 15px;
+
+    border-top: 1px solid #f0f1f4;
+
+    font-size: 10px;
+}
+
+
+/* USER */
+
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.user-mini-avatar {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #f0efff;
+
+    color: #6c5ce7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 800;
+}
+
+.user-cell strong {
+    display: block;
+    font-size: 10px;
+}
+
+.user-cell small {
+    display: block;
+    color: #9aa1af;
+    font-size: 8px;
+    margin-top: 2px;
+}
+
+
+/* STATUS */
+
+.status {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+.status.genuine {
+    background: #eafaf6;
+    color: #00a884;
+}
+
+.status.fake {
+    background: #fff0f0;
+    color: #e74c3c;
+}
+
+.status.suspicious {
+    background: #fff7e6;
+    color: #e67e22;
+}
+
+
+/* TRUST */
+
+.trust-mini {
+    font-weight: 800;
+}
+
+.trust-mini.high {
+    color: #00a884;
+}
+
+.trust-mini.medium {
+    color: #f39c12;
+}
+
+.trust-mini.low {
+    color: #e74c3c;
+}
+
+
+/* RECOMMENDATION STATUS */
+
+.rec-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.rec-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.rec-dot.on {
+    background: #00b894;
+}
+
+.rec-dot.off {
+    background: #ff7675;
+}
+
+
+/* ACTION BUTTONS */
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.action-btn {
+    width: 29px;
+    height: 29px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #f4f5f8;
+
+    color: #697184;
+
+    transition: .2s;
+}
+
+.action-btn:hover {
+    background: #6c5ce7;
+    color: white;
+}
+
+.action-btn.danger:hover {
+    background: #e74c3c;
+}
+
+.action-btn.green:hover {
+    background: #00a884;
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.pagination {
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #eef0f4;
+}
+
+.pagination-info {
+    color: #8991a1;
+    font-size: 9px;
+}
+
+.pages {
+    display: flex;
+    gap: 5px;
+}
+
+.page {
+    width: 27px;
+    height: 27px;
+
+    border: 1px solid #e4e6ec;
+
+    background: white;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+
+    color: #697184;
+}
+
+.page.active {
+    background: #6c5ce7;
+    color: white;
+    border-color: #6c5ce7;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(15,18,35,.65);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 3000;
+
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    width: 850px;
+
+    max-width: 100%;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 17px;
+    right: 17px;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    background: #f1f2f6;
+
+    border-radius: 50%;
+
+    color: #697184;
+}
+
+
+/* MODAL USER HEADER */
+
+.modal-user-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eef0f4;
+}
+
+.modal-avatar {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c5ce7,
+            #00cec9
+        );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.modal-user-header h2 {
+    font-size: 18px;
+}
+
+.modal-user-header p {
+    color: #8991a1;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+
+/* MODAL GRID */
+
+.modal-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin: 20px 0;
+}
+
+.modal-stat {
+    background: #f8f9fb;
+
+    padding: 14px;
+
+    border-radius: 10px;
+}
+
+.modal-stat span {
+    color: #8991a1;
+    font-size: 9px;
+}
+
+.modal-stat strong {
+    display: block;
+
+    font-size: 17px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.history-title {
+    font-size: 13px;
+
+    margin: 20px 0 12px;
+}
+
+.history {
+    border: 1px solid #e9ebf0;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.history-row {
+    display: grid;
+
+    grid-template-columns:
+        110px 1fr 100px 100px;
+
+    padding: 11px 13px;
+
+    border-bottom: 1px solid #f0f1f4;
+
+    font-size: 9px;
+}
+
+.history-row:last-child {
+    border-bottom: none;
+}
+
+.history-head {
+    background: #fafbfc;
+
+    color: #8991a1;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   RECOMMENDATION CONTROL
+========================================================= */
+
+.control-box {
+    margin-top: 20px;
+
+    padding: 17px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #f0efff,
+            #eafdfb
+        );
+
+    border: 1px solid #dedcff;
+}
+
+.control-box h3 {
+    font-size: 12px;
+}
+
+.control-box p {
+    color: #8991a1;
+
+    font-size: 9px;
+
+    margin-top: 4px;
+}
+
+.control-buttons {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 13px;
+}
+
+.control-btn {
+    border: none;
+
+    padding: 9px 13px;
+
+    border-radius: 7px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.control-btn.primary {
+    background: #6c5ce7;
+    color: white;
+}
+
+.control-btn.warning {
+    background: #f39c12;
+    color: white;
+}
+
+.control-btn.danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.control-btn.success {
+    background: #00a884;
+    color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    margin-top: 30px;
+
+    background: #17192b;
+
+    color: #aeb3c5;
+
+    padding: 22px 5%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px) {
+
+    .kpi-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+@media(max-width:900px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .sidebar-item span,
+    .sidebar-title,
+    .sidebar-divider {
+        display: none;
+    }
+
+    .sidebar-item {
+        justify-content: center;
+    }
+
+    .logo {
+        width: auto;
+    }
+
+}
+
+@media(max-width:700px) {
+
+    .main {
+        padding: 20px 15px;
+    }
+
+    .kpi-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header {
+        align-items: flex-start;
+    }
+
+    .user-controls {
+        flex-direction: column;
+    }
+
+    .user-search {
+        width: 150px;
+    }
+
+    .modal-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="fa-solid fa-brain"></i>
+        </div>
+
+        <div>
+
+            <h1>
+                Recom<span>AI</span>
+            </h1>
+
+            <span class="admin-label">
+                ADMIN CONTROL CENTER
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-badge">
+                5
+            </span>
+
+        </div>
+
+
+        <div class="admin-profile">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div>
+
+                <strong>Administrator</strong>
+
+                <small>
+                    System Admin
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     LAYOUT
+========================================================= -->
+
+<div class="layout">
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+
+    <div class="sidebar-title">
+        MAIN MENU
+    </div>
+
+
+    <a
+        href="#"
+        class="sidebar-item active">
+
+        <i class="fa-solid fa-chart-pie"></i>
+
+        <span>
+            Dashboard
+        </span>
+
+    </a>
+
+
+    <a
+        href="#users"
+        class="sidebar-item">
+
+        <i class="fa-solid fa-users"></i>
+
+        <span>
+            User Management
+        </span>
+
+    </a>
+
+
+    <a
+        href="#ratings"
+        class="sidebar-item">
+
+        <i class="fa-solid fa-star"></i>
+
+        <span>
+            Rating Analysis
+        </span>
+
+    </a>
+
+
+    <a
+        href="#recommendations"
+        class="sidebar-item">
+
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+        <span>
+            Recommendations
+        </span>
+
+    </a>
+
+
+    <a
+        href="#security"
+        class="sidebar-item">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <span>
+            Fake User Detection
+        </span>
+
+    </a>
+
+
+    <div class="sidebar-divider"></div>
+
+
+    <div class="sidebar-title">
+        SYSTEM
+    </div>
+
+
+    <a href="#" class="sidebar-item">
+
+        <i class="fa-solid fa-box"></i>
+
+        <span>
+            Products
+        </span>
+
+    </a>
+
+
+    <a href="#" class="sidebar-item">
+
+        <i class="fa-solid fa-database"></i>
+
+        <span>
+            ML Dataset
+        </span>
+
+    </a>
+
+
+    <a href="#" class="sidebar-item">
+
+        <i class="fa-solid fa-chart-line"></i>
+
+        <span>
+            ML Performance
+        </span>
+
+    </a>
+
+
+    <a href="#" class="sidebar-item">
+
+        <i class="fa-solid fa-gear"></i>
+
+        <span>
+            Settings
+        </span>
+
+    </a>
+
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>
+                Admin Dashboard
+            </h2>
+
+            <p>
+                Monitor users, ratings and AI recommendation behaviour
+            </p>
+
+        </div>
+
+
+        <div class="date-box">
+
+            <i class="fa-regular fa-calendar"></i>
+
+            August 10, 2026
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         KPI
+    ====================================================== -->
+
+    <section class="kpi-grid">
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-top">
+
+                <div class="kpi-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <i
+                    class="fa-solid fa-arrow-trend-up"
+                    style="color:#00a884">
+                </i>
+
+            </div>
+
+            <div class="kpi-number">
+                24,892
+            </div>
+
+            <div class="kpi-label">
+                Total Users
+            </div>
+
+            <div class="kpi-change">
+                +8.4% this month
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-top">
+
+                <div class="kpi-icon"
+                     style="color:#00a884;background:#eafaf6">
+
+                    <i class="fa-solid fa-user-check"></i>
+
+                </div>
+
+            </div>
+
+            <div class="kpi-number">
+                23,714
+            </div>
+
+            <div class="kpi-label">
+                Genuine Users
+            </div>
+
+            <div class="kpi-change">
+                95.2% of users
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-top">
+
+                <div class="kpi-icon"
+                     style="color:#e74c3c;background:#fff0f0">
+
+                    <i class="fa-solid fa-user-xmark"></i>
+
+                </div>
+
+            </div>
+
+            <div class="kpi-number">
+                847
+            </div>
+
+            <div class="kpi-label">
+                Fake Users
+            </div>
+
+            <div class="kpi-change"
+                 style="color:#e74c3c">
+
+                Requires review
+
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-top">
+
+                <div class="kpi-icon"
+                     style="color:#f39c12;background:#fff7e6">
+
+                    <i class="fa-solid fa-star-half-stroke"></i>
+
+                </div>
+
+            </div>
+
+            <div class="kpi-number">
+                138.4K
+            </div>
+
+            <div class="kpi-label">
+                Genuine Ratings
+            </div>
+
+            <div class="kpi-change">
+                91.8% verified
+            </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+            <div class="kpi-top">
+
+                <div class="kpi-icon">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                </div>
+
+            </div>
+
+            <div class="kpi-number">
+                92.6%
+            </div>
+
+            <div class="kpi-label">
+                Recommendation Accuracy
+            </div>
+
+            <div class="kpi-change">
+                +3.2% improvement
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ANALYTICS
+    ====================================================== -->
+
+    <section class="analytics-grid" id="ratings">
+
+
+        <!-- RATING ANALYSIS -->
+
+        <div class="analytics-card">
+
+            <div class="card-title">
+
+                <h3>
+                    Rating Authenticity
+                </h3>
+
+                <span>
+                    Last 7 days
+                </span>
+
+            </div>
+
+
+            <div class="rating-chart">
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar genuine"
+                            style="height:78%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Mon
+                    </span>
+
+                </div>
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar genuine"
+                            style="height:84%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Tue
+                    </span>
+
+                </div>
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar genuine"
+                            style="height:68%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Wed
+                    </span>
+
+                </div>
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar fake"
+                            style="height:42%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Thu
+                    </span>
+
+                </div>
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar genuine"
+                            style="height:90%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Fri
+                    </span>
+
+                </div>
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar genuine"
+                            style="height:76%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Sat
+                    </span>
+
+                </div>
+
+
+                <div class="chart-column">
+
+                    <div class="bar-wrapper">
+
+                        <div
+                            class="bar genuine"
+                            style="height:94%">
+                        </div>
+
+                    </div>
+
+                    <span class="bar-label">
+                        Sun
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TRUST SCORE -->
+
+        <div class="analytics-card">
+
+            <div class="card-title">
+
+                <h3>
+                    Platform Trust Score
+                </h3>
+
+            </div>
+
+
+            <div class="trust-score-box">
+
+                <div class="big-score">
+                    94
+                </div>
+
+                <div class="trust-details">
+
+                    <p>
+                        Overall platform
+                    </p>
+
+                    <strong>
+                        Excellent
+                    </strong>
+
+                    <br><br>
+
+                    <span class="trust-status">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Healthy
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ALERT -->
+
+        <div class="analytics-card">
+
+            <div class="card-title">
+
+                <h3>
+                    Security Alerts
+                </h3>
+
+                <span>
+                    Today
+                </span>
+
+            </div>
+
+
+            <div class="alert-box">
+
+                <div class="alert-icon">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        37 suspicious users
+                    </strong>
+
+                    <p>
+                        Unusual rating patterns detected.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="review-button"
+                onclick="showSecurityAlert()">
+
+                Review suspicious activity
+
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         USER MANAGEMENT
+    ====================================================== -->
+
+    <section
+        class="users-section"
+        id="users">
+
+
+        <div class="users-header">
+
+            <div>
+
+                <h3>
+                    User Management
+                </h3>
+
+                <p>
+                    Control recommendation access and inspect user behaviour
+                </p>
+
+            </div>
+
+
+            <div class="user-controls">
+
+                <input
+                    type="text"
+                    id="userSearch"
+                    class="user-search"
+                    placeholder="Search user..."
+                    onkeyup="filterUsers()"
+                >
+
+
+                <select
+                    id="userFilter"
+                    class="user-filter"
+                    onchange="filterUsers()">
+
+                    <option value="all">
+                        All Users
+                    </option>
+
+                    <option value="genuine">
+                        Genuine
+                    </option>
+
+                    <option value="suspicious">
+                        Suspicious
+                    </option>
+
+                    <option value="fake">
+                        Fake
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            USER
+                        </th>
+
+                        <th>
+                            ML STATUS
+                        </th>
+
+                        <th>
+                            TRUST SCORE
+                        </th>
+
+                        <th>
+                            RATINGS
+                        </th>
+
+                        <th>
+                            RATING TYPE
+                        </th>
+
+                        <th>
+                            RECOMMENDATION
+                        </th>
+
+                        <th>
+                            LAST ACTIVITY
+                        </th>
+
+                        <th>
+                            ACTIONS
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="userTable">
+
+
+                    <!-- USER 1 -->
+
+                    <tr data-status="genuine">
+
+                        <td>
+
+                            <div class="user-cell">
+
+                                <div class="user-mini-avatar">
+                                    UC
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Uday Chaudhari
+                                    </strong>
+
+                                    <small>
+                                        uday1024
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status genuine">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Genuine
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="trust-mini high">
+                                94/100
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            42
+                        </td>
+
+
+                        <td>
+
+                            <span style="color:#00a884">
+                                39 Genuine
+                            </span>
+
+                            <br>
+
+                            <span style="color:#e74c3c">
+                                3 Suspicious
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="rec-status">
+
+                                <span class="rec-dot on"></span>
+
+                                Enabled
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            12 min ago
+                        </td>
+
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <button
+                                    class="action-btn"
+                                    title="View History"
+                                    onclick="openUser('Uday Chaudhari')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+
+                                <button
+                                    class="action-btn green"
+                                    title="Recommendation Control"
+                                    onclick="toggleRecommendation(this)">
+
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                </button>
+
+
+                                <button
+                                    class="action-btn danger"
+                                    title="Flag User"
+                                    onclick="flagUser(this)">
+
+                                    <i class="fa-solid fa-flag"></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- USER 2 -->
+
+                    <tr data-status="genuine">
+
+                        <td>
+
+                            <div class="user-cell">
+
+                                <div class="user-mini-avatar">
+                                    RS
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Rahul Sharma
+                                    </strong>
+
+                                    <small>
+                                        rahul884
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status genuine">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Genuine
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="trust-mini high">
+                                91/100
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            67
+                        </td>
+
+
+                        <td>
+
+                            <span style="color:#00a884">
+                                65 Genuine
+                            </span>
+
+                            <br>
+
+                            <span style="color:#e74c3c">
+                                2 Suspicious
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="rec-status">
+
+                                <span class="rec-dot on"></span>
+
+                                Enabled
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            28 min ago
+                        </td>
+
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <button
+                                    class="action-btn"
+                                    onclick="openUser('Rahul Sharma')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn green"
+                                    onclick="toggleRecommendation(this)">
+
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn danger"
+                                    onclick="flagUser(this)">
+
+                                    <i class="fa-solid fa-flag"></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- USER 3 -->
+
+                    <tr data-status="suspicious">
+
+                        <td>
+
+                            <div class="user-cell">
+
+                                <div class="user-mini-avatar">
+                                    AM
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Amit Mehta
+                                    </strong>
+
+                                    <small>
+                                        amit447
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status suspicious">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Suspicious
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="trust-mini medium">
+                                61/100
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            113
+                        </td>
+
+
+                        <td>
+
+                            <span style="color:#e67e22">
+                                34 Genuine
+                            </span>
+
+                            <br>
+
+                            <span style="color:#e74c3c">
+                                79 Suspicious
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="rec-status">
+
+                                <span
+                                    class="rec-dot off">
+                                </span>
+
+                                Restricted
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            7 min ago
+                        </td>
+
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <button
+                                    class="action-btn"
+                                    onclick="openUser('Amit Mehta')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn green"
+                                    onclick="toggleRecommendation(this)">
+
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn danger"
+                                    onclick="flagUser(this)">
+
+                                    <i class="fa-solid fa-flag"></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- USER 4 -->
+
+                    <tr data-status="fake">
+
+                        <td>
+
+                            <div class="user-cell">
+
+                                <div class="user-mini-avatar">
+                                    VK
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Vikram Kumar
+                                    </strong>
+
+                                    <small>
+                                        vikram7788
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status fake">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Fake User
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="trust-mini low">
+                                18/100
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            241
+                        </td>
+
+
+                        <td>
+
+                            <span style="color:#e74c3c">
+                                229 Fake
+                            </span>
+
+                            <br>
+
+                            <span style="color:#00a884">
+                                12 Genuine
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="rec-status">
+
+                                <span class="rec-dot off"></span>
+
+                                Disabled
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            2 hrs ago
+                        </td>
+
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <button
+                                    class="action-btn"
+                                    onclick="openUser('Vikram Kumar')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn green"
+                                    onclick="toggleRecommendation(this)">
+
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn danger"
+                                    onclick="flagUser(this)">
+
+                                    <i class="fa-solid fa-flag"></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- USER 5 -->
+
+                    <tr data-status="genuine">
+
+                        <td>
+
+                            <div class="user-cell">
+
+                                <div class="user-mini-avatar">
+                                    SP
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Sneha Patil
+                                    </strong>
+
+                                    <small>
+                                        sneha120
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status genuine">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Genuine
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="trust-mini high">
+                                97/100
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            89
+                        </td>
+
+
+                        <td>
+
+                            <span style="color:#00a884">
+                                87 Genuine
+                            </span>
+
+                            <br>
+
+                            <span style="color:#e74c3c">
+                                2 Suspicious
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="rec-status">
+
+                                <span class="rec-dot on"></span>
+
+                                Enabled
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            4 min ago
+                        </td>
+
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <button
+                                    class="action-btn"
+                                    onclick="openUser('Sneha Patil')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn green"
+                                    onclick="toggleRecommendation(this)">
+
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                </button>
+
+                                <button
+                                    class="action-btn danger"
+                                    onclick="flagUser(this)">
+
+                                    <i class="fa-solid fa-flag"></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- PAGINATION -->
+
+        <div class="pagination">
+
+            <span class="pagination-info">
+                Showing 1–5 of 24,892 users
+            </span>
+
+
+            <div class="pages">
+
+                <button class="page active">
+                    1
+                </button>
+
+                <button class="page">
+                    2
+                </button>
+
+                <button class="page">
+                    3
+                </button>
+
+                <button class="page">
+                    ...
+                </button>
+
+                <button class="page">
+                    250
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ADMIN RECOMMENDATION CONTROL
+    ====================================================== -->
+
+    <section
+        id="recommendations"
+        class="analytics-card"
+        style="margin-top:25px;">
+
+
+        <div class="card-title">
+
+            <div>
+
+                <h3>
+                    <i
+                        class="fa-solid fa-wand-magic-sparkles"
+                        style="color:#6c5ce7">
+                    </i>
+
+                    Recommendation Control Center
+
+                </h3>
+
+                <span>
+                    User-wise recommendation management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            style="
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:15px;
+            ">
+
+
+            <div class="control-box">
+
+                <h3>
+                    Genuine Users
+                </h3>
+
+                <p>
+                    Full personalized recommendations
+                </p>
+
+                <div class="control-buttons">
+
+                    <button
+                        class="control-btn success"
+                        onclick="adminAction('Genuine users: recommendations enabled')">
+
+                        Enable All
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="control-box">
+
+                <h3>
+                    Suspicious Users
+                </h3>
+
+                <p>
+                    Limit recommendation influence
+                </p>
+
+                <div class="control-buttons">
+
+                    <button
+                        class="control-btn warning"
+                        onclick="adminAction('Suspicious users: recommendations restricted')">
+
+                        Restrict
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="control-box"
+                style="
+                background:#fff0f0;
+                border-color:#ffd0d0;
+                ">
+
+                <h3>
+                    Fake Users
+                </h3>
+
+                <p>
+                    Remove rating influence
+                </p>
+
+                <div class="control-buttons">
+
+                    <button
+                        class="control-btn danger"
+                        onclick="adminAction('Fake user ratings excluded from recommendation engine')">
+
+                        Exclude Ratings
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ML SECURITY
+    ====================================================== -->
+
+    <section
+        id="security"
+        class="analytics-card"
+        style="margin-top:25px;">
+
+        <div class="card-title">
+
+            <div>
+
+                <h3>
+                    <i
+                        class="fa-solid fa-microchip"
+                        style="color:#6c5ce7">
+                    </i>
+
+                    ML Fake User Detection
+
+                </h3>
+
+                <span>
+                    Current model monitoring
+                </span>
+
+            </div>
+
+            <span
+                style="
+                color:#00a884;
+                font-weight:700;
+                ">
+
+                ● Model Online
+
+            </span>
+
+        </div>
+
+
+        <div
+            style="
+            display:grid;
+            grid-template-columns:
+            repeat(4,1fr);
+            gap:15px;
+            ">
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Model
+                </span>
+
+                <strong>
+                    Random Forest
+                </strong>
+
+            </div>
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Accuracy
+                </span>
+
+                <strong>
+                    96.4%
+                </strong>
+
+            </div>
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Precision
+                </span>
+
+                <strong>
+                    94.8%
+                </strong>
+
+            </div>
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Recall
+                </span>
+
+                <strong>
+                    93.6%
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                RecomAI Admin
+            </strong>
+
+            — AI-powered recommendation security
+
+        </div>
+
+        <div>
+            System Status: ● Operational
+        </div>
+
+    </footer>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =========================================================
+     USER DETAILS MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="userModal">
+
+
+    <div class="modal-box">
+
+
+        <button
+            class="modal-close"
+            onclick="closeUserModal()">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <!-- USER HEADER -->
+
+        <div class="modal-user-header">
+
+            <div class="modal-avatar">
+                U
+            </div>
+
+            <div>
+
+                <h2 id="modalUserName">
+                    User Name
+                </h2>
+
+                <p>
+                    User ID: U1024
+                    • Account age: 184 days
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- USER STATS -->
+
+        <div class="modal-grid">
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Trust Score
+                </span>
+
+                <strong
+                    style="color:#00a884">
+
+                    94/100
+
+                </strong>
+
+            </div>
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Products Viewed
+                </span>
+
+                <strong>
+                    142
+                </strong>
+
+            </div>
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Ratings Given
+                </span>
+
+                <strong>
+                    42
+                </strong>
+
+            </div>
+
+
+            <div class="modal-stat">
+
+                <span>
+                    Purchases
+                </span>
+
+                <strong>
+                    18
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- USER HISTORY -->
+
+        <h3 class="history-title">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            User Activity History
+
+        </h3>
+
+
+        <div class="history">
+
+
+            <div class="history-row history-head">
+
+                <span>
+                    TIME
+                </span>
+
+                <span>
+                    ACTIVITY
+                </span>
+
+                <span>
+                    PRODUCT
+                </span>
+
+                <span>
+                    STATUS
+                </span>
+
+            </div>
+
+
+            <div class="history-row">
+
+                <span>
+                    12:42 PM
+                </span>
+
+                <span>
+                    Product Viewed
+                </span>
+
+                <span>
+                    iPhone 15
+                </span>
+
+                <span style="color:#6c5ce7">
+                    Normal
+                </span>
+
+            </div>
+
+
+            <div class="history-row">
+
+                <span>
+                    12:35 PM
+                </span>
+
+                <span>
+                    Rating Given
+                </span>
+
+                <span>
+                    Sony XM5
+                </span>
+
+                <span style="color:#00a884">
+                    Genuine
+                </span>
+
+            </div>
+
+
+            <div class="history-row">
+
+                <span>
+                    12:20 PM
+                </span>
+
+                <span>
+                    Product Added
+                </span>
+
+                <span>
+                    MacBook Air
+                </span>
+
+                <span style="color:#6c5ce7">
+                    Normal
+                </span>
+
+            </div>
+
+
+            <div class="history-row">
+
+                <span>
+                    11:55 AM
+                </span>
+
+                <span>
+                    Rating Given
+                </span>
+
+                <span>
+                    JBL 770NC
+                </span>
+
+                <span style="color:#00a884">
+                    Genuine
+                </span>
+
+            </div>
+
+
+            <div class="history-row">
+
+                <span>
+                    11:30 AM
+                </span>
+
+                <span>
+                    Product Viewed
+                </span>
+
+                <span>
+                    Dell Laptop
+                </span>
+
+                <span style="color:#6c5ce7">
+                    Normal
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- RECOMMENDATION CONTROL -->
+
+        <div class="control-box">
+
+            <h3>
+
+                <i
+                    class="fa-solid fa-sliders">
+                </i>
+
+                User Recommendation Control
+
+            </h3>
+
+            <p>
+                Administrator can control how this user's
+                behaviour influences and receives recommendations.
+            </p>
+
+
+            <div class="control-buttons">
+
+                <button
+                    class="control-btn primary"
+                    onclick="adminAction('Personalized recommendations enabled for this user')">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    Enable Recommendations
+
+                </button>
+
+
+                <button
+                    class="control-btn warning"
+                    onclick="adminAction('User recommendation influence restricted')">
+
+                    Restrict Influence
+
+                </button>
+
+
+                <button
+                    class="control-btn danger"
+                    onclick="adminAction('User excluded from recommendation engine')">
+
+                    Exclude User
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   USER SEARCH + FILTER
+========================================================= */
+
+function filterUsers() {
+
+    const search =
+        document
+        .getElementById("userSearch")
+        .value
+        .toLowerCase();
+
+    const filter =
+        document
+        .getElementById("userFilter")
+        .value;
+
+    const rows =
+        document
+        .querySelectorAll("#userTable tr");
+
+
+    rows.forEach(row => {
+
+        const text =
+            row.innerText.toLowerCase();
+
+        const status =
+            row.dataset.status;
+
+
+        const searchMatch =
+            text.includes(search);
+
+        const filterMatch =
+            filter === "all" ||
+            status === filter;
+
+
+        if (searchMatch && filterMatch) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   OPEN USER DETAILS
+========================================================= */
+
+function openUser(name) {
+
+    document
+        .getElementById("modalUserName")
+        .innerText = name;
+
+
+    document
+        .getElementById("userModal")
+        .classList.add("active");
+
+}
+
+
+/* =========================================================
+   CLOSE USER DETAILS
+========================================================= */
+
+function closeUserModal() {
+
+    document
+        .getElementById("userModal")
+        .classList.remove("active");
+
+}
+
+
+/* =========================================================
+   RECOMMENDATION TOGGLE
+========================================================= */
+
+function toggleRecommendation(button) {
+
+    const row =
+        button.closest("tr");
+
+    const status =
+        row.querySelector(".rec-status");
+
+    const dot =
+        status.querySelector(".rec-dot");
+
+
+    if (dot.classList.contains("on")) {
+
+        dot.classList.remove("on");
+
+        dot.classList.add("off");
+
+        status.innerHTML = `
+            <span class="rec-dot off"></span>
+            Restricted
+        `;
+
+        alert(
+            "Recommendation access restricted for this user."
+        );
+
+    } else {
+
+        status.innerHTML = `
+            <span class="rec-dot on"></span>
+            Enabled
+        `;
+
+        alert(
+            "Personalized recommendation enabled."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FLAG USER
+========================================================= */
+
+function flagUser(button) {
+
+    const row =
+        button.closest("tr");
+
+    const userName =
+        row.querySelector(".user-cell strong").innerText;
+
+
+    const confirmFlag =
+        confirm(
+            "Flag " +
+            userName +
+            " for suspicious activity?"
+        );
+
+
+    if (confirmFlag) {
+
+        alert(
+            userName +
+            " has been flagged for admin review."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   ADMIN ACTION
+========================================================= */
+
+function adminAction(message) {
+
+    alert(
+        "ADMIN ACTION\n\n" +
+        message +
+        "\n\nBackend API will execute this action."
+    );
+
+}
+
+
+/* =========================================================
+   SECURITY ALERT
+========================================================= */
+
+function showSecurityAlert() {
+
+    alert(
+        "SECURITY ALERT\n\n" +
+        "37 suspicious users detected.\n\n" +
+        "ML model has identified unusual rating behaviour."
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL ON OUTSIDE CLICK
+========================================================= */
+
+document
+    .getElementById("userModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (event.target === this) {
+
+                closeUserModal();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   SIDEBAR ACTIVE STATE
+========================================================= */
+
+const sidebarItems =
+    document.querySelectorAll(".sidebar-item");
+
+
+sidebarItems.forEach(item => {
+
+    item.addEventListener("click", function() {
+
+        sidebarItems.forEach(
+            i => i.classList.remove("active")
+        );
+
+        this.classList.add("active");
+
+    });
+
+});
+
+</script>
+
+
+</body>
+
+</html>
