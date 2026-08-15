@@ -439,6 +439,35 @@
             color: var(--text-muted);
             text-align: right;
         }
+        /* Mobile responsiveness - do not change desktop styles above */
+        @media (max-width: 430px) {
+            html, body { overflow-x: hidden; }
+            .container { flex-direction: column; max-width: 100%; height: auto; border-radius: 16px; padding: 12px; }
+            .visual-side, .form-side { flex: none; width: 100%; border-right: none; padding: 18px; }
+            .visual-side { order: 1; padding-top: 18px; }
+            .form-side { order: 2; padding: 18px; }
+            .hero-text h2 { font-size: 28px; }
+            .hero-text p { font-size: 14px; max-width: 100%; }
+            .brand { top: 12px; left: 12px; }
+            .brand-text h1 { font-size: 18px; }
+            .glow-orb, .glow-orb.orb-2 { display: none; }
+            .input-field { padding: 12px 12px 12px 42px; }
+            .input-icon { top: 34px; left: 12px; }
+            .eye-btn { top: 34px; right: 12px; }
+            .tab-group { gap: 6px; padding: 4px; }
+            .tab { padding: 8px; font-size: 13px; }
+            .header h2 { font-size: 22px; }
+            .header p { font-size: 13px; }
+            .otp { width: 42px; height: 48px; font-size: 18px; }
+            .container { margin: 12px; }
+        }
+        @media (max-width: 360px) {
+            .hero-text h2 { font-size: 24px; }
+            .brand-text h1 { font-size: 16px; }
+            .header h2 { font-size: 20px; }
+            .input-field { padding: 10px 10px 10px 40px; }
+            .otp { width: 38px; height: 46px; font-size: 16px; }
+        }
     </style>
 </head>
 

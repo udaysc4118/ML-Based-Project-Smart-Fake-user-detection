@@ -400,6 +400,23 @@
             gap: 20px;
         }
 
+        /* Mobile responsiveness for product grid */
+        @media (max-width: 430px) {
+            html, body { overflow-x: hidden; }
+            .products { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+            .categories { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+            .hero { margin: 18px 12px; padding: 28px; min-height: 180px; }
+            .hero h2 { font-size: 22px; }
+            .ai-card { width: 220px; }
+            header .topbar { padding: 0 12px; }
+            nav, .nav { padding: 0 12px; overflow-x: auto; }
+            main { padding: 0 12px 40px; }
+        }
+        @media (max-width: 360px) {
+            .products { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+            .hero { padding: 20px; }
+        }
+
         .product-card {
             background: white;
             border: 1px solid #e7eaf1;

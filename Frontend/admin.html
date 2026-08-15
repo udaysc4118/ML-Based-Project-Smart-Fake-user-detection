@@ -399,6 +399,25 @@ header {
     color: #8991a1;
     margin-top: 3px;
 }
+/* Mobile responsiveness - preserve desktop styles above */
+@media (max-width: 430px) {
+    html, body { overflow-x: hidden; }
+    header { padding: 0 16px; }
+    .logo h1 { font-size: 18px; }
+    .logo { width: auto; }
+    .header-right { gap: 12px; }
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; border-right: none; padding: 12px; display: flex; gap: 8px; overflow-x: auto; }
+    .sidebar-title { display: none; }
+    .sidebar-item { white-space: nowrap; padding: 8px 10px; margin-bottom: 0; border-radius: 10px; }
+    .main { padding: 16px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .kpi-card { padding: 12px; }
+    .page-header h2 { font-size: 18px; }
+}
+@media (max-width: 360px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+}
 
 .kpi-change {
     font-size: 9px;
