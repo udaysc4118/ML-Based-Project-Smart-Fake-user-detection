@@ -204,7 +204,7 @@ app.post('/api/forgot', async (req, res) => {
  // Send Email with Resend
 try {
   const { data, error } = await resend.emails.send({
-    from: 'RecomAI <onboarding@resend.dev>',
+    from: 'RecomAI <onboarding@fakeuserdetect.me>',
     to: [email],
     subject: action === 'signup'
       ? 'Welcome to RecomAI - Verify Your Email'
