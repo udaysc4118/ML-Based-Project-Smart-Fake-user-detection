@@ -645,7 +645,7 @@
                     button.disabled = false; text.innerHTML = "Sign In";
                     if (res.ok && data.success) {
                         if (data.role === "admin") { showAlert(alertBox, "Admin authentication successful.", "success"); window.location.href = "admin.html"; }
-                        else { showAlert(alertBox, "User login successful.", "success"); window.location.href = "index.html"; }
+                        else { showAlert(alertBox, "User login successful.", "success"); window.location.href = "home.html"; }
                     } else { showAlert(alertBox, data.message || "Authentication failed.", "error"); }
                 }).catch(() => { button.disabled = false; text.innerHTML = "Sign In"; showAlert(alertBox, "Network error. Please try again.", "error"); });
         }
