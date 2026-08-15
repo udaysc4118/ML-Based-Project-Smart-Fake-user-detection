@@ -6,7 +6,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const readline = require('readline');
 const { createClient } = require('@supabase/supabase-js');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,21 +32,9 @@ const pendingRequests = new Map();
 const otpCooldowns = new Map();
 // pendingRequests[email] = { action: 'signup'|'reset', username, passwordHash, verified, code }
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Verify transporter configuration at startup so mail issues are visible early
-transporter.verify().then(() => {
-  console.log('Email transporter configured and ready');
-}).catch((err) => {
-  console.error('Email transporter verification failed:', err && err.message ? err.message : err);
-});
-
+console.log('Resend email service configured');
 const fallbackUsers = [
   { email: 'user@example.com', passwordHash: bcrypt.hashSync('user123', 10), role: 'user', username: 'demoUser' }
 ];
@@ -213,49 +201,94 @@ app.post('/api/forgot', async (req, res) => {
     }
   }
 
-  // Send Email with Nodemailer (if configured)
-  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-    try {
-      const mailOptions = {
-        from: `"RecomAI Support" <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: action === 'signup' ? 'Welcome to RecomAI - Verify Your Email' : 'RecomAI - Password Reset OTP',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-            <h2 style="color: #6c5ce7; teThankxt-align: center;">RecomAI</h2>
-            <p style="font-size: 16px; color: #333;">Hello ${username || ''},</p>
-            <p style="font-size: 16px; color: #333;">
-              ${action === 'signup' 
-                ? ' Thank you for signing up! Please use the OTP below to verify your email address.' 
-                : 'We received a request to reset your password. Use the OTP below to proceed.'}
-            </p>
-            <div style="text-align: center; margin: 30px 0;">
-              <span style="display: inline-block; font-size: 24px; font-weight: bold; background: #f1f3f8; padding: 15px 25px; border-radius: 8px; letter-spacing: 5px; color: #172033;">
-                ${code}
-              </span>
-            </div>
-            <p style="font-size: 14px; color: #777; text-align: center;">This code will expire in 10 minutes.</p>
-            <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
-            <p style="font-size: 12px; color: #999; text-align: center;">If you didn't request this, please ignore this email.</p>
-          </div>
-        `
-      };
+ // Send Email with Resend
+try {
+  const { data, error } = await resend.emails.send({
+    from: 'RecomAI <onboarding@resend.dev>',
+    to: [email],
+    subject: action === 'signup'
+      ? 'Welcome to RecomAI - Verify Your Email'
+      : 'RecomAI - Password Reset OTP',
 
-      const info = await transporter.sendMail(mailOptions);
-      console.log('Email sent successfully to', email, 'messageId:', info && info.messageId ? info.messageId : info);
-    } catch (mailErr) {
-      // Remove pending request if we couldn't send the OTP email
-      console.error('Error sending email to', email, mailErr && mailErr.message ? mailErr.message : mailErr);
-      otpCooldowns.delete(cooldownKey);
-      pendingRequests.delete(email);
-      if (supabase) {
-        await db('otp_requests').delete().eq('email', email);
-      }
-      return res.status(500).json({ success: false, message: 'Failed to send verification email' });
-    }
-  } else {
-    console.warn('Email credentials not configured; skipping sendMail for', email);
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
+
+        <h2 style="color: #6c5ce7; text-align: center;">
+          RecomAI
+        </h2>
+
+        <p style="font-size: 16px; color: #333;">
+          Hello ${username || ''},
+        </p>
+
+        <p style="font-size: 16px; color: #333;">
+          ${
+            action === 'signup'
+              ? 'Thank you for signing up! Please use the OTP below to verify your email address.'
+              : 'We received a request to reset your password. Use the OTP below to proceed.'
+          }
+        </p>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <span style="
+            display: inline-block;
+            font-size: 24px;
+            font-weight: bold;
+            background: #f1f3f8;
+            padding: 15px 25px;
+            border-radius: 8px;
+            letter-spacing: 5px;
+            color: #172033;
+          ">
+            ${code}
+          </span>
+        </div>
+
+        <p style="font-size: 14px; color: #777; text-align: center;">
+          This code will expire in 10 minutes.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
+
+        <p style="font-size: 12px; color: #999; text-align: center;">
+          If you didn't request this, please ignore this email.
+        </p>
+
+      </div>
+    `
+  });
+
+  if (error) {
+    throw new Error(error.message);
   }
+
+  console.log(
+    'Email sent successfully to',
+    email,
+    'messageId:',
+    data?.id || 'unknown'
+  );
+
+} catch (mailErr) {
+
+  console.error(
+    'Error sending email to',
+    email,
+    mailErr?.message || mailErr
+  );
+
+  otpCooldowns.delete(cooldownKey);
+  pendingRequests.delete(email);
+
+  if (supabase) {
+    await db('otp_requests').delete().eq('email', email);
+  }
+
+  return res.status(500).json({
+    success: false,
+    message: 'Failed to send verification email'
+  });
+}
 
   console.log('OTP generated for', email, code);
 
@@ -263,52 +296,134 @@ app.post('/api/forgot', async (req, res) => {
 });
 
 app.post('/api/verify-otp', async (req, res) => {
-  const { email, code } = req.body || {};
+  try {
+    let { email, code } = req.body || {};
 
-  if (!email || !code) {
-    return res.status(400).json({ success: false, message: 'Email and code are required' });
-  }
+    email = (email || '').toString().trim().toLowerCase();
+    code = (code || '').toString().trim();
 
-  const pending = pendingRequests.get(email);
-  if (!pending) {
-    return res.status(400).json({ success: false, message: 'No pending request found' });
-  }
-
-  if (pending.code !== code) {
-    return res.status(400).json({ success: false, message: 'Invalid code' });
-  }
-
-  pending.verified = true;
-  pendingRequests.set(email, pending);
-
-  if (supabase) {
-    const { error } = await db('otp_requests')
-      .update({ verified: true })
-      .eq('email', email);
-
-    if (error) {
-      return res.status(400).json({ success: false, message: error.message });
+    if (!email || !code) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and code are required'
+      });
     }
 
-    if (pending.action === 'signup') {
-      const { error: upsertError } = await db('app_users').upsert({
-        email,
-        username: pending.username,
-        password_hash: pending.passwordHash,
-        role: 'user'
-      }, { onConflict: 'email' });
+    let pending = pendingRequests.get(email);
 
-      if (upsertError) {
-        return res.status(400).json({ success: false, message: upsertError.message });
+    // Recover OTP from Supabase if server restarted/slept
+    if (!pending && supabase) {
+      const { data, error } = await db('otp_requests')
+        .select('email,code,username,password_hash,action,verified')
+        .eq('email', email)
+        .maybeSingle();
+
+      if (error) {
+        console.error('OTP recovery error:', error.message);
+        return res.status(500).json({
+          success: false,
+          message: 'Unable to verify OTP'
+        });
       }
 
-      await db('otp_requests').delete().eq('email', email);
-      pendingRequests.delete(email);
-      return res.json({ success: true, action: 'signup' });
-    }
-  }
+      if (data) {
+        pending = {
+          action: data.action || 'reset',
+          username: data.username || email,
+          passwordHash: data.password_hash || null,
+          verified: Boolean(data.verified),
+          code: String(data.code || '')
+        };
 
-  return res.json({ success: true, action: pending.action });
+        pendingRequests.set(email, pending);
+      }
+    }
+
+    if (!pending) {
+      return res.status(400).json({
+        success: false,
+        message: 'No pending request found. Please request a new OTP.'
+      });
+    }
+
+    if (pending.code !== code) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid code'
+      });
+    }
+
+    pending.verified = true;
+    pendingRequests.set(email, pending);
+
+    if (supabase) {
+      const { error } = await db('otp_requests')
+        .update({ verified: true })
+        .eq('email', email);
+
+      if (error) {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        });
+      }
+    }
+
+    // Signup verification
+    if (pending.action === 'signup') {
+
+      if (!pending.passwordHash) {
+        return res.status(400).json({
+          success: false,
+          message: 'Signup information is missing. Please start signup again.'
+        });
+      }
+
+      if (supabase) {
+        const { error: upsertError } = await db('app_users').upsert({
+          email,
+          username: pending.username,
+          password_hash: pending.passwordHash,
+          role: 'user'
+        }, { onConflict: 'email' });
+
+        if (upsertError) {
+          return res.status(400).json({
+            success: false,
+            message: upsertError.message
+          });
+        }
+
+        await db('otp_requests')
+          .delete()
+          .eq('email', email);
+
+        pendingRequests.delete(email);
+
+        return res.json({
+          success: true,
+          action: 'signup'
+        });
+      }
+    }
+
+    // Forgot-password verification
+    return res.json({
+      success: true,
+      action: pending.action
+    });
+
+  } catch (err) {
+    console.error(
+      'Error in /api/verify-otp:',
+      err && err.message ? err.message : err
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    });
+  }
 });
 
 app.post('/api/reset-password', async (req, res) => {

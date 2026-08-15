@@ -639,7 +639,7 @@
             const text = document.getElementById("loginText");
             if (!email || !password) { showAlert(alertBox, "Please enter your email and password.", "error"); return; }
             button.disabled = true; text.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Authenticating...";
-            fetch("http://localhost:3000/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, loginType }) })
+            fetch("https://ml-based-project-smart-fake-user.onrender.com/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, loginType }) })
                 .then(async (res) => {
                     const data = await res.json().catch(() => ({}));
                     button.disabled = false; text.innerHTML = "Sign In";
@@ -674,7 +674,7 @@
             window._otpEmail = email; window._otpAction = "forgot";
             otpRequestInFlight = true;
             setOtpButtonLoading(button, true, "Sending...");
-            fetch("http://localhost:3000/api/forgot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) })
+            fetch("https://ml-based-project-smart-fake-user.onrender.com/api/forgot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) })
                 .then(async res => {
                     const data = await res.json().catch(() => ({}));
                     if (data && data.duplicate) {
@@ -701,7 +701,7 @@
             window._otpEmail = email; window._otpAction = "signup"; window._signupTemp = { username, password };
             otpRequestInFlight = true;
             setOtpButtonLoading(button, true, "Sending...");
-            fetch("http://localhost:3000/api/forgot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, username, newPassword: password }) })
+            fetch("https://ml-based-project-smart-fake-user.onrender.com/api/forgot", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, username, newPassword: password }) })
                 .then(async res => {
                     const data = await res.json().catch(() => ({}));
                     if (data && data.duplicate) {
@@ -727,7 +727,7 @@
             const alertBox = document.getElementById("otpAlert");
             if (otp.length !== 6) { showAlert(alertBox, "Enter 6-digit code.", "error"); return; }
             const email = window._otpEmail; const action = window._otpAction || "forgot";
-            fetch("http://localhost:3000/api/verify-otp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, code: otp }) })
+            fetch("https://ml-based-project-smart-fake-user.onrender.com/api/verify-otp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, code: otp }) })
                 .then(async res => {
                     const data = await res.json().catch(() => ({}));
                     if (res.ok && data.success) {
@@ -735,7 +735,7 @@
                         setTimeout(() => {
                             if (action === "signup") {
                                 const creds = window._signupTemp || {};
-                                fetch("http://localhost:3000/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password: creds.password, loginType: "user" }) })
+                                fetch("https://ml-based-project-smart-fake-user.onrender.com/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password: creds.password, loginType: "user" }) })
                                     .then(r => r.json()).then(d => { if (d && d.success) window.location.href = "index.html"; else { showLogin(); showAlert(document.getElementById("loginAlert"), "Signup complete. Sign in.", "success"); } })
                                     .catch(() => { showLogin(); showAlert(document.getElementById("loginAlert"), "Signup complete. Sign in.", "success"); });
                             } else { hideScreens(); document.getElementById("resetScreen").classList.add("active"); }
@@ -743,7 +743,76 @@
                     } else showAlert(alertBox, data.message || "Invalid code", "error");
                 }).catch(() => showAlert(alertBox, "Network error. Try again.", "error"));
         }
-        function resendOTP() { showAlert(document.getElementById("otpAlert"), "A new verification code has been sent.", "success"); }
+        async function resendOTP() {
+    const alertBox = document.getElementById("otpAlert");
+
+    if (otpRequestInFlight) return;
+
+    const email = (window._otpEmail || "").trim().toLowerCase();
+    const action = window._otpAction || "forgot";
+
+    if (!email) {
+        showAlert(alertBox, "Email information is missing. Please start again.", "error");
+        return;
+    }
+
+    let requestBody = { email };
+
+    if (action === "signup") {
+        const creds = window._signupTemp || {};
+
+        requestBody.username = creds.username || email;
+        requestBody.newPassword = creds.password || "";
+    }
+
+    otpRequestInFlight = true;
+
+    try {
+        const res = await fetch(
+            "https://ml-based-project-smart-fake-user.onrender.com/api/forgot",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody)
+            }
+        );
+
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.success) {
+            if (data.duplicate) {
+                showAlert(
+                    alertBox,
+                    "OTP was sent recently. Please wait 30 seconds.",
+                    "success"
+                );
+            } else {
+                otpInputs.forEach(input => input.value = "");
+
+                showAlert(
+                    alertBox,
+                    "A new OTP has been sent to your email.",
+                    "success"
+                );
+
+                otpInputs[0].focus();
+            }
+        } else {
+            showAlert(
+                alertBox,
+                data.message || "Unable to resend OTP.",
+                "error"
+            );
+        }
+
+    } catch (error) {
+        showAlert(alertBox, "Network error. Please try again.", "error");
+    } finally {
+        otpRequestInFlight = false;
+    }
+}
         function toggleNewPassword() {
             const password = document.getElementById("newPassword"); const icon = document.getElementById("newEyeIcon");
             if (password.type === "password") { password.type = "text"; icon.className = "fa-regular fa-eye-slash"; } else { password.type = "password"; icon.className = "fa-regular fa-eye"; }
@@ -761,7 +830,7 @@
             const password = document.getElementById("newPassword").value; const confirmPassword = document.getElementById("confirmPassword").value; const alertBox = document.getElementById("resetAlert");
             if (password.length < 8) { showAlert(alertBox, "Password > 8 characters.", "error"); return; }
             if (password !== confirmPassword) { showAlert(alertBox, "Passwords do not match.", "error"); return; }
-            fetch("http://localhost:3000/api/reset-password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: window._otpEmail, newPassword: password }) })
+            fetch("https://ml-based-project-smart-fake-user.onrender.com/api/reset-password", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: window._otpEmail, newPassword: password }) })
                 .then(async res => { const data = await res.json().catch(() => ({})); if (res.ok && data.success) { showAlert(alertBox, "Password updated.", "success"); setTimeout(() => showLogin(), 1000); } else showAlert(alertBox, data.message || "Error.", "error"); })
                 .catch(() => showAlert(alertBox, "Network error.", "error"));
         }
