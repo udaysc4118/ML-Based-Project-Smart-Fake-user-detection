@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    
+
 <head>
-    
+
     <meta charset="UTF-8">
-    
-    
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>RecomAI - Smart Product Recommendation</title>
 
     <!-- Google Font -->
@@ -172,6 +172,42 @@
             color: #8991a1;
             display: block;
             font-size: 11px;
+        }
+
+        /* LOGOUT BUTTON */
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #fff0f0;
+            color: #ff4757;
+            border: 1px solid #ffe0e3;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: #ff4757;
+            color: #ffffff;
+            border-color: #ff4757;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.25);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+            .logout-btn span {
+                display: none;
+            }
+
+            .logout-btn {
+                padding: 8px 10px;
+            }
         }
 
         /* ==============================
@@ -363,12 +399,15 @@
             padding: 18px 10px;
             text-align: center;
             transition: .25s;
+            cursor: pointer;
         }
 
-        .category:hover {
+        .category:hover,
+        .category.active {
             transform: translateY(-4px);
             border-color: #6c5ce7;
-            box-shadow: 0 10px 25px rgba(108, 92, 231, .10);
+            background: #f0efff;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, .20);
         }
 
         .category-icon {
@@ -402,19 +441,58 @@
 
         /* Mobile responsiveness for product grid */
         @media (max-width: 430px) {
-            html, body { overflow-x: hidden; }
-            .products { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-            .categories { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-            .hero { margin: 18px 12px; padding: 28px; min-height: 180px; }
-            .hero h2 { font-size: 22px; }
-            .ai-card { width: 220px; }
-            header .topbar { padding: 0 12px; }
-            nav, .nav { padding: 0 12px; overflow-x: auto; }
-            main { padding: 0 12px 40px; }
+
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            .products {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .categories {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .hero {
+                margin: 18px 12px;
+                padding: 28px;
+                min-height: 180px;
+            }
+
+            .hero h2 {
+                font-size: 22px;
+            }
+
+            .ai-card {
+                width: 220px;
+            }
+
+            header .topbar {
+                padding: 0 12px;
+            }
+
+            nav,
+            .nav {
+                padding: 0 12px;
+                overflow-x: auto;
+            }
+
+            main {
+                padding: 0 12px 40px;
+            }
         }
+
         @media (max-width: 360px) {
-            .products { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-            .hero { padding: 20px; }
+            .products {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .hero {
+                padding: 20px;
+            }
         }
 
         .product-card {
@@ -865,6 +943,11 @@
 
                 </div>
 
+                <button class="logout-btn" onclick="logout()" title="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+
             </div>
 
         </div>
@@ -975,42 +1058,42 @@
 
             <div class="categories">
 
-                <div class="category">
+                <div class="category" onclick="filterCategory('Electronics')">
                     <div class="category-icon">
                         <i class="fa-solid fa-mobile-screen"></i>
                     </div>
                     <span>Electronics</span>
                 </div>
 
-                <div class="category">
+                <div class="category" onclick="filterCategory('Fashion')">
                     <div class="category-icon">
                         <i class="fa-solid fa-shirt"></i>
                     </div>
                     <span>Fashion</span>
                 </div>
 
-                <div class="category">
+                <div class="category" onclick="filterCategory('Laptops')">
                     <div class="category-icon">
                         <i class="fa-solid fa-laptop"></i>
                     </div>
                     <span>Laptops</span>
                 </div>
 
-                <div class="category">
+                <div class="category" onclick="filterCategory('Audio')">
                     <div class="category-icon">
                         <i class="fa-solid fa-headphones"></i>
                     </div>
                     <span>Audio</span>
                 </div>
 
-                <div class="category">
+                <div class="category" onclick="filterCategory('Backpacks')">
                     <div class="category-icon">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
                     <span>Backpacks</span>
                 </div>
 
-                <div class="category">
+                <div class="category" onclick="filterCategory('GYM')">
                     <div class="category-icon">
                         <i class="fa-solid fa-dumbbell"></i>
                     </div>
@@ -1089,16 +1172,17 @@
 
                 <div>
 
-                    <h2>Popular Products</h2>
+                    <h2 id="productsSectionTitle">Popular Products</h2>
 
-                    <p>
+                    <p id="productsSectionSubtitle">
                         Highly rated products from verified users
                     </p>
 
                 </div>
 
-                <span class="view-all">
-                    View All
+                <span class="view-all" id="resetCategoryBtn" style="display:none; cursor:pointer;"
+                    onclick="filterCategory('all')">
+                    View All Products
                 </span>
 
             </div>
@@ -1352,146 +1436,190 @@
 
         </div>
 
-    </div>
+        <!-- ADMIN WARNING NOTIFICATION MODAL -->
+        <div id="adminWarningModal" class="modal"
+            style="display:none; align-items:center; justify-content:center; background:rgba(11,15,25,0.85); backdrop-filter:blur(10px); z-index:99999;">
+            <div
+                style="background:#ffffff; border-radius:24px; max-width:480px; width:90%; padding:32px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.35); text-align:center; border:1px solid #fee2e2; position:relative;">
+                <div
+                    style="width:70px; height:70px; background:#fff1f2; color:#e11d48; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:32px; box-shadow:0 10px 25px rgba(225,29,72,0.2);">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <span id="warnSeverityBadge"
+                    style="background:#ffe4e6; color:#be123c; font-size:11px; font-weight:800; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px;">Official
+                    Warning</span>
+                <h2 style="font-size:20px; font-weight:800; color:#172033; margin:12px 0 6px;">Notice from Store Admin
+                </h2>
+                <p id="warnTimestampText" style="font-size:11px; color:#8991a1; margin-bottom:16px;">Sent recently</p>
+                <div style="background:#f8fafc; border-left:4px solid #e11d48; border-radius:12px; padding:16px; text-align:left; font-size:13px; color:#334155; line-height:1.6; margin-bottom:24px;"
+                    id="warnMessageText">
+                    Please follow community guidelines.
+                </div>
+                <button onclick="dismissAdminWarning()"
+                    style="width:100%; padding:14px; background:linear-gradient(135deg, #e11d48, #be123c); color:white; border:none; border-radius:14px; font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 8px 20px rgba(225,29,72,0.3); transition:all 0.2s;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i> I Understand & Acknowledge
+                </button>
+            </div>
+        </div>
+
+        <!-- BLOCKED USER OVERLAY -->
+        <div id="blockedUserOverlay"
+            style="display:none; position:fixed; inset:0; background:rgba(11,15,25,0.95); backdrop-filter:blur(15px); z-index:999999; align-items:center; justify-content:center; padding:20px;">
+            <div
+                style="background:#ffffff; border-radius:24px; max-width:440px; width:100%; padding:40px 30px; text-align:center; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+                <div
+                    style="width:80px; height:80px; background:#fee2e2; color:#ef4444; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:38px;">
+                    <i class="fa-solid fa-user-slash"></i>
+                </div>
+                <h2 style="font-size:22px; font-weight:800; color:#172033; margin-bottom:10px;">Account Suspended</h2>
+                <p style="font-size:13px; color:#64748b; line-height:1.6; margin-bottom:24px;">Your account has been
+                    restricted by Admin due to policy or suspicious activity violations. You cannot access store
+                    features at this time.</p>
+                <button onclick="window.location.href='index.html'"
+                    style="width:100%; padding:14px; background:#ef4444; color:white; border:none; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer;">
+                    Return to Login
+                </button>
+            </div>
+        </div>
+
+        <script src="userStore.js"></script>
+        <script>
+
+            /* =====================================================
+               PRODUCT DATABASE
+            ===================================================== */
+
+            const products = [
+
+                {
+                    id: 1,
+                    name: "Apple iPhone 15",
+                    category: "Electronics",
+                    price: 69999,
+                    oldPrice: 79999,
+                    rating: 4.6,
+                    reviews: 12453,
+                    discount: "12% OFF",
+                    image: "https://images.unsplash.com/photo-1592286927505-2fdc8b8c7c6f",
+                    description:
+                        "Latest Apple smartphone with powerful performance, premium design and advanced camera system."
+                },
+
+                {
+                    id: 2,
+                    name: "Sony WH-1000XM5",
+                    category: "Audio",
+                    price: 29990,
+                    oldPrice: 34990,
+                    rating: 4.7,
+                    reviews: 8231,
+                    discount: "14% OFF",
+                    image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b",
+                    description:
+                        "Premium wireless headphones with industry-leading noise cancellation."
+                },
+
+                {
+                    id: 3,
+                    name: "Nike Air Max Shoes",
+                    category: "Fashion",
+                    price: 8499,
+                    oldPrice: 10999,
+                    rating: 4.4,
+                    reviews: 5321,
+                    discount: "23% OFF",
+                    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+                    description:
+                        "Comfortable running shoes designed for everyday performance and style."
+                },
+
+                {
+                    id: 4,
+                    name: "MacBook Air M3",
+                    category: "Laptops",
+                    price: 104999,
+                    oldPrice: 119999,
+                    rating: 4.8,
+                    reviews: 4267,
+                    discount: "13% OFF",
+                    image: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8",
+                    description:
+                        "Powerful Apple laptop with M3 chip, long battery life and premium Retina display."
+                },
+
+                {
+                    id: 5,
+                    name: "Samsung Galaxy S24",
+                    category: "Electronics",
+                    price: 64999,
+                    oldPrice: 74999,
+                    rating: 4.5,
+                    reviews: 9367,
+                    discount: "13% OFF",
+                    image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c",
+                    description:
+                        "Flagship Android smartphone with AI-powered features and excellent camera."
+                },
+
+                {
+                    id: 6,
+                    name: "JBL Tune 770NC",
+                    category: "Audio",
+                    price: 5999,
+                    oldPrice: 7999,
+                    rating: 4.3,
+                    reviews: 6212,
+                    discount: "25% OFF",
+                    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+                    description:
+                        "Wireless headphones with adaptive noise cancellation and powerful bass."
+                },
+
+                {
+                    id: 7,
+                    name: "Dell Inspiron Laptop",
+                    category: "Laptops",
+                    price: 67999,
+                    oldPrice: 74999,
+                    rating: 4.2,
+                    reviews: 3214,
+                    discount: "9% OFF",
+                    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+                    description:
+                        "Reliable performance laptop suitable for students and professionals."
+                },
+
+                {
+                    id: 8,
+                    name: "Adidas Running Shoes",
+                    category: "Fashion",
+                    price: 5499,
+                    oldPrice: 6999,
+                    rating: 4.4,
+                    reviews: 2876,
+                    discount: "21% OFF",
+                    image: "https://images.unsplash.com/photo-1556906781-9a412961c28c",
+                    description:
+                        "Lightweight Adidas running shoes designed for daily training."
+                }
+
+            ];
 
 
-    <script>
+            /* =====================================================
+               DISPLAY PRODUCTS
+            ===================================================== */
 
-        /* =====================================================
-           PRODUCT DATABASE
-        ===================================================== */
+            function displayProducts(list, elementId) {
 
-        const products = [
+                const container =
+                    document.getElementById(elementId);
 
-            {
-                id: 1,
-                name: "Apple iPhone 15",
-                category: "Electronics",
-                price: 69999,
-                oldPrice: 79999,
-                rating: 4.6,
-                reviews: 12453,
-                discount: "12% OFF",
-                image: "https://images.unsplash.com/photo-1592286927505-2fdc8b8c7c6f",
-                description:
-                    "Latest Apple smartphone with powerful performance, premium design and advanced camera system."
-            },
+                container.innerHTML = "";
 
-            {
-                id: 2,
-                name: "Sony WH-1000XM5",
-                category: "Audio",
-                price: 29990,
-                oldPrice: 34990,
-                rating: 4.7,
-                reviews: 8231,
-                discount: "14% OFF",
-                image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b",
-                description:
-                    "Premium wireless headphones with industry-leading noise cancellation."
-            },
+                list.forEach(product => {
 
-            {
-                id: 3,
-                name: "Nike Air Max Shoes",
-                category: "Fashion",
-                price: 8499,
-                oldPrice: 10999,
-                rating: 4.4,
-                reviews: 5321,
-                discount: "23% OFF",
-                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-                description:
-                    "Comfortable running shoes designed for everyday performance and style."
-            },
-
-            {
-                id: 4,
-                name: "MacBook Air M3",
-                category: "Laptops",
-                price: 104999,
-                oldPrice: 119999,
-                rating: 4.8,
-                reviews: 4267,
-                discount: "13% OFF",
-                image: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8",
-                description:
-                    "Powerful Apple laptop with M3 chip, long battery life and premium Retina display."
-            },
-
-            {
-                id: 5,
-                name: "Samsung Galaxy S24",
-                category: "Electronics",
-                price: 64999,
-                oldPrice: 74999,
-                rating: 4.5,
-                reviews: 9367,
-                discount: "13% OFF",
-                image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c",
-                description:
-                    "Flagship Android smartphone with AI-powered features and excellent camera."
-            },
-
-            {
-                id: 6,
-                name: "JBL Tune 770NC",
-                category: "Audio",
-                price: 5999,
-                oldPrice: 7999,
-                rating: 4.3,
-                reviews: 6212,
-                discount: "25% OFF",
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-                description:
-                    "Wireless headphones with adaptive noise cancellation and powerful bass."
-            },
-
-            {
-                id: 7,
-                name: "Dell Inspiron Laptop",
-                category: "Laptops",
-                price: 67999,
-                oldPrice: 74999,
-                rating: 4.2,
-                reviews: 3214,
-                discount: "9% OFF",
-                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
-                description:
-                    "Reliable performance laptop suitable for students and professionals."
-            },
-
-            {
-                id: 8,
-                name: "Adidas Running Shoes",
-                category: "Fashion",
-                price: 5499,
-                oldPrice: 6999,
-                rating: 4.4,
-                reviews: 2876,
-                discount: "21% OFF",
-                image: "https://images.unsplash.com/photo-1556906781-9a412961c28c",
-                description:
-                    "Lightweight Adidas running shoes designed for daily training."
-            }
-
-        ];
-
-
-        /* =====================================================
-           DISPLAY PRODUCTS
-        ===================================================== */
-
-        function displayProducts(list, elementId) {
-
-            const container =
-                document.getElementById(elementId);
-
-            container.innerHTML = "";
-
-            list.forEach(product => {
-
-                container.innerHTML += `
+                    container.innerHTML += `
 
                 <div class="product-card"
                      onclick="openProduct(${product.id})">
@@ -1573,161 +1701,363 @@
 
                 </div>
             `;
+                });
+            }
+
+
+            /* =====================================================
+               STORE PRODUCTS LOADER & SYNC
+            ===================================================== */
+
+            function getStoreProducts() {
+                const saved = localStorage.getItem("recomai_products");
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                    } catch (e) {
+                        console.error("Error loading products from storage", e);
+                    }
+                }
+                localStorage.setItem("recomai_products", JSON.stringify(products));
+                return products;
+            }
+
+            function loadStoreProducts() {
+                const allProducts = getStoreProducts();
+                const recommended = allProducts.slice(0, 4);
+                const popular = allProducts.length > 4 ? allProducts.slice(4) : allProducts;
+
+                displayProducts(recommended, "recommendedProducts");
+                displayProducts(popular, "productContainer");
+
+                // Try fetching from backend if active
+                fetch("https://ml-based-project-smart-fake-user.onrender.com/api/products")
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data && data.success && Array.isArray(data.products) && data.products.length > 0) {
+                            localStorage.setItem("recomai_products", JSON.stringify(data.products));
+                            displayProducts(data.products.slice(0, 4), "recommendedProducts");
+                            displayProducts(data.products.length > 4 ? data.products.slice(4) : data.products, "productContainer");
+                        }
+                    })
+                    .catch(() => { });
+            }
+
+            loadStoreProducts();
+
+            window.addEventListener("storage", function (e) {
+                if (e.key === "recomai_products") {
+                    loadStoreProducts();
+                }
             });
-        }
 
+            let activeCategoryFilter = "all";
 
-        /* =====================================================
-           INITIAL PRODUCTS
-        ===================================================== */
+            function filterCategory(categoryName) {
+                activeCategoryFilter = categoryName;
+                const allProducts = getStoreProducts();
 
-        displayProducts(
-            products.slice(0, 4),
-            "recommendedProducts"
-        );
-
-        displayProducts(
-            products.slice(4),
-            "productContainer"
-        );
-
-
-        /* =====================================================
-           SEARCH
-        ===================================================== */
-
-        function searchProducts() {
-
-            const search =
-                document
-                    .getElementById("searchInput")
-                    .value
-                    .toLowerCase();
-
-            const filtered =
-                products.filter(product =>
-                    product.name
-                        .toLowerCase()
-                        .includes(search)
-                );
-
-            displayProducts(
-                filtered,
-                "productContainer"
-            );
-        }
-
-
-        /* =====================================================
-           PRODUCT MODAL
-        ===================================================== */
-
-        function openProduct(id) {
-
-            const product =
-                products.find(p => p.id === id);
-
-            document
-                .getElementById("modalImage")
-                .src = product.image;
-
-            document
-                .getElementById("modalName")
-                .innerText = product.name;
-
-            document
-                .getElementById("modalCategory")
-                .innerText = product.category;
-
-            document
-                .getElementById("modalPrice")
-                .innerText =
-                "₹" + product.price.toLocaleString();
-
-            document
-                .getElementById("modalDescription")
-                .innerText = product.description;
-
-            document
-                .getElementById("productModal")
-                .classList.add("active");
-
-        }
-
-
-        function closeModal() {
-
-            document
-                .getElementById("productModal")
-                .classList.remove("active");
-
-        }
-
-
-        /* =====================================================
-           CART
-        ===================================================== */
-
-        let cart = 0;
-
-        function addToCart() {
-
-            cart++;
-
-            document
-                .getElementById("cartCount")
-                .innerText = cart;
-
-            alert("Product added to cart!");
-
-        }
-
-
-        /* =====================================================
-           WISHLIST
-        ===================================================== */
-
-        function addWishlist() {
-
-            alert("Product added to wishlist ❤️");
-
-        }
-
-
-        /* =====================================================
-           SCROLL
-        ===================================================== */
-
-        function scrollToRecommendations() {
-
-            document
-                .getElementById("recommended")
-                .scrollIntoView({
-                    behavior: "smooth"
+                // Highlight active category card
+                const cards = document.querySelectorAll(".category");
+                cards.forEach(card => {
+                    const text = card.querySelector("span") ? card.querySelector("span").innerText.trim().toLowerCase() : "";
+                    if (categoryName !== "all" && text === categoryName.toLowerCase()) {
+                        card.classList.add("active");
+                    } else {
+                        card.classList.remove("active");
+                    }
                 });
 
-        }
+                const titleElem = document.getElementById("productsSectionTitle");
+                const subtitleElem = document.getElementById("productsSectionSubtitle");
+                const resetBtn = document.getElementById("resetCategoryBtn");
 
+                if (!categoryName || categoryName === "all") {
+                    if (titleElem) titleElem.innerText = "Popular Products";
+                    if (subtitleElem) subtitleElem.innerText = "Highly rated products from verified users";
+                    if (resetBtn) resetBtn.style.display = "none";
+                    const popular = allProducts.length > 4 ? allProducts.slice(4) : allProducts;
+                    displayProducts(popular, "productContainer");
+                } else {
+                    const filtered = allProducts.filter(p => (p.category || "").toLowerCase() === categoryName.toLowerCase());
+                    if (titleElem) titleElem.innerHTML = `<i class="fa-solid fa-layer-group" style="color:#6c5ce7; margin-right:6px;"></i> ${categoryName} Products <span style="font-size:13px; color:#6c5ce7; font-weight:600;">(${filtered.length})</span>`;
+                    if (subtitleElem) subtitleElem.innerText = `Showing all products uploaded under "${categoryName}" category`;
+                    if (resetBtn) {
+                        resetBtn.style.display = "inline-block";
+                        resetBtn.innerHTML = `<i class="fa-solid fa-rotate-left"></i> View All Products`;
+                    }
 
-        /* =====================================================
-           CLOSE MODAL OUTSIDE
-        ===================================================== */
-
-        document
-            .getElementById("productModal")
-            .addEventListener("click", function (e) {
-
-                if (e.target === this) {
-                    closeModal();
+                    if (filtered.length === 0) {
+                        const container = document.getElementById("productContainer");
+                        if (container) {
+                            container.innerHTML = `
+                            <div style="grid-column:1/-1; text-align:center; padding:45px 20px; background:white; border-radius:18px; border:1px solid #e7eaf1;">
+                                <i class="fa-solid fa-box-open" style="font-size:42px; color:#a0a6b3; margin-bottom:12px;"></i>
+                                <h3 style="font-size:16px; color:#172033; margin-bottom:6px;">No products found in "${categoryName}"</h3>
+                                <p style="font-size:12px; color:#8991a1; margin-bottom:15px;">Admin can upload new products under this category from Admin Panel.</p>
+                                <button onclick="filterCategory('all')" style="padding:10px 20px; background:#6c5ce7; color:white; border:none; border-radius:8px; font-weight:600; font-size:12px; cursor:pointer;">
+                                    View All Products
+                                </button>
+                            </div>
+                        `;
+                        }
+                    } else {
+                        displayProducts(filtered, "productContainer");
+                    }
                 }
 
+                const prodSec = document.getElementById("products");
+                if (prodSec) prodSec.scrollIntoView({ behavior: "smooth" });
+            }
+
+
+            /* =====================================================
+               SEARCH
+            ===================================================== */
+
+            function searchProducts() {
+
+                const search =
+                    document
+                        .getElementById("searchInput")
+                        .value
+                        .toLowerCase();
+
+                const allProducts = getStoreProducts();
+                const filtered =
+                    allProducts.filter(product =>
+                        (product.name || "")
+                            .toLowerCase()
+                            .includes(search) ||
+                        (product.category || "")
+                            .toLowerCase()
+                            .includes(search)
+                    );
+
+                displayProducts(
+                    filtered,
+                    "productContainer"
+                );
+            }
+
+
+            /* =====================================================
+               PRODUCT MODAL
+            ===================================================== */
+
+            function openProduct(id) {
+
+                const allProducts = getStoreProducts();
+                const product =
+                    allProducts.find(p => p.id === id);
+                if (!product) return;
+
+                document
+                    .getElementById("modalImage")
+                    .src = product.image;
+
+                document
+                    .getElementById("modalName")
+                    .innerText = product.name;
+
+                document
+                    .getElementById("modalCategory")
+                    .innerText = product.category;
+
+                document
+                    .getElementById("modalPrice")
+                    .innerText =
+                    "₹" + product.price.toLocaleString();
+
+                document
+                    .getElementById("modalDescription")
+                    .innerText = product.description;
+
+                document
+                    .getElementById("productModal")
+                    .classList.add("active");
+
+                // Track genuine product view activity
+                if (window.userStore && activeUserSession) {
+                    window.userStore.trackUserActivity(activeUserSession.email, "Product Viewed", product.name, "Normal");
+                }
+            }
+
+
+            function closeModal() {
+
+                document
+                    .getElementById("productModal")
+                    .classList.remove("active");
+
+            }
+
+
+            /* =====================================================
+               CART
+            ===================================================== */
+
+            let cart = 0;
+
+            function addToCart() {
+                cart++;
+                document.getElementById("cartCount").innerText = cart;
+
+                const modalProdName = document.getElementById("modalName") ? document.getElementById("modalName").innerText : "Store Product";
+                if (window.userStore && activeUserSession) {
+                    window.userStore.trackUserActivity(activeUserSession.email, "Added to Cart", modalProdName, "Genuine");
+                }
+
+                alert(`"${modalProdName}" added to cart!`);
+            }
+
+
+            /* =====================================================
+               WISHLIST
+            ===================================================== */
+
+            function addWishlist() {
+                const modalProdName = document.getElementById("modalName") ? document.getElementById("modalName").innerText : "Store Product";
+                if (window.userStore && activeUserSession) {
+                    window.userStore.trackUserActivity(activeUserSession.email, "Wishlist Added", modalProdName, "Normal");
+                }
+                alert(`"${modalProdName}" added to wishlist ❤️`);
+            }
+
+
+            /* =====================================================
+               SCROLL
+            ===================================================== */
+
+            function scrollToRecommendations() {
+
+                document
+                    .getElementById("recommended")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+            }
+
+
+            /* =====================================================
+               CLOSE MODAL OUTSIDE
+            ===================================================== */
+
+            document
+                .getElementById("productModal")
+                .addEventListener("click", function (e) {
+
+                    if (e.target === this) {
+                        closeModal();
+                    }
+
+                });
+
+
+            /* =====================================================
+               LOGOUT
+            ===================================================== */
+
+            function logout() {
+                if (confirm("Are you sure you want to log out?")) {
+                    localStorage.removeItem("userToken");
+                    sessionStorage.clear();
+                    window.location.href = "index.html";
+                }
+            }
+
+            /* =====================================================
+               USER STORE SESSION & ADMIN WARNING TRACKER
+            ===================================================== */
+            let activeUserSession = null;
+            let activeWarningObj = null;
+
+            function checkUserStatusAndWarnings() {
+                if (!window.userStore) return;
+
+                // Get logged in user or default session user
+                activeUserSession = window.userStore.getCurrentSessionUser();
+                if (!activeUserSession) {
+                    const users = window.userStore.getUsersDB();
+                    activeUserSession = users[0] || null;
+                }
+
+                if (!activeUserSession) return;
+
+                // Check if user is blocked
+                if (window.userStore.isUserBlocked(activeUserSession.email)) {
+                    const overlay = document.getElementById("blockedUserOverlay");
+                    if (overlay) overlay.style.display = "flex";
+                    return;
+                }
+
+                // Track usage time (add 5 seconds every interval)
+                window.userStore.addActiveUsageTime(activeUserSession.email, 5);
+
+                // Fetch fresh user data from store
+                const users = window.userStore.getUsersDB();
+                const freshUser = users.find(u => u.id === activeUserSession.id || u.email.toLowerCase() === activeUserSession.email.toLowerCase());
+                if (!freshUser) return;
+
+                // Check for unread warnings
+                if (freshUser.warnings && freshUser.warnings.length > 0) {
+                    const unread = freshUser.warnings.filter(w => !w.read);
+                    if (unread.length > 0) {
+                        activeWarningObj = unread[0];
+                        showAdminWarningNotification(activeWarningObj);
+                    }
+                }
+            }
+
+            function showAdminWarningNotification(warning) {
+                const modal = document.getElementById("adminWarningModal");
+                const badge = document.getElementById("warnSeverityBadge");
+                const timeElem = document.getElementById("warnTimestampText");
+                const msgElem = document.getElementById("warnMessageText");
+
+                if (!modal) return;
+
+                if (badge) {
+                    badge.innerText = warning.severity || "Official Warning";
+                    if (warning.severity === "Severe Warning") {
+                        badge.style.background = "#ffe4e6";
+                        badge.style.color = "#be123c";
+                    } else if (warning.severity === "Caution") {
+                        badge.style.background = "#fef3c7";
+                        badge.style.color = "#b45309";
+                    } else {
+                        badge.style.background = "#e0f2fe";
+                        badge.style.color = "#0369a1";
+                    }
+                }
+
+                if (timeElem) timeElem.innerText = "Received " + window.userStore.formatTimeAgo(warning.timestamp);
+                if (msgElem) msgElem.innerText = warning.message;
+
+                modal.style.display = "flex";
+            }
+
+            function dismissAdminWarning() {
+                if (activeUserSession && activeWarningObj && window.userStore) {
+                    window.userStore.acknowledgeWarning(activeUserSession.id, activeWarningObj.id);
+                }
+                const modal = document.getElementById("adminWarningModal");
+                if (modal) modal.style.display = "none";
+            }
+
+            // Initialize checks on load and poll every 5 seconds
+            document.addEventListener("DOMContentLoaded", function () {
+                checkUserStatusAndWarnings();
+                setInterval(checkUserStatusAndWarnings, 5000);
             });
 
-    </script>
+        </script>
 
 </body>
 
 </html>
 < ! - -   V e r c e l   l o g i n   r e d i r e c t   u p d a t e   - - > 
- 
- 
+     
+     

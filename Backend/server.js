@@ -21,11 +21,11 @@ const hasSupabase = Boolean(supabaseUrl && supabaseAnonKey);
 
 const supabase = hasSupabase
   ? createClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false
-      }
-    })
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false
+    }
+  })
   : null;
 
 const pendingRequests = new Map();
@@ -141,7 +141,34 @@ app.post('/api/login', async (req, res) => {
 
       if (matches) {
         console.log('User login successful:', email);
-        return res.json({ success: true, role: found.role || 'user', username: found.username });
+
+        // Update login count & last login timestamp in Supabase
+        if (supabase) {
+          try {
+            const currentLogins = Number(found.login_count || 0) + 1;
+            await db('app_users')
+              .update({ login_count: currentLogins, last_login: new Date().toISOString() })
+              .eq('email', email);
+          } catch (e) {
+            console.error('Failed to update login_count in Supabase:', e.message);
+          }
+        }
+
+        return res.json({
+          success: true,
+          role: found.role || 'user',
+          username: found.username || email.split('@')[0],
+          user: {
+            id: found.id,
+            email: found.email,
+            username: found.username,
+            name: found.name || found.username,
+            status: found.status || 'Active',
+            loginCount: (found.login_count || 0) + 1,
+            totalTimeSpent: found.total_time_spent || 0,
+            warnings: found.warnings || []
+          }
+        });
       }
     }
 
@@ -201,16 +228,16 @@ app.post('/api/forgot', async (req, res) => {
     }
   }
 
- // Send Email with Resend
-try {
-  const { data, error } = await resend.emails.send({
-    from: 'RecomAI <onboarding@fakeuserdetect.me>',
-    to: [email],
-    subject: action === 'signup'
-      ? 'Welcome to RecomAI - Verify Your Email'
-      : 'RecomAI - Password Reset OTP',
+  // Send Email with Resend
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'RecomAI <onboarding@fakeuserdetect.me>',
+      to: [email],
+      subject: action === 'signup'
+        ? 'Welcome to RecomAI - Verify Your Email'
+        : 'RecomAI - Password Reset OTP',
 
-    html: `
+      html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
 
         <h2 style="color: #6c5ce7; text-align: center;">
@@ -222,11 +249,10 @@ try {
         </p>
 
         <p style="font-size: 16px; color: #333;">
-          ${
-            action === 'signup'
-              ? 'Thank you for signing up! Please use the OTP below to verify your email address.'
-              : 'We received a request to reset your password. Use the OTP below to proceed.'
-          }
+          ${action === 'signup'
+          ? 'Thank you for signing up! Please use the OTP below to verify your email address.'
+          : 'We received a request to reset your password. Use the OTP below to proceed.'
+        }
         </p>
 
         <div style="text-align: center; margin: 30px 0;">
@@ -256,39 +282,39 @@ try {
 
       </div>
     `
-  });
+    });
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    console.log(
+      'Email sent successfully to',
+      email,
+      'messageId:',
+      data?.id || 'unknown'
+    );
+
+  } catch (mailErr) {
+
+    console.error(
+      'Error sending email to',
+      email,
+      mailErr?.message || mailErr
+    );
+
+    otpCooldowns.delete(cooldownKey);
+    pendingRequests.delete(email);
+
+    if (supabase) {
+      await db('otp_requests').delete().eq('email', email);
+    }
+
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to send verification email'
+    });
   }
-
-  console.log(
-    'Email sent successfully to',
-    email,
-    'messageId:',
-    data?.id || 'unknown'
-  );
-
-} catch (mailErr) {
-
-  console.error(
-    'Error sending email to',
-    email,
-    mailErr?.message || mailErr
-  );
-
-  otpCooldowns.delete(cooldownKey);
-  pendingRequests.delete(email);
-
-  if (supabase) {
-    await db('otp_requests').delete().eq('email', email);
-  }
-
-  return res.status(500).json({
-    success: false,
-    message: 'Failed to send verification email'
-  });
-}
 
   console.log('OTP generated for', email, code);
 
@@ -464,6 +490,205 @@ app.post('/api/reset-password', async (req, res) => {
 
   pendingRequests.delete(email);
   return res.json({ success: true });
+});
+
+/* =====================================================
+   PRODUCTS API
+===================================================== */
+let storeProducts = [
+  { id: 1, name: "Wireless AI Headphones", category: "Audio", price: 2499, oldPrice: 3999, rating: 4.8, reviews: 1240, discount: "37% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e", description: "Intelligent noise cancelling headphones with real-time sound optimization." },
+  { id: 2, name: "Smart Watch Ultra", category: "Electronics", price: 4999, oldPrice: 7999, rating: 4.6, reviews: 890, discount: "38% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30", description: "Advanced fitness and health tracker with AMOLED display." },
+  { id: 3, name: "MacBook Pro M2", category: "Laptops", price: 119900, oldPrice: 129900, rating: 4.9, reviews: 3420, discount: "7% OFF", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8", description: "Apple M2 chip laptop designed for developers and creators." },
+  { id: 4, name: "Nike Air Max 270", category: "Fashion", price: 6995, oldPrice: 8995, rating: 4.7, reviews: 1980, discount: "22% OFF", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff", description: "Premium stylish sneaker for sports and outdoor lifestyle." },
+  { id: 5, name: "Ergonomic Gym Backpack", category: "Backpacks", price: 1899, oldPrice: 2999, rating: 4.5, reviews: 670, discount: "36% OFF", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62", description: "Water resistant backpack with dedicated laptop and gym gear compartments." },
+  { id: 6, name: "Pro Dumbbell Set 20kg", category: "GYM", price: 3499, oldPrice: 4999, rating: 4.6, reviews: 430, discount: "30% OFF", image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2", description: "Adjustable cast iron dumbbells for home workouts." },
+  { id: 7, name: "Dell XPS 15", category: "Laptops", price: 134990, oldPrice: 149990, rating: 4.7, reviews: 512, discount: "10% OFF", image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45", description: "Reliable performance laptop suitable for students and professionals." },
+  { id: 8, name: "Adidas Running Shoes", category: "Fashion", price: 5499, oldPrice: 6999, rating: 4.4, reviews: 2876, discount: "21% OFF", image: "https://images.unsplash.com/photo-1556906781-9a412961c28c", description: "Lightweight Adidas running shoes designed for daily training." }
+];
+
+app.get('/api/products', (_req, res) => {
+  res.json({ success: true, products: storeProducts });
+});
+
+app.post('/api/products', (req, res) => {
+  try {
+    const product = req.body;
+    if (!product || !product.name || !product.price) {
+      return res.status(400).json({ success: false, message: 'Invalid product details' });
+    }
+    const newProduct = {
+      id: product.id || Date.now(),
+      name: product.name,
+      category: product.category || 'General',
+      price: Number(product.price),
+      oldPrice: Number(product.oldPrice || product.price),
+      rating: Number(product.rating || 4.5),
+      reviews: Number(product.reviews || 0),
+      discount: product.discount || '10% OFF',
+      image: product.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
+      description: product.description || product.name
+    };
+    storeProducts.unshift(newProduct);
+    res.json({ success: true, product: newProduct });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.delete('/api/products/:id', (req, res) => {
+  const id = Number(req.params.id);
+  storeProducts = storeProducts.filter(p => p.id !== id);
+  res.json({ success: true, message: 'Product deleted successfully' });
+});
+
+/* =====================================================
+   USER MANAGEMENT & WARNING API
+===================================================== */
+let backendUsersList = [
+  { id: 'usr_101', name: 'Uday Chaudhari', email: 'uday1024@gmail.com', username: 'uday1024', mlStatus: 'Genuine', trustScore: 94, loginCount: 18, totalTimeSpent: 14200, status: 'Active', warnings: [] },
+  { id: 'usr_102', name: 'Rahul Sharma', email: 'rahul884@gmail.com', username: 'rahul884', mlStatus: 'Genuine', trustScore: 91, loginCount: 24, totalTimeSpent: 21500, status: 'Active', warnings: [] },
+  { id: 'usr_103', name: 'Amit Mehta', email: 'amit447@gmail.com', username: 'amit447', mlStatus: 'Suspicious', trustScore: 61, loginCount: 9, totalTimeSpent: 5800, status: 'Active', warnings: [] },
+  { id: 'usr_104', name: 'Vikram Kumar', email: 'vikram7788@gmail.com', username: 'vikram7788', mlStatus: 'Fake User', trustScore: 18, loginCount: 31, totalTimeSpent: 34000, status: 'Blocked', warnings: [] }
+];
+
+/* =====================================================
+   USER MANAGEMENT & WARNING API (SUPABASE CONNECTED)
+===================================================== */
+app.get('/api/admin/users', async (_req, res) => {
+  try {
+    if (supabase) {
+      const { data, error } = await db('app_users')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        const mappedUsers = data.map(u => ({
+          id: u.id,
+          name: u.name || u.username || u.email.split('@')[0],
+          email: u.email,
+          username: u.username || u.email.split('@')[0],
+          role: u.role || 'user',
+          status: u.status || 'Active',
+          loginCount: u.login_count || 1,
+          totalTimeSpent: u.total_time_spent || 0,
+          mlStatus: u.ml_status || 'Genuine',
+          trustScore: u.trust_score || 95,
+          createdAt: u.created_at ? new Date(u.created_at).getTime() : Date.now(),
+          lastLogin: u.last_login ? new Date(u.last_login).getTime() : Date.now(),
+          warnings: u.warnings || []
+        }));
+        return res.json({ success: true, users: mappedUsers, source: 'supabase' });
+      }
+    }
+
+    return res.json({ success: true, users: backendUsersList, source: 'fallback' });
+  } catch (err) {
+    console.error('Error fetching users from Supabase:', err.message);
+    res.json({ success: true, users: backendUsersList, source: 'fallback' });
+  }
+});
+
+app.post('/api/admin/users/block', async (req, res) => {
+  try {
+    const { email, userId, status } = req.body || {};
+    let newStatus = status;
+
+    if (supabase) {
+      const { data: user } = await db('app_users')
+        .select('id,email,status')
+        .or(`id.eq.${userId},email.eq.${email}`)
+        .maybeSingle();
+
+      if (user) {
+        newStatus = status || (user.status === 'Blocked' ? 'Active' : 'Blocked');
+        const { error } = await db('app_users')
+          .update({ status: newStatus })
+          .eq('id', user.id);
+
+        if (error) throw error;
+        return res.json({ success: true, status: newStatus, userId: user.id });
+      }
+    }
+
+    const fallbackUser = backendUsersList.find(u => u.id === userId || u.email === email);
+    if (fallbackUser) {
+      fallbackUser.status = status || (fallbackUser.status === 'Blocked' ? 'Active' : 'Blocked');
+      return res.json({ success: true, status: fallbackUser.status });
+    }
+    res.status(404).json({ success: false, message: 'User not found' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.post('/api/admin/users/warn', async (req, res) => {
+  try {
+    const { userId, email, message, severity } = req.body || {};
+    if (!message) return res.status(400).json({ success: false, message: 'Message required' });
+
+    const newWarning = {
+      id: 'warn_' + Date.now(),
+      message: message.trim(),
+      severity: severity || 'Caution',
+      timestamp: Date.now(),
+      read: false
+    };
+
+    if (supabase) {
+      const { data: user } = await db('app_users')
+        .select('id,email,warnings')
+        .or(`id.eq.${userId},email.eq.${email}`)
+        .maybeSingle();
+
+      if (user) {
+        const currentWarnings = user.warnings || [];
+        currentWarnings.unshift(newWarning);
+        const { error } = await db('app_users')
+          .update({ warnings: currentWarnings })
+          .eq('id', user.id);
+
+        if (error) throw error;
+        return res.json({ success: true, warning: newWarning });
+      }
+    }
+
+    const fallbackUser = backendUsersList.find(u => u.id === userId || u.email === email);
+    if (fallbackUser) {
+      if (!fallbackUser.warnings) fallbackUser.warnings = [];
+      fallbackUser.warnings.unshift(newWarning);
+      return res.json({ success: true, warning: newWarning });
+    }
+    res.status(404).json({ success: false, message: 'User not found' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.post('/api/users/usage', async (req, res) => {
+  try {
+    const { email, seconds } = req.body || {};
+    if (!email || !seconds) return res.status(400).json({ success: false });
+
+    if (supabase) {
+      const { data: user } = await db('app_users')
+        .select('id,total_time_spent')
+        .eq('email', email)
+        .maybeSingle();
+
+      if (user) {
+        const newTotal = (user.total_time_spent || 0) + Number(seconds);
+        await db('app_users')
+          .update({ total_time_spent: newTotal, last_login: new Date().toISOString() })
+          .eq('id', user.id);
+        return res.json({ success: true, totalTimeSpent: newTotal });
+      }
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: false, message: err.message });
+  }
 });
 
 enableTerminalStopCommand();

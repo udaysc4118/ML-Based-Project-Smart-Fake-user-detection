@@ -12,1293 +12,1357 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 
-<style>
-
-/* =========================================================
+    <style>
+        /* =========================================================
    GLOBAL
 ========================================================= */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: "Inter", sans-serif;
-    background: #f5f7fb;
-    color: #172033;
-}
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
 
-button,
-input,
-select {
-    font-family: inherit;
-}
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
 
-button {
-    cursor: pointer;
-}
+        button {
+            cursor: pointer;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    HEADER
 ========================================================= */
 
-header {
-    height: 72px;
-    background: #ffffff;
-    border-bottom: 1px solid #e6e9ef;
+        header {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e6e9ef;
 
-    display: flex;
-    align-items: center;
+            display: flex;
+            align-items: center;
 
-    padding: 0 5%;
+            padding: 0 5%;
 
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
 
-    width: 240px;
-}
+            width: 240px;
+        }
 
-.logo-icon {
-    width: 42px;
-    height: 42px;
+        .logo-icon {
+            width: 42px;
+            height: 42px;
 
-    border-radius: 12px;
+            border-radius: 12px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #6c5ce7,
-            #00cec9
-        );
+            background:
+                linear-gradient(135deg,
+                    #6c5ce7,
+                    #00cec9);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    color: white;
-    font-size: 19px;
-}
+            color: white;
+            font-size: 19px;
+        }
 
-.logo h1 {
-    font-size: 21px;
-    font-weight: 800;
-}
+        .logo h1 {
+            font-size: 21px;
+            font-weight: 800;
+        }
 
-.logo span {
-    color: #6c5ce7;
-}
+        .logo span {
+            color: #6c5ce7;
+        }
 
-.admin-label {
-    display: block;
-    color: #8991a1;
-    font-size: 9px;
-    margin-top: 2px;
-}
+        .admin-label {
+            display: block;
+            color: #8991a1;
+            font-size: 9px;
+            margin-top: 2px;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    HEADER RIGHT
 ========================================================= */
 
-.header-right {
-    margin-left: auto;
+        .header-right {
+            margin-left: auto;
 
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
 
-.notification {
-    position: relative;
+        .notification {
+            position: relative;
 
-    font-size: 19px;
-    color: #596174;
-}
+            font-size: 19px;
+            color: #596174;
+        }
 
-.notification-badge {
-    position: absolute;
+        .notification-badge {
+            position: absolute;
 
-    top: -8px;
-    right: -9px;
+            top: -8px;
+            right: -9px;
 
-    width: 16px;
-    height: 16px;
+            width: 16px;
+            height: 16px;
 
-    border-radius: 50%;
+            border-radius: 50%;
 
-    background: #ff4757;
-    color: white;
+            background: #ff4757;
+            color: white;
 
-    font-size: 9px;
+            font-size: 9px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.admin-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.admin-avatar {
-    width: 38px;
-    height: 38px;
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
 
-    border-radius: 50%;
+            border-radius: 50%;
 
-    background:
-        linear-gradient(
-            135deg,
-            #6c5ce7,
-            #a29bfe
-        );
+            background:
+                linear-gradient(135deg,
+                    #6c5ce7,
+                    #a29bfe);
 
-    color: white;
+            color: white;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    font-weight: 800;
-}
+            font-weight: 800;
+        }
 
-.admin-profile strong {
-    font-size: 12px;
-}
+        .admin-profile strong {
+            font-size: 12px;
+        }
 
-.admin-profile small {
-    display: block;
-    color: #8991a1;
-    font-size: 10px;
-}
+        .admin-profile small {
+            display: block;
+            color: #8991a1;
+            font-size: 10px;
+        }
 
 
-/* =========================================================
+        /* LOGOUT BUTTON */
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #fff0f0;
+            color: #ff4757;
+            border: 1px solid #ffe0e3;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: #ff4757;
+            color: #ffffff;
+            border-color: #ff4757;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.25);
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
    LAYOUT
 ========================================================= */
 
-.layout {
-    display: flex;
-    min-height: calc(100vh - 72px);
-}
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 72px);
+        }
 
 
-/* =========================================================
+        /* =========================================================
    SIDEBAR
 ========================================================= */
 
-.sidebar {
-    width: 240px;
+        .sidebar {
+            width: 240px;
 
-    background: #ffffff;
+            background: #ffffff;
 
-    border-right: 1px solid #e7eaf0;
+            border-right: 1px solid #e7eaf0;
 
-    padding: 25px 15px;
+            padding: 25px 15px;
 
-    flex-shrink: 0;
-}
+            flex-shrink: 0;
+        }
 
-.sidebar-title {
-    color: #a0a6b3;
+        .sidebar-title {
+            color: #a0a6b3;
 
-    font-size: 9px;
-    font-weight: 800;
+            font-size: 9px;
+            font-weight: 800;
 
-    letter-spacing: 1px;
+            letter-spacing: 1px;
 
-    padding: 0 12px;
+            padding: 0 12px;
 
-    margin-bottom: 12px;
-}
+            margin-bottom: 12px;
+        }
 
-.sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
 
-    padding: 12px;
+            padding: 12px;
 
-    border-radius: 10px;
+            border-radius: 10px;
 
-    margin-bottom: 5px;
+            margin-bottom: 5px;
 
-    color: #697184;
+            color: #697184;
 
-    font-size: 12px;
-    font-weight: 600;
+            font-size: 12px;
+            font-weight: 600;
 
-    text-decoration: none;
+            text-decoration: none;
 
-    transition: .2s;
-}
+            transition: .2s;
+        }
 
-.sidebar-item i {
-    width: 18px;
-    text-align: center;
-}
+        .sidebar-item i {
+            width: 18px;
+            text-align: center;
+        }
 
-.sidebar-item:hover {
-    background: #f0efff;
-    color: #6c5ce7;
-}
+        .sidebar-item:hover {
+            background: #f0efff;
+            color: #6c5ce7;
+        }
 
-.sidebar-item.active {
-    background: #6c5ce7;
-    color: white;
+        .sidebar-item.active {
+            background: #6c5ce7;
+            color: white;
 
-    box-shadow:
-        0 8px 20px
-        rgba(108,92,231,.20);
-}
+            box-shadow:
+                0 8px 20px rgba(108, 92, 231, .20);
+        }
 
-.sidebar-divider {
-    height: 1px;
-    background: #eef0f4;
-    margin: 20px 5px;
-}
+        .sidebar-divider {
+            height: 1px;
+            background: #eef0f4;
+            margin: 20px 5px;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    MAIN
 ========================================================= */
 
-.main {
-    flex: 1;
+        .main {
+            flex: 1;
 
-    padding: 30px 35px;
+            padding: 30px 35px;
 
-    min-width: 0;
-}
+            min-width: 0;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    PAGE HEADER
 ========================================================= */
 
-.page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-    margin-bottom: 25px;
-}
+            margin-bottom: 25px;
+        }
 
-.page-header h2 {
-    font-size: 24px;
-    font-weight: 800;
-}
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+        }
 
-.page-header p {
-    color: #8991a1;
-    font-size: 12px;
-    margin-top: 6px;
-}
+        .page-header p {
+            color: #8991a1;
+            font-size: 12px;
+            margin-top: 6px;
+        }
 
-.date-box {
-    background: white;
+        .date-box {
+            background: white;
 
-    border: 1px solid #e7eaf1;
+            border: 1px solid #e7eaf1;
 
-    padding: 10px 14px;
+            padding: 10px 14px;
 
-    border-radius: 9px;
+            border-radius: 9px;
 
-    color: #697184;
+            color: #697184;
 
-    font-size: 11px;
-}
+            font-size: 11px;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    KPI CARDS
 ========================================================= */
 
-.kpi-grid {
-    display: grid;
+        .kpi-grid {
+            display: grid;
 
-    grid-template-columns:
-        repeat(5, 1fr);
+            grid-template-columns:
+                repeat(5, 1fr);
 
-    gap: 16px;
+            gap: 16px;
 
-    margin-bottom: 25px;
-}
+            margin-bottom: 25px;
+        }
 
-.kpi-card {
-    background: white;
+        .kpi-card {
+            background: white;
 
-    border: 1px solid #e7eaf1;
+            border: 1px solid #e7eaf1;
 
-    border-radius: 16px;
+            border-radius: 16px;
 
-    padding: 18px;
+            padding: 18px;
 
-    transition: .2s;
-}
+            transition: .2s;
+        }
 
-.kpi-card:hover {
-    transform: translateY(-3px);
+        .kpi-card:hover {
+            transform: translateY(-3px);
 
-    box-shadow:
-        0 12px 25px
-        rgba(20,30,60,.07);
-}
+            box-shadow:
+                0 12px 25px rgba(20, 30, 60, .07);
+        }
 
-.kpi-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .kpi-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.kpi-icon {
-    width: 38px;
-    height: 38px;
+        .kpi-icon {
+            width: 38px;
+            height: 38px;
 
-    border-radius: 10px;
+            border-radius: 10px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    background: #f0efff;
-    color: #6c5ce7;
-}
+            background: #f0efff;
+            color: #6c5ce7;
+        }
 
-.kpi-number {
-    font-size: 24px;
-    font-weight: 800;
+        .kpi-number {
+            font-size: 24px;
+            font-weight: 800;
 
-    margin-top: 15px;
-}
+            margin-top: 15px;
+        }
 
-.kpi-label {
-    font-size: 10px;
-    color: #8991a1;
-    margin-top: 3px;
-}
-/* Mobile responsiveness - preserve desktop styles above */
-@media (max-width: 430px) {
-    html, body { overflow-x: hidden; }
-    header { padding: 0 16px; }
-    .logo h1 { font-size: 18px; }
-    .logo { width: auto; }
-    .header-right { gap: 12px; }
-    .layout { flex-direction: column; }
-    .sidebar { width: 100%; border-right: none; padding: 12px; display: flex; gap: 8px; overflow-x: auto; }
-    .sidebar-title { display: none; }
-    .sidebar-item { white-space: nowrap; padding: 8px 10px; margin-bottom: 0; border-radius: 10px; }
-    .main { padding: 16px; }
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .kpi-card { padding: 12px; }
-    .page-header h2 { font-size: 18px; }
-}
-@media (max-width: 360px) {
-    .kpi-grid { grid-template-columns: 1fr; }
-}
+        .kpi-label {
+            font-size: 10px;
+            color: #8991a1;
+            margin-top: 3px;
+        }
 
-.kpi-change {
-    font-size: 9px;
-    color: #00a884;
-    margin-top: 7px;
-}
+        /* Mobile responsiveness - preserve desktop styles above */
+        @media (max-width: 430px) {
+
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            header {
+                padding: 0 16px;
+            }
+
+            .logo h1 {
+                font-size: 18px;
+            }
+
+            .logo {
+                width: auto;
+            }
+
+            .header-right {
+                gap: 12px;
+            }
+
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                padding: 12px;
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+            }
+
+            .sidebar-title {
+                display: none;
+            }
+
+            .sidebar-item {
+                white-space: nowrap;
+                padding: 8px 10px;
+                margin-bottom: 0;
+                border-radius: 10px;
+            }
+
+            .main {
+                padding: 16px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .kpi-card {
+                padding: 12px;
+            }
+
+            .page-header h2 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-change {
+            font-size: 9px;
+            color: #00a884;
+            margin-top: 7px;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    ANALYTICS ROW
 ========================================================= */
 
-.analytics-grid {
-    display: grid;
+        .analytics-grid {
+            display: grid;
 
-    grid-template-columns:
-        1.5fr 1fr 1fr;
+            grid-template-columns:
+                1.5fr 1fr 1fr;
 
-    gap: 18px;
+            gap: 18px;
 
-    margin-bottom: 25px;
-}
+            margin-bottom: 25px;
+        }
 
-.analytics-card {
-    background: white;
+        .analytics-card {
+            background: white;
 
-    border: 1px solid #e7eaf1;
+            border: 1px solid #e7eaf1;
 
-    border-radius: 17px;
+            border-radius: 17px;
 
-    padding: 20px;
-}
+            padding: 20px;
+        }
 
-.card-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-    margin-bottom: 18px;
-}
+            margin-bottom: 18px;
+        }
 
-.card-title h3 {
-    font-size: 14px;
-}
+        .card-title h3 {
+            font-size: 14px;
+        }
 
-.card-title span {
-    font-size: 10px;
-    color: #8991a1;
-}
-
-
-/* RATING ANALYSIS */
-
-.rating-chart {
-    display: flex;
-    align-items: flex-end;
-
-    height: 130px;
-
-    gap: 18px;
-
-    padding: 0 10px;
-}
-
-.chart-column {
-    flex: 1;
-
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.bar-wrapper {
-    height: 100px;
-
-    width: 25px;
-
-    display: flex;
-    align-items: flex-end;
-}
-
-.bar {
-    width: 100%;
-
-    border-radius: 6px 6px 2px 2px;
-
-    background: #6c5ce7;
-}
-
-.bar.genuine {
-    background: #00b894;
-}
-
-.bar.fake {
-    background: #ff7675;
-}
-
-.bar-label {
-    font-size: 9px;
-    color: #8991a1;
-
-    margin-top: 7px;
-}
+        .card-title span {
+            font-size: 10px;
+            color: #8991a1;
+        }
 
 
-/* =========================================================
+        /* RATING ANALYSIS */
+
+        .rating-chart {
+            display: flex;
+            align-items: flex-end;
+
+            height: 130px;
+
+            gap: 18px;
+
+            padding: 0 10px;
+        }
+
+        .chart-column {
+            flex: 1;
+
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .bar-wrapper {
+            height: 100px;
+
+            width: 25px;
+
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .bar {
+            width: 100%;
+
+            border-radius: 6px 6px 2px 2px;
+
+            background: #6c5ce7;
+        }
+
+        .bar.genuine {
+            background: #00b894;
+        }
+
+        .bar.fake {
+            background: #ff7675;
+        }
+
+        .bar-label {
+            font-size: 9px;
+            color: #8991a1;
+
+            margin-top: 7px;
+        }
+
+
+        /* =========================================================
    TRUST SUMMARY
 ========================================================= */
 
-.trust-score-box {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
+        .trust-score-box {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
 
-.big-score {
-    width: 95px;
-    height: 95px;
+        .big-score {
+            width: 95px;
+            height: 95px;
 
-    border-radius: 50%;
+            border-radius: 50%;
 
-    border: 8px solid #6c5ce7;
+            border: 8px solid #6c5ce7;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    font-size: 25px;
-    font-weight: 800;
+            font-size: 25px;
+            font-weight: 800;
 
-    color: #6c5ce7;
-}
+            color: #6c5ce7;
+        }
 
-.trust-details p {
-    font-size: 11px;
-    color: #8991a1;
+        .trust-details p {
+            font-size: 11px;
+            color: #8991a1;
 
-    margin-bottom: 8px;
-}
+            margin-bottom: 8px;
+        }
 
-.trust-status {
-    display: inline-block;
+        .trust-status {
+            display: inline-block;
 
-    padding: 6px 9px;
+            padding: 6px 9px;
 
-    border-radius: 6px;
+            border-radius: 6px;
 
-    background: #eafaf6;
+            background: #eafaf6;
 
-    color: #00a884;
+            color: #00a884;
 
-    font-size: 10px;
-    font-weight: 700;
-}
+            font-size: 10px;
+            font-weight: 700;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    SUSPICIOUS ACTIVITY
 ========================================================= */
 
-.alert-box {
-    background: #fff7ed;
+        .alert-box {
+            background: #fff7ed;
 
-    border: 1px solid #fed7aa;
+            border: 1px solid #fed7aa;
 
-    border-radius: 11px;
+            border-radius: 11px;
 
-    padding: 12px;
+            padding: 12px;
 
-    display: flex;
-    gap: 10px;
-}
+            display: flex;
+            gap: 10px;
+        }
 
-.alert-icon {
-    color: #f39c12;
-}
+        .alert-icon {
+            color: #f39c12;
+        }
 
-.alert-box strong {
-    font-size: 11px;
-}
+        .alert-box strong {
+            font-size: 11px;
+        }
 
-.alert-box p {
-    color: #8991a1;
-    font-size: 9px;
-    margin-top: 4px;
-}
+        .alert-box p {
+            color: #8991a1;
+            font-size: 9px;
+            margin-top: 4px;
+        }
 
-.review-button {
-    margin-top: 13px;
+        .review-button {
+            margin-top: 13px;
 
-    border: none;
+            border: none;
 
-    background: #fff;
+            background: #fff;
 
-    border: 1px solid #f39c12;
+            border: 1px solid #f39c12;
 
-    color: #d68910;
+            color: #d68910;
 
-    padding: 8px 12px;
+            padding: 8px 12px;
 
-    border-radius: 7px;
+            border-radius: 7px;
 
-    font-size: 10px;
+            font-size: 10px;
 
-    font-weight: 700;
-}
+            font-weight: 700;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    USER MANAGEMENT
 ========================================================= */
 
-.users-section {
-    background: white;
+        .users-section {
+            background: white;
 
-    border: 1px solid #e7eaf1;
+            border: 1px solid #e7eaf1;
 
-    border-radius: 18px;
+            border-radius: 18px;
 
-    overflow: hidden;
-}
+            overflow: hidden;
+        }
 
-.users-header {
-    padding: 20px;
+        .users-header {
+            padding: 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-    border-bottom: 1px solid #eef0f4;
-}
+            border-bottom: 1px solid #eef0f4;
+        }
 
-.users-header h3 {
-    font-size: 15px;
-}
+        .users-header h3 {
+            font-size: 15px;
+        }
 
-.users-header p {
-    font-size: 10px;
-    color: #8991a1;
-    margin-top: 4px;
-}
+        .users-header p {
+            font-size: 10px;
+            color: #8991a1;
+            margin-top: 4px;
+        }
 
-.user-controls {
-    display: flex;
-    gap: 9px;
-}
+        .user-controls {
+            display: flex;
+            gap: 9px;
+        }
 
-.user-search {
-    width: 210px;
+        .user-search {
+            width: 210px;
 
-    border: 1px solid #e3e6ed;
+            border: 1px solid #e3e6ed;
 
-    border-radius: 8px;
+            border-radius: 8px;
 
-    padding: 9px 11px;
+            padding: 9px 11px;
 
-    outline: none;
+            outline: none;
 
-    font-size: 10px;
-}
+            font-size: 10px;
+        }
 
-.user-filter {
-    border: 1px solid #e3e6ed;
+        .user-filter {
+            border: 1px solid #e3e6ed;
 
-    border-radius: 8px;
+            border-radius: 8px;
 
-    padding: 9px;
+            padding: 9px;
 
-    outline: none;
+            outline: none;
 
-    color: #697184;
+            color: #697184;
 
-    font-size: 10px;
-}
+            font-size: 10px;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    TABLE
 ========================================================= */
 
-.table-container {
-    overflow-x: auto;
-}
+        .table-container {
+            overflow-x: auto;
+        }
 
-table {
-    width: 100%;
+        table {
+            width: 100%;
 
-    border-collapse: collapse;
+            border-collapse: collapse;
 
-    min-width: 1050px;
-}
+            min-width: 1050px;
+        }
 
-thead {
-    background: #fafbfc;
-}
+        thead {
+            background: #fafbfc;
+        }
 
-th {
-    text-align: left;
+        th {
+            text-align: left;
 
-    padding: 13px 15px;
+            padding: 13px 15px;
 
-    font-size: 9px;
+            font-size: 9px;
 
-    color: #8991a1;
+            color: #8991a1;
 
-    text-transform: uppercase;
+            text-transform: uppercase;
 
-    letter-spacing: .4px;
-}
+            letter-spacing: .4px;
+        }
 
-td {
-    padding: 14px 15px;
+        td {
+            padding: 14px 15px;
 
-    border-top: 1px solid #f0f1f4;
+            border-top: 1px solid #f0f1f4;
 
-    font-size: 10px;
-}
-
-
-/* USER */
-
-.user-cell {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-.user-mini-avatar {
-    width: 32px;
-    height: 32px;
-
-    border-radius: 50%;
-
-    background: #f0efff;
-
-    color: #6c5ce7;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-weight: 800;
-}
-
-.user-cell strong {
-    display: block;
-    font-size: 10px;
-}
-
-.user-cell small {
-    display: block;
-    color: #9aa1af;
-    font-size: 8px;
-    margin-top: 2px;
-}
+            font-size: 10px;
+        }
 
 
-/* STATUS */
+        /* USER */
 
-.status {
-    display: inline-flex;
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
 
-    align-items: center;
-    gap: 5px;
+        .user-mini-avatar {
+            width: 32px;
+            height: 32px;
 
-    padding: 5px 8px;
+            border-radius: 50%;
 
-    border-radius: 6px;
+            background: #f0efff;
 
-    font-size: 8px;
+            color: #6c5ce7;
 
-    font-weight: 800;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-.status.genuine {
-    background: #eafaf6;
-    color: #00a884;
-}
+            font-weight: 800;
+        }
 
-.status.fake {
-    background: #fff0f0;
-    color: #e74c3c;
-}
+        .user-cell strong {
+            display: block;
+            font-size: 10px;
+        }
 
-.status.suspicious {
-    background: #fff7e6;
-    color: #e67e22;
-}
-
-
-/* TRUST */
-
-.trust-mini {
-    font-weight: 800;
-}
-
-.trust-mini.high {
-    color: #00a884;
-}
-
-.trust-mini.medium {
-    color: #f39c12;
-}
-
-.trust-mini.low {
-    color: #e74c3c;
-}
+        .user-cell small {
+            display: block;
+            color: #9aa1af;
+            font-size: 8px;
+            margin-top: 2px;
+        }
 
 
-/* RECOMMENDATION STATUS */
+        /* STATUS */
 
-.rec-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+        .status {
+            display: inline-flex;
 
-    font-size: 9px;
-    font-weight: 700;
-}
+            align-items: center;
+            gap: 5px;
 
-.rec-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-}
+            padding: 5px 8px;
 
-.rec-dot.on {
-    background: #00b894;
-}
+            border-radius: 6px;
 
-.rec-dot.off {
-    background: #ff7675;
-}
+            font-size: 8px;
 
+            font-weight: 800;
+        }
 
-/* ACTION BUTTONS */
+        .status.genuine {
+            background: #eafaf6;
+            color: #00a884;
+        }
 
-.action-buttons {
-    display: flex;
-    gap: 5px;
-}
+        .status.fake {
+            background: #fff0f0;
+            color: #e74c3c;
+        }
 
-.action-btn {
-    width: 29px;
-    height: 29px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    background: #f4f5f8;
-
-    color: #697184;
-
-    transition: .2s;
-}
-
-.action-btn:hover {
-    background: #6c5ce7;
-    color: white;
-}
-
-.action-btn.danger:hover {
-    background: #e74c3c;
-}
-
-.action-btn.green:hover {
-    background: #00a884;
-}
+        .status.suspicious {
+            background: #fff7e6;
+            color: #e67e22;
+        }
 
 
-/* =========================================================
+        /* TRUST */
+
+        .trust-mini {
+            font-weight: 800;
+        }
+
+        .trust-mini.high {
+            color: #00a884;
+        }
+
+        .trust-mini.medium {
+            color: #f39c12;
+        }
+
+        .trust-mini.low {
+            color: #e74c3c;
+        }
+
+
+        /* RECOMMENDATION STATUS */
+
+        .rec-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .rec-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .rec-dot.on {
+            background: #00b894;
+        }
+
+        .rec-dot.off {
+            background: #ff7675;
+        }
+
+
+        /* ACTION BUTTONS */
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-btn {
+            width: 29px;
+            height: 29px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #f4f5f8;
+
+            color: #697184;
+
+            transition: .2s;
+        }
+
+        .action-btn:hover {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        .action-btn.danger:hover {
+            background: #e74c3c;
+        }
+
+        .action-btn.green:hover {
+            background: #00a884;
+        }
+
+
+        /* =========================================================
    PAGINATION
 ========================================================= */
 
-.pagination {
-    padding: 15px 20px;
+        .pagination {
+            padding: 15px 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-    border-top: 1px solid #eef0f4;
-}
+            border-top: 1px solid #eef0f4;
+        }
 
-.pagination-info {
-    color: #8991a1;
-    font-size: 9px;
-}
+        .pagination-info {
+            color: #8991a1;
+            font-size: 9px;
+        }
 
-.pages {
-    display: flex;
-    gap: 5px;
-}
+        .pages {
+            display: flex;
+            gap: 5px;
+        }
 
-.page {
-    width: 27px;
-    height: 27px;
+        .page {
+            width: 27px;
+            height: 27px;
 
-    border: 1px solid #e4e6ec;
+            border: 1px solid #e4e6ec;
 
-    background: white;
+            background: white;
 
-    border-radius: 6px;
+            border-radius: 6px;
 
-    font-size: 9px;
+            font-size: 9px;
 
-    color: #697184;
-}
+            color: #697184;
+        }
 
-.page.active {
-    background: #6c5ce7;
-    color: white;
-    border-color: #6c5ce7;
-}
+        .page.active {
+            background: #6c5ce7;
+            color: white;
+            border-color: #6c5ce7;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    MODAL
 ========================================================= */
 
-.modal {
-    position: fixed;
+        .modal {
+            position: fixed;
 
-    inset: 0;
+            inset: 0;
 
-    background:
-        rgba(15,18,35,.65);
+            background:
+                rgba(15, 18, 35, .65);
 
-    display: none;
+            display: none;
 
-    align-items: center;
-    justify-content: center;
+            align-items: center;
+            justify-content: center;
 
-    z-index: 3000;
+            z-index: 3000;
 
-    padding: 20px;
-}
+            padding: 20px;
+        }
 
-.modal.active {
-    display: flex;
-}
+        .modal.active {
+            display: flex;
+        }
 
-.modal-box {
-    width: 850px;
+        .modal-box {
+            width: 850px;
 
-    max-width: 100%;
+            max-width: 100%;
 
-    max-height: 90vh;
+            max-height: 90vh;
 
-    overflow-y: auto;
+            overflow-y: auto;
 
-    background: white;
+            background: white;
 
-    border-radius: 20px;
+            border-radius: 20px;
 
-    padding: 25px;
+            padding: 25px;
 
-    position: relative;
-}
+            position: relative;
+        }
 
-.modal-close {
-    position: absolute;
+        .modal-close {
+            position: absolute;
 
-    top: 17px;
-    right: 17px;
+            top: 17px;
+            right: 17px;
 
-    width: 32px;
-    height: 32px;
+            width: 32px;
+            height: 32px;
 
-    border: none;
+            border: none;
 
-    background: #f1f2f6;
+            background: #f1f2f6;
 
-    border-radius: 50%;
+            border-radius: 50%;
 
-    color: #697184;
-}
-
-
-/* MODAL USER HEADER */
-
-.modal-user-header {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #eef0f4;
-}
-
-.modal-avatar {
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #6c5ce7,
-            #00cec9
-        );
-
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 20px;
-    font-weight: 800;
-}
-
-.modal-user-header h2 {
-    font-size: 18px;
-}
-
-.modal-user-header p {
-    color: #8991a1;
-    font-size: 10px;
-    margin-top: 4px;
-}
+            color: #697184;
+        }
 
 
-/* MODAL GRID */
+        /* MODAL USER HEADER */
 
-.modal-grid {
-    display: grid;
+        .modal-user-header {
+            display: flex;
 
-    grid-template-columns:
-        repeat(4, 1fr);
+            align-items: center;
 
-    gap: 12px;
+            gap: 15px;
 
-    margin: 20px 0;
-}
+            padding-bottom: 20px;
 
-.modal-stat {
-    background: #f8f9fb;
+            border-bottom: 1px solid #eef0f4;
+        }
 
-    padding: 14px;
+        .modal-avatar {
+            width: 55px;
+            height: 55px;
 
-    border-radius: 10px;
-}
+            border-radius: 50%;
 
-.modal-stat span {
-    color: #8991a1;
-    font-size: 9px;
-}
+            background:
+                linear-gradient(135deg,
+                    #6c5ce7,
+                    #00cec9);
 
-.modal-stat strong {
-    display: block;
+            color: white;
 
-    font-size: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    margin-top: 5px;
-}
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .modal-user-header h2 {
+            font-size: 18px;
+        }
+
+        .modal-user-header p {
+            color: #8991a1;
+            font-size: 10px;
+            margin-top: 4px;
+        }
 
 
-/* =========================================================
+        /* MODAL GRID */
+
+        .modal-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin: 20px 0;
+        }
+
+        .modal-stat {
+            background: #f8f9fb;
+
+            padding: 14px;
+
+            border-radius: 10px;
+        }
+
+        .modal-stat span {
+            color: #8991a1;
+            font-size: 9px;
+        }
+
+        .modal-stat strong {
+            display: block;
+
+            font-size: 17px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================================================
    HISTORY
 ========================================================= */
 
-.history-title {
-    font-size: 13px;
+        .history-title {
+            font-size: 13px;
 
-    margin: 20px 0 12px;
-}
+            margin: 20px 0 12px;
+        }
 
-.history {
-    border: 1px solid #e9ebf0;
+        .history {
+            border: 1px solid #e9ebf0;
 
-    border-radius: 10px;
+            border-radius: 10px;
 
-    overflow: hidden;
-}
+            overflow: hidden;
+        }
 
-.history-row {
-    display: grid;
+        .history-row {
+            display: grid;
 
-    grid-template-columns:
-        110px 1fr 100px 100px;
+            grid-template-columns:
+                110px 1fr 100px 100px;
 
-    padding: 11px 13px;
+            padding: 11px 13px;
 
-    border-bottom: 1px solid #f0f1f4;
+            border-bottom: 1px solid #f0f1f4;
 
-    font-size: 9px;
-}
+            font-size: 9px;
+        }
 
-.history-row:last-child {
-    border-bottom: none;
-}
+        .history-row:last-child {
+            border-bottom: none;
+        }
 
-.history-head {
-    background: #fafbfc;
+        .history-head {
+            background: #fafbfc;
 
-    color: #8991a1;
+            color: #8991a1;
 
-    font-weight: 700;
-}
+            font-weight: 700;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    RECOMMENDATION CONTROL
 ========================================================= */
 
-.control-box {
-    margin-top: 20px;
+        .control-box {
+            margin-top: 20px;
 
-    padding: 17px;
+            padding: 17px;
 
-    border-radius: 12px;
+            border-radius: 12px;
 
-    background:
-        linear-gradient(
-            120deg,
-            #f0efff,
-            #eafdfb
-        );
+            background:
+                linear-gradient(120deg,
+                    #f0efff,
+                    #eafdfb);
 
-    border: 1px solid #dedcff;
-}
+            border: 1px solid #dedcff;
+        }
 
-.control-box h3 {
-    font-size: 12px;
-}
+        .control-box h3 {
+            font-size: 12px;
+        }
 
-.control-box p {
-    color: #8991a1;
+        .control-box p {
+            color: #8991a1;
 
-    font-size: 9px;
+            font-size: 9px;
 
-    margin-top: 4px;
-}
+            margin-top: 4px;
+        }
 
-.control-buttons {
-    display: flex;
+        .control-buttons {
+            display: flex;
 
-    gap: 8px;
+            gap: 8px;
 
-    margin-top: 13px;
-}
+            margin-top: 13px;
+        }
 
-.control-btn {
-    border: none;
+        .control-btn {
+            border: none;
 
-    padding: 9px 13px;
+            padding: 9px 13px;
 
-    border-radius: 7px;
+            border-radius: 7px;
 
-    font-size: 9px;
+            font-size: 9px;
 
-    font-weight: 700;
-}
+            font-weight: 700;
+        }
 
-.control-btn.primary {
-    background: #6c5ce7;
-    color: white;
-}
+        .control-btn.primary {
+            background: #6c5ce7;
+            color: white;
+        }
 
-.control-btn.warning {
-    background: #f39c12;
-    color: white;
-}
+        .control-btn.warning {
+            background: #f39c12;
+            color: white;
+        }
 
-.control-btn.danger {
-    background: #e74c3c;
-    color: white;
-}
+        .control-btn.danger {
+            background: #e74c3c;
+            color: white;
+        }
 
-.control-btn.success {
-    background: #00a884;
-    color: white;
-}
+        .control-btn.success {
+            background: #00a884;
+            color: white;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    FOOTER
 ========================================================= */
 
-footer {
-    margin-top: 30px;
+        footer {
+            margin-top: 30px;
 
-    background: #17192b;
+            background: #17192b;
 
-    color: #aeb3c5;
+            color: #aeb3c5;
 
-    padding: 22px 5%;
+            padding: 22px 5%;
 
-    display: flex;
+            display: flex;
 
-    justify-content: space-between;
+            justify-content: space-between;
 
-    font-size: 9px;
-}
+            font-size: 9px;
+        }
 
 
-/* =========================================================
+        /* =========================================================
    RESPONSIVE
 ========================================================= */
 
-@media(max-width:1200px) {
+        @media(max-width:1200px) {
 
-    .kpi-grid {
-        grid-template-columns:
-            repeat(3, 1fr);
-    }
+            .kpi-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
 
-    .analytics-grid {
-        grid-template-columns:
-            1fr 1fr;
-    }
+            .analytics-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
 
-}
+        }
 
-@media(max-width:900px) {
+        @media(max-width:900px) {
 
-    .sidebar {
-        width: 70px;
-    }
+            .sidebar {
+                width: 70px;
+            }
 
-    .sidebar-item span,
-    .sidebar-title,
-    .sidebar-divider {
-        display: none;
-    }
+            .sidebar-item span,
+            .sidebar-title,
+            .sidebar-divider {
+                display: none;
+            }
 
-    .sidebar-item {
-        justify-content: center;
-    }
+            .sidebar-item {
+                justify-content: center;
+            }
 
-    .logo {
-        width: auto;
-    }
+            .logo {
+                width: auto;
+            }
 
-}
+        }
 
-@media(max-width:700px) {
+        @media(max-width:700px) {
 
-    .main {
-        padding: 20px 15px;
-    }
+            .main {
+                padding: 20px 15px;
+            }
 
-    .kpi-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
+            .kpi-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
 
-    .analytics-grid {
-        grid-template-columns: 1fr;
-    }
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
 
-    .page-header {
-        align-items: flex-start;
-    }
+            .page-header {
+                align-items: flex-start;
+            }
 
-    .user-controls {
-        flex-direction: column;
-    }
+            .user-controls {
+                flex-direction: column;
+            }
 
-    .user-search {
-        width: 150px;
-    }
+            .user-search {
+                width: 150px;
+            }
 
-    .modal-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
+            .modal-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
 
-}
-
-</style>
+        }
+    </style>
 
 </head>
 
@@ -1306,1626 +1370,891 @@ footer {
 <body>
 
 
-<!-- =========================================================
+    <!-- =========================================================
      HEADER
 ========================================================= -->
 
-<header>
+    <header>
 
-    <div class="logo">
+        <div class="logo">
 
-        <div class="logo-icon">
-            <i class="fa-solid fa-brain"></i>
-        </div>
-
-        <div>
-
-            <h1>
-                Recom<span>AI</span>
-            </h1>
-
-            <span class="admin-label">
-                ADMIN CONTROL CENTER
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="header-right">
-
-        <div class="notification">
-
-            <i class="fa-regular fa-bell"></i>
-
-            <span class="notification-badge">
-                5
-            </span>
-
-        </div>
-
-
-        <div class="admin-profile">
-
-            <div class="admin-avatar">
-                A
+            <div class="logo-icon">
+                <i class="fa-solid fa-brain"></i>
             </div>
 
             <div>
 
-                <strong>Administrator</strong>
-
-                <small>
-                    System Admin
-                </small>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-
-<!-- =========================================================
-     LAYOUT
-========================================================= -->
-
-<div class="layout">
-
-
-<!-- =========================================================
-     SIDEBAR
-========================================================= -->
-
-<aside class="sidebar">
-
-
-    <div class="sidebar-title">
-        MAIN MENU
-    </div>
-
-
-    <a
-        href="#"
-        class="sidebar-item active">
-
-        <i class="fa-solid fa-chart-pie"></i>
-
-        <span>
-            Dashboard
-        </span>
-
-    </a>
-
-
-    <a
-        href="#users"
-        class="sidebar-item">
-
-        <i class="fa-solid fa-users"></i>
-
-        <span>
-            User Management
-        </span>
-
-    </a>
-
-
-    <a
-        href="#ratings"
-        class="sidebar-item">
-
-        <i class="fa-solid fa-star"></i>
-
-        <span>
-            Rating Analysis
-        </span>
-
-    </a>
-
-
-    <a
-        href="#recommendations"
-        class="sidebar-item">
-
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-        <span>
-            Recommendations
-        </span>
-
-    </a>
-
-
-    <a
-        href="#security"
-        class="sidebar-item">
-
-        <i class="fa-solid fa-shield-halved"></i>
-
-        <span>
-            Fake User Detection
-        </span>
-
-    </a>
-
-
-    <div class="sidebar-divider"></div>
-
-
-    <div class="sidebar-title">
-        SYSTEM
-    </div>
-
-
-    <a href="#" class="sidebar-item">
-
-        <i class="fa-solid fa-box"></i>
-
-        <span>
-            Products
-        </span>
-
-    </a>
-
-
-    <a href="#" class="sidebar-item">
-
-        <i class="fa-solid fa-database"></i>
-
-        <span>
-            ML Dataset
-        </span>
-
-    </a>
-
-
-    <a href="#" class="sidebar-item">
-
-        <i class="fa-solid fa-chart-line"></i>
-
-        <span>
-            ML Performance
-        </span>
-
-    </a>
-
-
-    <a href="#" class="sidebar-item">
-
-        <i class="fa-solid fa-gear"></i>
-
-        <span>
-            Settings
-        </span>
-
-    </a>
-
-
-</aside>
-
-
-
-<!-- =========================================================
-     MAIN CONTENT
-========================================================= -->
-
-<main class="main">
-
-
-    <!-- PAGE HEADER -->
-
-    <div class="page-header">
-
-        <div>
-
-            <h2>
-                Admin Dashboard
-            </h2>
-
-            <p>
-                Monitor users, ratings and AI recommendation behaviour
-            </p>
-
-        </div>
-
-
-        <div class="date-box">
-
-            <i class="fa-regular fa-calendar"></i>
-
-            August 10, 2026
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
-         KPI
-    ====================================================== -->
-
-    <section class="kpi-grid">
-
-
-        <div class="kpi-card">
-
-            <div class="kpi-top">
-
-                <div class="kpi-icon">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-
-                <i
-                    class="fa-solid fa-arrow-trend-up"
-                    style="color:#00a884">
-                </i>
-
-            </div>
-
-            <div class="kpi-number">
-                24,892
-            </div>
-
-            <div class="kpi-label">
-                Total Users
-            </div>
-
-            <div class="kpi-change">
-                +8.4% this month
-            </div>
-
-        </div>
-
-
-        <div class="kpi-card">
-
-            <div class="kpi-top">
-
-                <div class="kpi-icon"
-                     style="color:#00a884;background:#eafaf6">
-
-                    <i class="fa-solid fa-user-check"></i>
-
-                </div>
-
-            </div>
-
-            <div class="kpi-number">
-                23,714
-            </div>
-
-            <div class="kpi-label">
-                Genuine Users
-            </div>
-
-            <div class="kpi-change">
-                95.2% of users
-            </div>
-
-        </div>
-
-
-        <div class="kpi-card">
-
-            <div class="kpi-top">
-
-                <div class="kpi-icon"
-                     style="color:#e74c3c;background:#fff0f0">
-
-                    <i class="fa-solid fa-user-xmark"></i>
-
-                </div>
-
-            </div>
-
-            <div class="kpi-number">
-                847
-            </div>
-
-            <div class="kpi-label">
-                Fake Users
-            </div>
-
-            <div class="kpi-change"
-                 style="color:#e74c3c">
-
-                Requires review
+                <h1>
+                    Recom<span>AI</span>
+                </h1>
+
+                <span class="admin-label">
+                    ADMIN CONTROL CENTER
+                </span>
 
             </div>
 
         </div>
 
 
-        <div class="kpi-card">
+        <div class="header-right">
 
-            <div class="kpi-top">
+            <div class="notification">
 
-                <div class="kpi-icon"
-                     style="color:#f39c12;background:#fff7e6">
+                <i class="fa-regular fa-bell"></i>
 
-                    <i class="fa-solid fa-star-half-stroke"></i>
-
-                </div>
-
-            </div>
-
-            <div class="kpi-number">
-                138.4K
-            </div>
-
-            <div class="kpi-label">
-                Genuine Ratings
-            </div>
-
-            <div class="kpi-change">
-                91.8% verified
-            </div>
-
-        </div>
-
-
-        <div class="kpi-card">
-
-            <div class="kpi-top">
-
-                <div class="kpi-icon">
-
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                </div>
-
-            </div>
-
-            <div class="kpi-number">
-                92.6%
-            </div>
-
-            <div class="kpi-label">
-                Recommendation Accuracy
-            </div>
-
-            <div class="kpi-change">
-                +3.2% improvement
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
-         ANALYTICS
-    ====================================================== -->
-
-    <section class="analytics-grid" id="ratings">
-
-
-        <!-- RATING ANALYSIS -->
-
-        <div class="analytics-card">
-
-            <div class="card-title">
-
-                <h3>
-                    Rating Authenticity
-                </h3>
-
-                <span>
-                    Last 7 days
+                <span class="notification-badge">
+                    5
                 </span>
 
             </div>
 
 
-            <div class="rating-chart">
+            <div class="admin-profile">
 
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar genuine"
-                            style="height:78%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Mon
-                    </span>
-
-                </div>
-
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar genuine"
-                            style="height:84%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Tue
-                    </span>
-
-                </div>
-
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar genuine"
-                            style="height:68%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Wed
-                    </span>
-
-                </div>
-
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar fake"
-                            style="height:42%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Thu
-                    </span>
-
-                </div>
-
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar genuine"
-                            style="height:90%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Fri
-                    </span>
-
-                </div>
-
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar genuine"
-                            style="height:76%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Sat
-                    </span>
-
-                </div>
-
-
-                <div class="chart-column">
-
-                    <div class="bar-wrapper">
-
-                        <div
-                            class="bar genuine"
-                            style="height:94%">
-                        </div>
-
-                    </div>
-
-                    <span class="bar-label">
-                        Sun
-                    </span>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-
-        <!-- TRUST SCORE -->
-
-        <div class="analytics-card">
-
-            <div class="card-title">
-
-                <h3>
-                    Platform Trust Score
-                </h3>
-
-            </div>
-
-
-            <div class="trust-score-box">
-
-                <div class="big-score">
-                    94
-                </div>
-
-                <div class="trust-details">
-
-                    <p>
-                        Overall platform
-                    </p>
-
-                    <strong>
-                        Excellent
-                    </strong>
-
-                    <br><br>
-
-                    <span class="trust-status">
-
-                        <i class="fa-solid fa-circle-check"></i>
-
-                        Healthy
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- ALERT -->
-
-        <div class="analytics-card">
-
-            <div class="card-title">
-
-                <h3>
-                    Security Alerts
-                </h3>
-
-                <span>
-                    Today
-                </span>
-
-            </div>
-
-
-            <div class="alert-box">
-
-                <div class="alert-icon">
-
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-
+                <div class="admin-avatar">
+                    A
                 </div>
 
                 <div>
 
-                    <strong>
-                        37 suspicious users
-                    </strong>
+                    <strong>Administrator</strong>
+
+                    <small>
+                        System Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+            <button class="logout-btn" onclick="logoutAdmin()" title="Logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+     LAYOUT
+========================================================= -->
+
+    <div class="layout">
+
+
+        <!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+        <aside class="sidebar">
+
+
+            <div class="sidebar-title">
+                MAIN MENU
+            </div>
+
+
+            <a href="#" class="sidebar-item active">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="#users" class="sidebar-item">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    User Management
+                </span>
+
+            </a>
+
+
+            <a href="#ratings" class="sidebar-item">
+
+                <i class="fa-solid fa-star"></i>
+
+                <span>
+                    Rating Analysis
+                </span>
+
+            </a>
+
+
+            <a href="#recommendations" class="sidebar-item">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                <span>
+                    Recommendations
+                </span>
+
+            </a>
+
+
+            <a href="#security" class="sidebar-item">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    Fake User Detection
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-divider"></div>
+
+
+            <div class="sidebar-title">
+                SYSTEM
+            </div>
+
+
+            <a href="#products-management" class="sidebar-item">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>
+                    Products
+                </span>
+
+            </a>
+
+
+            <a href="#" class="sidebar-item">
+
+                <i class="fa-solid fa-database"></i>
+
+                <span>
+                    ML Dataset
+                </span>
+
+            </a>
+
+
+            <a href="#" class="sidebar-item">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    ML Performance
+                </span>
+
+            </a>
+
+
+            <a href="#" class="sidebar-item">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </aside>
+
+
+
+        <!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+        <main class="main">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>
+                        Admin Dashboard
+                    </h2>
 
                     <p>
-                        Unusual rating patterns detected.
+                        Monitor users, ratings and AI recommendation behaviour
                     </p>
+
+                </div>
+
+
+                <div class="date-box">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    August 10, 2026
 
                 </div>
 
             </div>
 
 
-            <button
-                class="review-button"
-                onclick="showSecurityAlert()">
 
-                Review suspicious activity
+            <!-- =====================================================
+         KPI
+    ====================================================== -->
 
-            </button>
-
-        </div>
+            <section class="kpi-grid">
 
 
-    </section>
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <i class="fa-solid fa-arrow-trend-up" style="color:#00a884">
+                        </i>
+
+                    </div>
+
+                    <div class="kpi-number">
+                        24,892
+                    </div>
+
+                    <div class="kpi-label">
+                        Total Users
+                    </div>
+
+                    <div class="kpi-change">
+                        +8.4% this month
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon" style="color:#00a884;background:#eafaf6">
+
+                            <i class="fa-solid fa-user-check"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="kpi-number">
+                        23,714
+                    </div>
+
+                    <div class="kpi-label">
+                        Genuine Users
+                    </div>
+
+                    <div class="kpi-change">
+                        95.2% of users
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon" style="color:#e74c3c;background:#fff0f0">
+
+                            <i class="fa-solid fa-user-xmark"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="kpi-number">
+                        847
+                    </div>
+
+                    <div class="kpi-label">
+                        Fake Users
+                    </div>
+
+                    <div class="kpi-change" style="color:#e74c3c">
+
+                        Requires review
+
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon" style="color:#f39c12;background:#fff7e6">
+
+                            <i class="fa-solid fa-star-half-stroke"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="kpi-number">
+                        138.4K
+                    </div>
+
+                    <div class="kpi-label">
+                        Genuine Ratings
+                    </div>
+
+                    <div class="kpi-change">
+                        91.8% verified
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon">
+
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="kpi-number">
+                        92.6%
+                    </div>
+
+                    <div class="kpi-label">
+                        Recommendation Accuracy
+                    </div>
+
+                    <div class="kpi-change">
+                        +3.2% improvement
+                    </div>
+
+                </div>
+
+
+            </section>
 
 
 
-    <!-- =====================================================
+            <!-- =====================================================
+         ANALYTICS
+    ====================================================== -->
+
+            <section class="analytics-grid" id="ratings">
+
+
+                <!-- RATING ANALYSIS -->
+
+                <div class="analytics-card">
+
+                    <div class="card-title">
+
+                        <h3>
+                            Rating Authenticity
+                        </h3>
+
+                        <span>
+                            Last 7 days
+                        </span>
+
+                    </div>
+
+
+                    <div class="rating-chart">
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar genuine" style="height:78%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Mon
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar genuine" style="height:84%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Tue
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar genuine" style="height:68%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Wed
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar fake" style="height:42%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Thu
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar genuine" style="height:90%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Fri
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar genuine" style="height:76%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Sat
+                            </span>
+
+                        </div>
+
+
+                        <div class="chart-column">
+
+                            <div class="bar-wrapper">
+
+                                <div class="bar genuine" style="height:94%">
+                                </div>
+
+                            </div>
+
+                            <span class="bar-label">
+                                Sun
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TRUST SCORE -->
+
+                <div class="analytics-card">
+
+                    <div class="card-title">
+
+                        <h3>
+                            Platform Trust Score
+                        </h3>
+
+                    </div>
+
+
+                    <div class="trust-score-box">
+
+                        <div class="big-score">
+                            94
+                        </div>
+
+                        <div class="trust-details">
+
+                            <p>
+                                Overall platform
+                            </p>
+
+                            <strong>
+                                Excellent
+                            </strong>
+
+                            <br><br>
+
+                            <span class="trust-status">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Healthy
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ALERT -->
+
+                <div class="analytics-card">
+
+                    <div class="card-title">
+
+                        <h3>
+                            Security Alerts
+                        </h3>
+
+                        <span>
+                            Today
+                        </span>
+
+                    </div>
+
+
+                    <div class="alert-box">
+
+                        <div class="alert-icon">
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                37 suspicious users
+                            </strong>
+
+                            <p>
+                                Unusual rating patterns detected.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="review-button" onclick="showSecurityAlert()">
+
+                        Review suspicious activity
+
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =====================================================
          USER MANAGEMENT
     ====================================================== -->
 
-    <section
-        class="users-section"
-        id="users">
+            <section class="users-section" id="users">
 
 
-        <div class="users-header">
+                <div class="users-header">
 
-            <div>
+                    <div>
 
-                <h3>
-                    User Management
-                </h3>
+                        <h3>
+                            User Management
+                        </h3>
 
-                <p>
-                    Control recommendation access and inspect user behaviour
-                </p>
+                        <p>
+                            Control recommendation access and inspect user behaviour
+                        </p>
 
-            </div>
+                    </div>
 
 
-            <div class="user-controls">
+                    <div class="user-controls">
 
-                <input
-                    type="text"
-                    id="userSearch"
-                    class="user-search"
-                    placeholder="Search user..."
-                    onkeyup="filterUsers()"
-                >
+                        <input type="text" id="userSearch" class="user-search" placeholder="Search user..."
+                            onkeyup="filterUsers()">
 
 
-                <select
-                    id="userFilter"
-                    class="user-filter"
-                    onchange="filterUsers()">
+                        <select id="userFilter" class="user-filter" onchange="renderAdminUsersTable()">
+                            <option value="all">All Users</option>
+                            <option value="genuine">Genuine Users</option>
+                            <option value="suspicious">Suspicious Users</option>
+                            <option value="fake">Fake Users</option>
+                            <option value="blocked">Blocked Users</option>
+                        </select>
+                    </div>
+                </div>
 
-                    <option value="all">
-                        All Users
-                    </option>
+                <!-- TABLE -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>USER INFO</th>
+                                <th>ML STATUS</th>
+                                <th>TRUST SCORE</th>
+                                <th>LOGINS &amp; WEBSITE USAGE</th>
+                                <th>STATUS &amp; WARNINGS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
 
-                    <option value="genuine">
-                        Genuine
-                    </option>
 
-                    <option value="suspicious">
-                        Suspicious
-                    </option>
+                        <tbody id="userTable">
+                            <!-- Dynamic user rows populated by renderAdminUsersTable() -->
+                        </tbody>
 
-                    <option value="fake">
-                        Fake
-                    </option>
+                    </table>
 
-                </select>
+                </div>
 
-            </div>
 
-        </div>
 
+                <!-- PAGINATION -->
 
+                <div class="pagination">
 
-        <!-- TABLE -->
+                    <span class="pagination-info">
+                        Showing 1–5 of 24,892 users
+                    </span>
 
-        <div class="table-container">
 
-            <table>
+                    <div class="pages">
 
-                <thead>
+                        <button class="page active">
+                            1
+                        </button>
 
-                    <tr>
+                        <button class="page">
+                            2
+                        </button>
 
-                        <th>
-                            USER
-                        </th>
+                        <button class="page">
+                            3
+                        </button>
 
-                        <th>
-                            ML STATUS
-                        </th>
+                        <button class="page">
+                            ...
+                        </button>
 
-                        <th>
-                            TRUST SCORE
-                        </th>
+                        <button class="page">
+                            250
+                        </button>
 
-                        <th>
-                            RATINGS
-                        </th>
+                    </div>
 
-                        <th>
-                            RATING TYPE
-                        </th>
+                </div>
 
-                        <th>
-                            RECOMMENDATION
-                        </th>
 
-                        <th>
-                            LAST ACTIVITY
-                        </th>
+            </section>
 
-                        <th>
-                            ACTIONS
-                        </th>
 
-                    </tr>
 
-                </thead>
-
-
-                <tbody id="userTable">
-
-
-                    <!-- USER 1 -->
-
-                    <tr data-status="genuine">
-
-                        <td>
-
-                            <div class="user-cell">
-
-                                <div class="user-mini-avatar">
-                                    UC
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Uday Chaudhari
-                                    </strong>
-
-                                    <small>
-                                        uday1024
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status genuine">
-
-                                <i class="fa-solid fa-circle"></i>
-
-                                Genuine
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="trust-mini high">
-                                94/100
-                            </span>
-
-                        </td>
-
-
-                        <td>
-                            42
-                        </td>
-
-
-                        <td>
-
-                            <span style="color:#00a884">
-                                39 Genuine
-                            </span>
-
-                            <br>
-
-                            <span style="color:#e74c3c">
-                                3 Suspicious
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <div class="rec-status">
-
-                                <span class="rec-dot on"></span>
-
-                                Enabled
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-                            12 min ago
-                        </td>
-
-
-                        <td>
-
-                            <div class="action-buttons">
-
-                                <button
-                                    class="action-btn"
-                                    title="View History"
-                                    onclick="openUser('Uday Chaudhari')">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-
-                                <button
-                                    class="action-btn green"
-                                    title="Recommendation Control"
-                                    onclick="toggleRecommendation(this)">
-
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                                </button>
-
-
-                                <button
-                                    class="action-btn danger"
-                                    title="Flag User"
-                                    onclick="flagUser(this)">
-
-                                    <i class="fa-solid fa-flag"></i>
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-
-
-                    <!-- USER 2 -->
-
-                    <tr data-status="genuine">
-
-                        <td>
-
-                            <div class="user-cell">
-
-                                <div class="user-mini-avatar">
-                                    RS
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Rahul Sharma
-                                    </strong>
-
-                                    <small>
-                                        rahul884
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status genuine">
-
-                                <i class="fa-solid fa-circle"></i>
-
-                                Genuine
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="trust-mini high">
-                                91/100
-                            </span>
-
-                        </td>
-
-
-                        <td>
-                            67
-                        </td>
-
-
-                        <td>
-
-                            <span style="color:#00a884">
-                                65 Genuine
-                            </span>
-
-                            <br>
-
-                            <span style="color:#e74c3c">
-                                2 Suspicious
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <div class="rec-status">
-
-                                <span class="rec-dot on"></span>
-
-                                Enabled
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-                            28 min ago
-                        </td>
-
-
-                        <td>
-
-                            <div class="action-buttons">
-
-                                <button
-                                    class="action-btn"
-                                    onclick="openUser('Rahul Sharma')">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn green"
-                                    onclick="toggleRecommendation(this)">
-
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn danger"
-                                    onclick="flagUser(this)">
-
-                                    <i class="fa-solid fa-flag"></i>
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-
-
-                    <!-- USER 3 -->
-
-                    <tr data-status="suspicious">
-
-                        <td>
-
-                            <div class="user-cell">
-
-                                <div class="user-mini-avatar">
-                                    AM
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Amit Mehta
-                                    </strong>
-
-                                    <small>
-                                        amit447
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status suspicious">
-
-                                <i class="fa-solid fa-circle"></i>
-
-                                Suspicious
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="trust-mini medium">
-                                61/100
-                            </span>
-
-                        </td>
-
-
-                        <td>
-                            113
-                        </td>
-
-
-                        <td>
-
-                            <span style="color:#e67e22">
-                                34 Genuine
-                            </span>
-
-                            <br>
-
-                            <span style="color:#e74c3c">
-                                79 Suspicious
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <div class="rec-status">
-
-                                <span
-                                    class="rec-dot off">
-                                </span>
-
-                                Restricted
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-                            7 min ago
-                        </td>
-
-
-                        <td>
-
-                            <div class="action-buttons">
-
-                                <button
-                                    class="action-btn"
-                                    onclick="openUser('Amit Mehta')">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn green"
-                                    onclick="toggleRecommendation(this)">
-
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn danger"
-                                    onclick="flagUser(this)">
-
-                                    <i class="fa-solid fa-flag"></i>
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-
-
-                    <!-- USER 4 -->
-
-                    <tr data-status="fake">
-
-                        <td>
-
-                            <div class="user-cell">
-
-                                <div class="user-mini-avatar">
-                                    VK
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Vikram Kumar
-                                    </strong>
-
-                                    <small>
-                                        vikram7788
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status fake">
-
-                                <i class="fa-solid fa-circle"></i>
-
-                                Fake User
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="trust-mini low">
-                                18/100
-                            </span>
-
-                        </td>
-
-
-                        <td>
-                            241
-                        </td>
-
-
-                        <td>
-
-                            <span style="color:#e74c3c">
-                                229 Fake
-                            </span>
-
-                            <br>
-
-                            <span style="color:#00a884">
-                                12 Genuine
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <div class="rec-status">
-
-                                <span class="rec-dot off"></span>
-
-                                Disabled
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-                            2 hrs ago
-                        </td>
-
-
-                        <td>
-
-                            <div class="action-buttons">
-
-                                <button
-                                    class="action-btn"
-                                    onclick="openUser('Vikram Kumar')">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn green"
-                                    onclick="toggleRecommendation(this)">
-
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn danger"
-                                    onclick="flagUser(this)">
-
-                                    <i class="fa-solid fa-flag"></i>
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-
-
-                    <!-- USER 5 -->
-
-                    <tr data-status="genuine">
-
-                        <td>
-
-                            <div class="user-cell">
-
-                                <div class="user-mini-avatar">
-                                    SP
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Sneha Patil
-                                    </strong>
-
-                                    <small>
-                                        sneha120
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status genuine">
-
-                                <i class="fa-solid fa-circle"></i>
-
-                                Genuine
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="trust-mini high">
-                                97/100
-                            </span>
-
-                        </td>
-
-
-                        <td>
-                            89
-                        </td>
-
-
-                        <td>
-
-                            <span style="color:#00a884">
-                                87 Genuine
-                            </span>
-
-                            <br>
-
-                            <span style="color:#e74c3c">
-                                2 Suspicious
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <div class="rec-status">
-
-                                <span class="rec-dot on"></span>
-
-                                Enabled
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-                            4 min ago
-                        </td>
-
-
-                        <td>
-
-                            <div class="action-buttons">
-
-                                <button
-                                    class="action-btn"
-                                    onclick="openUser('Sneha Patil')">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn green"
-                                    onclick="toggleRecommendation(this)">
-
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                                </button>
-
-                                <button
-                                    class="action-btn danger"
-                                    onclick="flagUser(this)">
-
-                                    <i class="fa-solid fa-flag"></i>
-
-                                </button>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-
-        <!-- PAGINATION -->
-
-        <div class="pagination">
-
-            <span class="pagination-info">
-                Showing 1–5 of 24,892 users
-            </span>
-
-
-            <div class="pages">
-
-                <button class="page active">
-                    1
-                </button>
-
-                <button class="page">
-                    2
-                </button>
-
-                <button class="page">
-                    3
-                </button>
-
-                <button class="page">
-                    ...
-                </button>
-
-                <button class="page">
-                    250
-                </button>
-
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
+            <!-- =====================================================
          ADMIN RECOMMENDATION CONTROL
     ====================================================== -->
 
-    <section
-        id="recommendations"
-        class="analytics-card"
-        style="margin-top:25px;">
+            <section id="recommendations" class="analytics-card" style="margin-top:25px;">
 
 
-        <div class="card-title">
+                <div class="card-title">
 
-            <div>
+                    <div>
 
-                <h3>
-                    <i
-                        class="fa-solid fa-wand-magic-sparkles"
-                        style="color:#6c5ce7">
-                    </i>
+                        <h3>
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#6c5ce7">
+                            </i>
 
-                    Recommendation Control Center
+                            Recommendation Control Center
 
-                </h3>
+                        </h3>
 
-                <span>
-                    User-wise recommendation management
-                </span>
+                        <span>
+                            User-wise recommendation management
+                        </span>
 
-            </div>
+                    </div>
 
-        </div>
+                </div>
 
 
-        <div
-            style="
+                <div style="
             display:grid;
             grid-template-columns:repeat(3,1fr);
             gap:15px;
             ">
 
 
-            <div class="control-box">
+                    <div class="control-box">
 
-                <h3>
-                    Genuine Users
-                </h3>
+                        <h3>
+                            Genuine Users
+                        </h3>
 
-                <p>
-                    Full personalized recommendations
-                </p>
+                        <p>
+                            Full personalized recommendations
+                        </p>
 
-                <div class="control-buttons">
+                        <div class="control-buttons">
 
-                    <button
-                        class="control-btn success"
-                        onclick="adminAction('Genuine users: recommendations enabled')">
+                            <button class="control-btn success"
+                                onclick="adminAction('Genuine users: recommendations enabled')">
 
-                        Enable All
+                                Enable All
 
-                    </button>
+                            </button>
 
-                </div>
+                        </div>
 
-            </div>
-
-
-            <div class="control-box">
-
-                <h3>
-                    Suspicious Users
-                </h3>
-
-                <p>
-                    Limit recommendation influence
-                </p>
-
-                <div class="control-buttons">
-
-                    <button
-                        class="control-btn warning"
-                        onclick="adminAction('Suspicious users: recommendations restricted')">
-
-                        Restrict
-
-                    </button>
-
-                </div>
-
-            </div>
+                    </div>
 
 
-            <div
-                class="control-box"
-                style="
+                    <div class="control-box">
+
+                        <h3>
+                            Suspicious Users
+                        </h3>
+
+                        <p>
+                            Limit recommendation influence
+                        </p>
+
+                        <div class="control-buttons">
+
+                            <button class="control-btn warning"
+                                onclick="adminAction('Suspicious users: recommendations restricted')">
+
+                                Restrict
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="control-box" style="
                 background:#fff0f0;
                 border-color:#ffd0d0;
                 ">
 
-                <h3>
-                    Fake Users
-                </h3>
+                        <h3>
+                            Fake Users
+                        </h3>
 
-                <p>
-                    Remove rating influence
-                </p>
+                        <p>
+                            Remove rating influence
+                        </p>
 
-                <div class="control-buttons">
+                        <div class="control-buttons">
 
-                    <button
-                        class="control-btn danger"
-                        onclick="adminAction('Fake user ratings excluded from recommendation engine')">
+                            <button class="control-btn danger"
+                                onclick="adminAction('Fake user ratings excluded from recommendation engine')">
 
-                        Exclude Ratings
+                                Exclude Ratings
 
-                    </button>
+                            </button>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
 
-            </div>
-
-
-        </div>
-
-    </section>
+            </section>
 
 
 
-    <!-- =====================================================
+            <!-- =====================================================
          ML SECURITY
     ====================================================== -->
 
-    <section
-        id="security"
-        class="analytics-card"
-        style="margin-top:25px;">
+            <section id="security" class="analytics-card" style="margin-top:25px;">
 
-        <div class="card-title">
+                <div class="card-title">
 
-            <div>
+                    <div>
 
-                <h3>
-                    <i
-                        class="fa-solid fa-microchip"
-                        style="color:#6c5ce7">
-                    </i>
+                        <h3>
+                            <i class="fa-solid fa-microchip" style="color:#6c5ce7">
+                            </i>
 
-                    ML Fake User Detection
+                            ML Fake User Detection
 
-                </h3>
+                        </h3>
 
-                <span>
-                    Current model monitoring
-                </span>
+                        <span>
+                            Current model monitoring
+                        </span>
 
-            </div>
+                    </div>
 
-            <span
-                style="
+                    <span style="
                 color:#00a884;
                 font-weight:700;
                 ">
 
-                ● Model Online
+                        ● Model Online
 
-            </span>
+                    </span>
 
-        </div>
+                </div>
 
 
-        <div
-            style="
+                <div style="
             display:grid;
             grid-template-columns:
             repeat(4,1fr);
@@ -2933,646 +2262,1038 @@ footer {
             ">
 
 
-            <div class="modal-stat">
+                    <div class="modal-stat">
 
-                <span>
-                    Model
-                </span>
+                        <span>
+                            Model
+                        </span>
 
-                <strong>
-                    Random Forest
-                </strong>
+                        <strong>
+                            Random Forest
+                        </strong>
 
-            </div>
+                    </div>
 
 
-            <div class="modal-stat">
+                    <div class="modal-stat">
 
-                <span>
-                    Accuracy
-                </span>
+                        <span>
+                            Accuracy
+                        </span>
 
-                <strong>
-                    96.4%
-                </strong>
+                        <strong>
+                            96.4%
+                        </strong>
 
-            </div>
+                    </div>
 
 
-            <div class="modal-stat">
+                    <div class="modal-stat">
 
-                <span>
-                    Precision
-                </span>
-
-                <strong>
-                    94.8%
-                </strong>
-
-            </div>
-
-
-            <div class="modal-stat">
-
-                <span>
-                    Recall
-                </span>
-
-                <strong>
-                    93.6%
-                </strong>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <div>
-
-            <strong>
-                RecomAI Admin
-            </strong>
-
-            — AI-powered recommendation security
-
-        </div>
-
-        <div>
-            System Status: ● Operational
-        </div>
-
-    </footer>
-
-
-</main>
-
-</div>
-
-
-
-<!-- =========================================================
-     USER DETAILS MODAL
-========================================================= -->
-
-<div
-    class="modal"
-    id="userModal">
-
-
-    <div class="modal-box">
-
-
-        <button
-            class="modal-close"
-            onclick="closeUserModal()">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-
-        <!-- USER HEADER -->
-
-        <div class="modal-user-header">
-
-            <div class="modal-avatar">
-                U
-            </div>
-
-            <div>
-
-                <h2 id="modalUserName">
-                    User Name
-                </h2>
-
-                <p>
-                    User ID: U1024
-                    • Account age: 184 days
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- USER STATS -->
-
-        <div class="modal-grid">
-
-
-            <div class="modal-stat">
-
-                <span>
-                    Trust Score
-                </span>
-
-                <strong
-                    style="color:#00a884">
-
-                    94/100
-
-                </strong>
-
-            </div>
-
-
-            <div class="modal-stat">
-
-                <span>
-                    Products Viewed
-                </span>
-
-                <strong>
-                    142
-                </strong>
-
-            </div>
-
-
-            <div class="modal-stat">
-
-                <span>
-                    Ratings Given
-                </span>
-
-                <strong>
-                    42
-                </strong>
-
-            </div>
-
-
-            <div class="modal-stat">
-
-                <span>
-                    Purchases
-                </span>
-
-                <strong>
-                    18
-                </strong>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- USER HISTORY -->
-
-        <h3 class="history-title">
-
-            <i class="fa-solid fa-clock-rotate-left"></i>
-
-            User Activity History
-
-        </h3>
-
-
-        <div class="history">
-
-
-            <div class="history-row history-head">
-
-                <span>
-                    TIME
-                </span>
-
-                <span>
-                    ACTIVITY
-                </span>
-
-                <span>
-                    PRODUCT
-                </span>
-
-                <span>
-                    STATUS
-                </span>
-
-            </div>
-
-
-            <div class="history-row">
-
-                <span>
-                    12:42 PM
-                </span>
-
-                <span>
-                    Product Viewed
-                </span>
-
-                <span>
-                    iPhone 15
-                </span>
-
-                <span style="color:#6c5ce7">
-                    Normal
-                </span>
-
-            </div>
-
-
-            <div class="history-row">
-
-                <span>
-                    12:35 PM
-                </span>
-
-                <span>
-                    Rating Given
-                </span>
-
-                <span>
-                    Sony XM5
-                </span>
-
-                <span style="color:#00a884">
-                    Genuine
-                </span>
-
-            </div>
-
-
-            <div class="history-row">
-
-                <span>
-                    12:20 PM
-                </span>
-
-                <span>
-                    Product Added
-                </span>
-
-                <span>
-                    MacBook Air
-                </span>
-
-                <span style="color:#6c5ce7">
-                    Normal
-                </span>
-
-            </div>
-
-
-            <div class="history-row">
-
-                <span>
-                    11:55 AM
-                </span>
-
-                <span>
-                    Rating Given
-                </span>
-
-                <span>
-                    JBL 770NC
-                </span>
-
-                <span style="color:#00a884">
-                    Genuine
-                </span>
-
-            </div>
-
-
-            <div class="history-row">
-
-                <span>
-                    11:30 AM
-                </span>
-
-                <span>
-                    Product Viewed
-                </span>
-
-                <span>
-                    Dell Laptop
-                </span>
-
-                <span style="color:#6c5ce7">
-                    Normal
-                </span>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- RECOMMENDATION CONTROL -->
-
-        <div class="control-box">
-
-            <h3>
-
-                <i
-                    class="fa-solid fa-sliders">
-                </i>
-
-                User Recommendation Control
-
-            </h3>
-
-            <p>
-                Administrator can control how this user's
-                behaviour influences and receives recommendations.
-            </p>
-
-
-            <div class="control-buttons">
-
-                <button
-                    class="control-btn primary"
-                    onclick="adminAction('Personalized recommendations enabled for this user')">
-
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                    Enable Recommendations
-
-                </button>
-
-
-                <button
-                    class="control-btn warning"
-                    onclick="adminAction('User recommendation influence restricted')">
-
-                    Restrict Influence
-
-                </button>
-
-
-                <button
-                    class="control-btn danger"
-                    onclick="adminAction('User excluded from recommendation engine')">
-
-                    Exclude User
-
-                </button>
-
-            </div>
-
-        </div>
-
+                        <span>
+                            Precision
+                        </span>
+
+                        <strong>
+                            94.8%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="modal-stat">
+
+                        <span>
+                            Recall
+                        </span>
+
+                        <strong>
+                            93.6%
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+         PRODUCT MANAGEMENT MODULE
+    ====================================================== -->
+
+            <section id="products-management" class="analytics-card" style="margin-top:25px;">
+
+                <div class="card-title">
+                    <div>
+                        <h3>
+                            <i class="fa-solid fa-box-open" style="color:#6c5ce7"></i>
+                            Product Management & Store Catalog
+                        </h3>
+                        <span>Upload new products to store catalog, manage items, and delete outdated products.</span>
+                    </div>
+                    <span style="color:#6c5ce7; font-weight:700;" id="adminProductCountBadge">0 Products</span>
+                </div>
+
+                <!-- UPLOAD PRODUCT FORM -->
+                <div
+                    style="background:#f8f9fc; border:1px solid #e7eaf1; border-radius:15px; padding:20px; margin-bottom:25px;">
+                    <h4 style="font-size:14px; font-weight:700; margin-bottom:15px; color:#172033;">
+                        <i class="fa-solid fa-cloud-arrow-up" style="color:#6c5ce7; margin-right:6px;"></i>
+                        Upload New Product
+                    </h4>
+
+                    <form id="uploadProductForm" onsubmit="handleProductUpload(event)">
+                        <div
+                            style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px; margin-bottom:15px;">
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Product
+                                    Name *</label>
+                                <input type="text" id="prodName" required placeholder="e.g. Wireless AI Earbuds"
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none;">
+                            </div>
+
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Category
+                                    *</label>
+                                <select id="prodCategory" required
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none; background:white;">
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Fashion">Fashion</option>
+                                    <option value="Laptops">Laptops</option>
+                                    <option value="Audio">Audio</option>
+                                    <option value="Backpacks">Backpacks</option>
+                                    <option value="GYM">GYM</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Price
+                                    / Amount (₹) *</label>
+                                <input type="number" id="prodPrice" required min="1" placeholder="e.g. 2499"
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none;">
+                            </div>
+
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Original
+                                    Price (₹)</label>
+                                <input type="number" id="prodOldPrice" placeholder="e.g. 3499"
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none;">
+                            </div>
+
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Rating
+                                    (1 - 5)</label>
+                                <input type="number" id="prodRating" step="0.1" min="1" max="5" value="4.5"
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none;">
+                            </div>
+
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Discount
+                                    Tag</label>
+                                <input type="text" id="prodDiscount" placeholder="e.g. 20% OFF"
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none;">
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Image
+                                    URL</label>
+                                <input type="text" id="prodImageUrl" placeholder="https://images.unsplash.com/..."
+                                    onchange="previewImageFromUrl()"
+                                    style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none;">
+                            </div>
+
+                            <div>
+                                <label
+                                    style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Or
+                                    Upload Image File</label>
+                                <input type="file" id="prodImageFile" accept="image/*" onchange="previewImageFromFile()"
+                                    style="width:100%; padding:7px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; background:white; outline:none;">
+                            </div>
+                        </div>
+
+                        <!-- PREVIEW CONTAINER -->
+                        <div id="imagePreviewContainer"
+                            style="display:none; align-items:center; gap:12px; margin-bottom:15px; background:white; padding:10px; border-radius:8px; border:1px solid #e0e4ec;">
+                            <img id="imagePreviewImg" src="" alt="Preview"
+                                style="width:50px; height:50px; object-fit:contain; border-radius:6px; background:#f5f7fb;">
+                            <span style="font-size:11px; color:#596174;" id="imagePreviewText">Image Preview</span>
+                        </div>
+
+                        <div style="margin-bottom:15px;">
+                            <label
+                                style="display:block; font-size:11px; font-weight:600; color:#596174; margin-bottom:5px;">Product
+                                Description</label>
+                            <textarea id="prodDescription" rows="2"
+                                placeholder="Enter short product features and description..."
+                                style="width:100%; padding:10px; border:1px solid #dcdfe6; border-radius:8px; font-size:12px; outline:none; resize:vertical;"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            style="background:#6c5ce7; color:white; border:none; padding:12px 24px; border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:0.2s;">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            Upload Product to Store
+                        </button>
+                    </form>
+                </div>
+
+                <!-- PRODUCTS TABLE -->
+                <div
+                    style="display:flex; justify-space-between ; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+                    <h4 style="font-size:14px; font-weight:700; color:#172033; margin:0;">
+                        <i class="fa-solid fa-list-check" style="color:#6c5ce7; margin-right:6px;"></i>
+                        Store Products Catalog
+                    </h4>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:11px; font-weight:600; color:#596174;"><i class="fa-solid fa-filter"
+                                style="color:#6c5ce7;"></i> Filter Category:</span>
+                        <select id="adminCategoryFilter" onchange="renderAdminProductsTable()"
+                            style="padding:7px 12px; border:1px solid #dcdfe6; border-radius:8px; font-size:11px; outline:none; background:white; font-weight:600; color:#172033; cursor:pointer;">
+                            <option value="all">All 6 Categories</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Laptops">Laptops</option>
+                            <option value="Audio">Audio</option>
+                            <option value="Backpacks">Backpacks</option>
+                            <option value="GYM">GYM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PRODUCT DETAILS</th>
+                                <th>CATEGORY</th>
+                                <th>PRICE</th>
+                                <th>OLD PRICE</th>
+                                <th>RATING</th>
+                                <th>DISCOUNT</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProductsTable">
+                            <!-- Dynamic rendering via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+
+            <!-- FOOTER -->
+
+
+            <footer>
+
+                <div>
+
+                    <strong>
+                        RecomAI Admin
+                    </strong>
+
+                    — AI-powered recommendation security
+
+                </div>
+
+                <div>
+                    System Status: ● Operational
+                </div>
+
+            </footer>
+
+
+        </main>
 
     </div>
 
-</div>
+
+
+    <!-- =========================================================
+     USER DETAILS MODAL
+========================================================= -->
+
+    <div class="modal" id="userModal">
+
+
+        <div class="modal-box">
+
+
+            <button class="modal-close" onclick="closeUserModal()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <!-- USER HEADER -->
+
+            <div class="modal-user-header">
+                <div class="modal-avatar">U</div>
+                <div>
+                    <h2 id="modalUserName">User Name</h2>
+                    <p id="modalUserSub">User ID: -- • Member recently</p>
+                </div>
+            </div>
+
+            <!-- USER STATS -->
+            <div class="modal-grid">
+                <div class="modal-stat">
+                    <span>Trust Score</span>
+                    <strong style="color:#00a884" id="modalTrustScoreVal">95/100</strong>
+                </div>
+
+                <div class="modal-stat">
+                    <span>Products Viewed</span>
+                    <strong id="modalViewsVal">0</strong>
+                </div>
+
+                <div class="modal-stat">
+                    <span>Ratings Given</span>
+                    <strong id="modalRatingsVal">0</strong>
+                </div>
+
+                <div class="modal-stat">
+                    <span>Purchases / Cart</span>
+                    <strong id="modalPurchasesVal">0</strong>
+                </div>
+            </div>
+
+            <!-- USER HISTORY -->
+            <h3 class="history-title">
+                <i class="fa-solid fa-clock-rotate-left"></i> User Activity History
+            </h3>
+
+            <div class="history">
+                <div class="history-row history-head">
+                    <span>TIME</span>
+                    <span>ACTIVITY</span>
+                    <span>PRODUCT</span>
+                    <span>STATUS</span>
+                </div>
+                <div id="userHistoryRows">
+                    <!-- Dynamic activity history rows populated by openUser() -->
+                </div>
+            </div>
 
 
 
-<script>
+            <!-- RECOMMENDATION CONTROL -->
 
-/* =========================================================
-   USER SEARCH + FILTER
-========================================================= */
+            <div class="control-box">
 
-function filterUsers() {
+                <h3>
 
-    const search =
-        document
-        .getElementById("userSearch")
-        .value
-        .toLowerCase();
+                    <i class="fa-solid fa-sliders">
+                    </i>
 
-    const filter =
-        document
-        .getElementById("userFilter")
-        .value;
+                    User Recommendation Control
 
-    const rows =
-        document
-        .querySelectorAll("#userTable tr");
+                </h3>
+
+                <p>
+                    Administrator can control how this user's
+                    behaviour influences and receives recommendations.
+                </p>
 
 
-    rows.forEach(row => {
+                <div class="control-buttons">
 
-        const text =
-            row.innerText.toLowerCase();
+                    <button class="control-btn primary"
+                        onclick="adminAction('Personalized recommendations enabled for this user')">
 
-        const status =
-            row.dataset.status;
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
 
+                        Enable Recommendations
 
-        const searchMatch =
-            text.includes(search);
-
-        const filterMatch =
-            filter === "all" ||
-            status === filter;
+                    </button>
 
 
-        if (searchMatch && filterMatch) {
+                    <button class="control-btn warning"
+                        onclick="adminAction('User recommendation influence restricted')">
 
-            row.style.display = "";
+                        Restrict Influence
 
-        } else {
-
-            row.style.display = "none";
-
-        }
-
-    });
-
-}
+                    </button>
 
 
-/* =========================================================
-   OPEN USER DETAILS
-========================================================= */
+                    <button class="control-btn danger"
+                        onclick="adminAction('User excluded from recommendation engine')">
 
-function openUser(name) {
+                        Exclude User
 
-    document
-        .getElementById("modalUserName")
-        .innerText = name;
+                    </button>
 
+                </div>
 
-    document
-        .getElementById("userModal")
-        .classList.add("active");
-
-}
+            </div>
 
 
-/* =========================================================
-   CLOSE USER DETAILS
-========================================================= */
+        </div>
 
-function closeUserModal() {
+        <!-- SEND WARNING MODAL -->
+        <div id="adminSendWarningModal"
+            style="display:none; position:fixed; inset:0; background:rgba(11,15,25,0.7); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+            <div
+                style="background:#ffffff; border-radius:20px; max-width:500px; width:100%; padding:28px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.3); border:1px solid #e2e8f0;">
+                <div style="display:flex; justify-space-between; align-items:center; margin-bottom:20px;">
+                    <h3
+                        style="font-size:18px; font-weight:700; color:#1e293b; margin:0; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-paper-plane" style="color:#e11d48;"></i> Send Warning to User
+                    </h3>
+                    <button onclick="closeSendWarningModal()"
+                        style="background:none; border:none; font-size:18px; color:#64748b; cursor:pointer;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
 
-    document
-        .getElementById("userModal")
-        .classList.remove("active");
+                <div
+                    style="background:#f8fafc; padding:12px 16px; border-radius:12px; border:1px solid #e2e8f0; margin-bottom:18px;">
+                    <div style="font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase;">Recipient
+                        User</div>
+                    <div style="font-size:14px; font-weight:700; color:#0f172a;" id="warnTargetName">User Name</div>
+                    <div style="font-size:12px; color:#64748b;" id="warnTargetEmail">user@example.com</div>
+                </div>
 
-}
+                <div style="margin-bottom:16px;">
+                    <label
+                        style="display:block; font-size:12px; font-weight:600; color:#334155; margin-bottom:6px;">Warning
+                        Severity Level</label>
+                    <select id="warnSeveritySelect"
+                        style="width:100%; padding:10px 14px; border:1px solid #cbd5e1; border-radius:10px; font-size:13px; outline:none; background:white; font-weight:600; color:#1e293b;">
+                        <option value="Notice">Notice - General Community Reminder</option>
+                        <option value="Caution" selected>Caution - Policy Violation Warning</option>
+                        <option value="Severe Warning">Severe Warning - Pre-Suspension Notice</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label
+                        style="display:block; font-size:12px; font-weight:600; color:#334155; margin-bottom:6px;">Warning
+                        Message</label>
+                    <textarea id="warnMessageInput" rows="4"
+                        placeholder="Enter warning reason (e.g. Suspicious rating frequency detected on products. Please comply with community terms or your account will be suspended.)"
+                        style="width:100%; padding:12px; border:1px solid #cbd5e1; border-radius:10px; font-size:13px; outline:none; resize:vertical; font-family:inherit;"></textarea>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button onclick="closeSendWarningModal()"
+                        style="padding:10px 18px; background:#f1f5f9; color:#475569; border:none; border-radius:10px; font-weight:600; font-size:13px; cursor:pointer;">
+                        Cancel
+                    </button>
+                    <button onclick="submitSendWarning()"
+                        style="padding:10px 22px; background:#e11d48; color:white; border:none; border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-paper-plane"></i> Send Warning
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="userStore.js"></script>
+        <script>
+
+            /* =========================================================
+               USER MANAGEMENT + REAL TIME USER STORE RENDERER
+            ========================================================= */
+            let activeWarnUserId = null;
+
+            function renderAdminUsersTable() {
+                if (!window.userStore) return;
+                const users = window.userStore.getUsersDB();
+                const userTable = document.getElementById("userTable");
+                const searchInput = document.getElementById("userSearch");
+                const filterInput = document.getElementById("userFilter");
+
+                const searchVal = searchInput ? searchInput.value.trim().toLowerCase() : "";
+                const filterVal = filterInput ? filterInput.value : "all";
+
+                if (!userTable) return;
+
+                const filteredUsers = users.filter(u => {
+                    const searchMatch = (u.name || "").toLowerCase().includes(searchVal) ||
+                        (u.email || "").toLowerCase().includes(searchVal) ||
+                        (u.username || "").toLowerCase().includes(searchVal);
+                    let filterMatch = true;
+                    if (filterVal === "genuine") filterMatch = u.mlStatus === "Genuine";
+                    else if (filterVal === "suspicious") filterMatch = u.mlStatus === "Suspicious";
+                    else if (filterVal === "fake") filterMatch = u.mlStatus === "Fake User" || u.mlStatus === "Fake";
+                    else if (filterVal === "blocked") filterMatch = u.status === "Blocked";
+
+                    return searchMatch && filterMatch;
+                });
+
+                const pagInfo = document.querySelector(".pagination-info");
+                if (pagInfo) {
+                    pagInfo.innerText = `Showing ${filteredUsers.length} of ${users.length} real Supabase registered user(s)`;
+                }
+
+                if (filteredUsers.length === 0) {
+                    userTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center; padding:35px; color:#8991a1;">
+                            <i class="fa-solid fa-user-slash" style="font-size:28px; margin-bottom:8px; color:#cbd5e1;"></i><br>
+                            <strong style="font-size:14px; color:#64748b;">No matching users found</strong><br>
+                            <span style="font-size:12px;">Try adjusting your search query or filter settings.</span>
+                        </td>
+                    </tr>
+                `;
+                    return;
+                }
+
+                userTable.innerHTML = filteredUsers.map(user => {
+                    const initials = user.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'US';
+                    const isBlocked = user.status === "Blocked";
+
+                    let statusBadgeClass = "genuine";
+                    if (user.mlStatus === "Suspicious") statusBadgeClass = "suspicious";
+                    else if (user.mlStatus === "Fake User" || user.mlStatus === "Fake") statusBadgeClass = "fake";
+
+                    let trustClass = "high";
+                    if (user.trustScore < 50) trustClass = "low";
+                    else if (user.trustScore < 80) trustClass = "medium";
+
+                    const warningsCount = user.warnings ? user.warnings.length : 0;
+                    const unreadWarnings = user.warnings ? user.warnings.filter(w => !w.read).length : 0;
+
+                    return `
+                    <tr data-status="${user.mlStatus.toLowerCase()}">
+                        <td>
+                            <div class="user-cell">
+                                <div class="user-mini-avatar" style="${isBlocked ? 'background:#fee2e2; color:#ef4444;' : ''}">
+                                    ${initials}
+                                </div>
+                                <div>
+                                    <strong style="font-size:13px; color:#1e293b;">${escapeHtml(user.name)}</strong>
+                                    <small style="display:block; color:#64748b; font-size:11px;">${escapeHtml(user.email || user.username)}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="status ${statusBadgeClass}">
+                                <i class="fa-solid fa-circle"></i>
+                                ${escapeHtml(user.mlStatus)}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="trust-mini ${trustClass}">
+                                ${user.trustScore}/100
+                            </span>
+                        </td>
+
+                        <td>
+                            <div style="font-size:12px; font-weight:700; color:#1e293b;">
+                                <i class="fa-solid fa-arrow-right-to-bracket" style="color:#6c5ce7; margin-right:4px;"></i> ${user.loginCount || 1} Login(s)
+                            </div>
+                            <div style="font-size:11px; color:#475569; margin-top:2px;">
+                                <i class="fa-solid fa-clock" style="color:#00cec9; margin-right:3px;"></i> ${window.userStore.formatDuration(user.totalTimeSpent)}
+                            </div>
+                            <div style="font-size:10px; color:#94a3b8; margin-top:1px;">
+                                ${window.userStore.formatAccountAge(user.createdAt)}
+                            </div>
+                        </td>
+
+                        <td>
+                            <div>
+                                ${isBlocked ?
+                            '<span style="background:#fee2e2; color:#be123c; font-weight:700; font-size:11px; padding:3px 10px; border-radius:12px; display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-ban"></i> Blocked</span>' :
+                            '<span style="background:#e6f4ea; color:#137333; font-weight:700; font-size:11px; padding:3px 10px; border-radius:12px; display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-circle-check"></i> Active</span>'
+                        }
+                            </div>
+                            ${warningsCount > 0 ? `
+                                <div style="font-size:11px; margin-top:4px; color:#b45309; font-weight:600;">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> ${warningsCount} Warning(s) ${unreadWarnings > 0 ? `(${unreadWarnings} unread)` : ''}
+                                </div>
+                            ` : ''}
+                        </td>
+
+                        <td>
+                            <div class="action-buttons" style="display:flex; gap:6px; flex-wrap:nowrap; align-items:center;">
+                                <button class="action-btn" title="Send Warning" onclick="openSendWarningModal('${user.id}')" style="background:#fef3c7; color:#b45309; border:1px solid #fde68a;">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                                
+                                <button class="action-btn ${isBlocked ? 'green' : 'danger'}" title="${isBlocked ? 'Unblock User' : 'Block User'}" onclick="handleToggleBlock('${user.id}')">
+                                    <i class="fa-solid ${isBlocked ? 'fa-lock-open' : 'fa-ban'}"></i>
+                                </button>
+
+                                <button class="action-btn" title="View Full Stats" onclick="openUser('${escapeHtml(user.name)}')">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                }).join('');
+            }
+
+            function filterUsers() {
+                renderAdminUsersTable();
+            }
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                return str.replace(/[&<>"']/g, function (m) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+                });
+            }
+
+            function handleToggleBlock(userId) {
+                if (!window.userStore) return;
+                const updated = window.userStore.toggleBlockUser(userId);
+                if (updated) {
+                    alert(`User "${updated.name}" is now ${updated.status === 'Blocked' ? 'BLOCKED' : 'UNBLOCKED'}.`);
+                    renderAdminUsersTable();
+                }
+            }
+
+            function openSendWarningModal(userId) {
+                if (!window.userStore) return;
+                const users = window.userStore.getUsersDB();
+                const user = users.find(u => u.id === userId);
+                if (!user) return;
+
+                activeWarnUserId = userId;
+                document.getElementById("warnTargetName").innerText = user.name;
+                document.getElementById("warnTargetEmail").innerText = user.email || user.username;
+                document.getElementById("warnMessageInput").value = "";
+
+                const modal = document.getElementById("adminSendWarningModal");
+                if (modal) modal.style.display = "flex";
+            }
+
+            function closeSendWarningModal() {
+                activeWarnUserId = null;
+                const modal = document.getElementById("adminSendWarningModal");
+                if (modal) modal.style.display = "none";
+            }
+
+            function submitSendWarning() {
+                if (!activeWarnUserId || !window.userStore) return;
+                const message = document.getElementById("warnMessageInput").value;
+                const severity = document.getElementById("warnSeveritySelect").value;
+
+                if (!message || !message.trim()) {
+                    alert("Please enter a warning message to send.");
+                    return;
+                }
+
+                const warn = window.userStore.sendWarningToUser(activeWarnUserId, message, severity);
+                if (warn) {
+                    alert("✅ Warning message sent successfully to user! It will display as an animated notification when the user is active on the website.");
+                    closeSendWarningModal();
+                    renderAdminUsersTable();
+                }
+            }
 
 
-/* =========================================================
-   RECOMMENDATION TOGGLE
-========================================================= */
+            /* =========================================================
+               OPEN USER DETAILS
+            ========================================================= */
 
-function toggleRecommendation(button) {
+            function openUser(name) {
 
-    const row =
-        button.closest("tr");
-
-    const status =
-        row.querySelector(".rec-status");
-
-    const dot =
-        status.querySelector(".rec-dot");
+                document
+                    .getElementById("modalUserName")
+                    .innerText = name;
 
 
-    if (dot.classList.contains("on")) {
+                document
+                    .getElementById("userModal")
+                    .classList.add("active");
 
-        dot.classList.remove("on");
+            }
 
-        dot.classList.add("off");
 
-        status.innerHTML = `
+            /* =========================================================
+               CLOSE USER DETAILS
+            ========================================================= */
+
+            function closeUserModal() {
+
+                document
+                    .getElementById("userModal")
+                    .classList.remove("active");
+
+            }
+
+
+            /* =========================================================
+               RECOMMENDATION TOGGLE
+            ========================================================= */
+
+            function toggleRecommendation(button) {
+
+                const row =
+                    button.closest("tr");
+
+                const status =
+                    row.querySelector(".rec-status");
+
+                const dot =
+                    status.querySelector(".rec-dot");
+
+
+                if (dot.classList.contains("on")) {
+
+                    dot.classList.remove("on");
+
+                    dot.classList.add("off");
+
+                    status.innerHTML = `
             <span class="rec-dot off"></span>
             Restricted
         `;
 
-        alert(
-            "Recommendation access restricted for this user."
-        );
+                    alert(
+                        "Recommendation access restricted for this user."
+                    );
 
-    } else {
+                } else {
 
-        status.innerHTML = `
+                    status.innerHTML = `
             <span class="rec-dot on"></span>
             Enabled
         `;
 
-        alert(
-            "Personalized recommendation enabled."
-        );
+                    alert(
+                        "Personalized recommendation enabled."
+                    );
 
-    }
-
-}
-
-
-/* =========================================================
-   FLAG USER
-========================================================= */
-
-function flagUser(button) {
-
-    const row =
-        button.closest("tr");
-
-    const userName =
-        row.querySelector(".user-cell strong").innerText;
-
-
-    const confirmFlag =
-        confirm(
-            "Flag " +
-            userName +
-            " for suspicious activity?"
-        );
-
-
-    if (confirmFlag) {
-
-        alert(
-            userName +
-            " has been flagged for admin review."
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   ADMIN ACTION
-========================================================= */
-
-function adminAction(message) {
-
-    alert(
-        "ADMIN ACTION\n\n" +
-        message +
-        "\n\nBackend API will execute this action."
-    );
-
-}
-
-
-/* =========================================================
-   SECURITY ALERT
-========================================================= */
-
-function showSecurityAlert() {
-
-    alert(
-        "SECURITY ALERT\n\n" +
-        "37 suspicious users detected.\n\n" +
-        "ML model has identified unusual rating behaviour."
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL ON OUTSIDE CLICK
-========================================================= */
-
-document
-    .getElementById("userModal")
-    .addEventListener(
-        "click",
-        function(event) {
-
-            if (event.target === this) {
-
-                closeUserModal();
+                }
 
             }
 
-        }
-    );
+
+            /* =========================================================
+               FLAG USER
+            ========================================================= */
+
+            function flagUser(button) {
+
+                const row =
+                    button.closest("tr");
+
+                const userName =
+                    row.querySelector(".user-cell strong").innerText;
 
 
-/* =========================================================
-   SIDEBAR ACTIVE STATE
-========================================================= */
+                const confirmFlag =
+                    confirm(
+                        "Flag " +
+                        userName +
+                        " for suspicious activity?"
+                    );
 
-const sidebarItems =
-    document.querySelectorAll(".sidebar-item");
+
+                if (confirmFlag) {
+
+                    alert(
+                        userName +
+                        " has been flagged for admin review."
+                    );
+
+                }
+
+            }
 
 
-sidebarItems.forEach(item => {
+            /* =========================================================
+               ADMIN ACTION
+            ========================================================= */
 
-    item.addEventListener("click", function() {
+            function adminAction(message) {
 
-        sidebarItems.forEach(
-            i => i.classList.remove("active")
-        );
+                alert(
+                    "ADMIN ACTION\n\n" +
+                    message +
+                    "\n\nBackend API will execute this action."
+                );
 
-        this.classList.add("active");
+            }
 
-    });
 
-});
+            /* =========================================================
+               SECURITY ALERT
+            ========================================================= */
 
-</script>
+            function showSecurityAlert() {
+
+                alert(
+                    "SECURITY ALERT\n\n" +
+                    "37 suspicious users detected.\n\n" +
+                    "ML model has identified unusual rating behaviour."
+                );
+
+            }
+
+
+            /* =========================================================
+               CLOSE MODAL ON OUTSIDE CLICK
+            ========================================================= */
+
+            document
+                .getElementById("userModal")
+                .addEventListener(
+                    "click",
+                    function (event) {
+
+                        if (event.target === this) {
+
+                            closeUserModal();
+
+                        }
+
+                    }
+                );
+
+
+            /* =========================================================
+               SIDEBAR ACTIVE STATE
+            ========================================================= */
+
+            const sidebarItems =
+                document.querySelectorAll(".sidebar-item");
+
+
+            sidebarItems.forEach(item => {
+
+                item.addEventListener("click", function () {
+
+                    sidebarItems.forEach(
+                        i => i.classList.remove("active")
+                    );
+
+                    this.classList.add("active");
+
+                });
+
+            });
+
+
+            /* =========================================================
+               ADMIN LOGOUT
+            ========================================================= */
+
+            function logoutAdmin() {
+                if (confirm("Are you sure you want to log out as Admin?")) {
+                    sessionStorage.clear();
+                    localStorage.removeItem("adminToken");
+                    window.location.href = "index.html";
+                }
+            }
+
+
+            /* =========================================================
+               PRODUCT MANAGEMENT SCRIPT
+            ========================================================= */
+
+            const defaultAdminProducts = [
+                { id: 1, name: "Wireless AI Headphones", category: "Audio", price: 2499, oldPrice: 3999, rating: 4.8, reviews: 1240, discount: "37% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e", description: "Intelligent noise cancelling headphones with real-time sound optimization." },
+                { id: 2, name: "Smart Watch Ultra", category: "Electronics", price: 4999, oldPrice: 7999, rating: 4.6, reviews: 890, discount: "38% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30", description: "Advanced fitness and health tracker with AMOLED display." },
+                { id: 3, name: "MacBook Pro M2", category: "Laptops", price: 119900, oldPrice: 129900, rating: 4.9, reviews: 3420, discount: "7% OFF", image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8", description: "Apple M2 chip laptop designed for developers and creators." },
+                { id: 4, name: "Nike Air Max 270", category: "Fashion", price: 6995, oldPrice: 8995, rating: 4.7, reviews: 1980, discount: "22% OFF", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff", description: "Premium stylish sneaker for sports and outdoor lifestyle." },
+                { id: 5, name: "Ergonomic Gym Backpack", category: "Backpacks", price: 1899, oldPrice: 2999, rating: 4.5, reviews: 670, discount: "36% OFF", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62", description: "Water resistant backpack with dedicated laptop and gym gear compartments." },
+                { id: 6, name: "Pro Dumbbell Set 20kg", category: "GYM", price: 3499, oldPrice: 4999, rating: 4.6, reviews: 430, discount: "30% OFF", image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2", description: "Adjustable cast iron dumbbells for home workouts." },
+                { id: 7, name: "Dell XPS 15", category: "Laptops", price: 134990, oldPrice: 149990, rating: 4.7, reviews: 512, discount: "10% OFF", image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45", description: "Reliable performance laptop suitable for students and professionals." },
+                { id: 8, name: "Adidas Running Shoes", category: "Fashion", price: 5499, oldPrice: 6999, rating: 4.4, reviews: 2876, discount: "21% OFF", image: "https://images.unsplash.com/photo-1556906781-9a412961c28c", description: "Lightweight Adidas running shoes designed for daily training." }
+            ];
+
+            function getAdminProducts() {
+                const saved = localStorage.getItem("recomai_products");
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                    } catch (e) {
+                        console.error("Error parsing admin products:", e);
+                    }
+                }
+                localStorage.setItem("recomai_products", JSON.stringify(defaultAdminProducts));
+                return defaultAdminProducts;
+            }
+
+            function saveAdminProducts(list) {
+                localStorage.setItem("recomai_products", JSON.stringify(list));
+            }
+
+            let adminUploadedImageBase64 = "";
+
+            function previewImageFromUrl() {
+                const url = document.getElementById("prodImageUrl").value.trim();
+                if (url) {
+                    adminUploadedImageBase64 = url;
+                    document.getElementById("imagePreviewImg").src = url;
+                    document.getElementById("imagePreviewText").innerText = "Image URL linked";
+                    document.getElementById("imagePreviewContainer").style.display = "flex";
+                }
+            }
+
+            function previewImageFromFile() {
+                const fileInput = document.getElementById("prodImageFile");
+                if (fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        adminUploadedImageBase64 = e.target.result;
+                        document.getElementById("imagePreviewImg").src = e.target.result;
+                        document.getElementById("imagePreviewText").innerText = fileInput.files[0].name;
+                        document.getElementById("imagePreviewContainer").style.display = "flex";
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+
+            function renderAdminProductsTable() {
+                const allProducts = getAdminProducts();
+                const filterCat = document.getElementById("adminCategoryFilter") ? document.getElementById("adminCategoryFilter").value : "all";
+
+                const products = (!filterCat || filterCat === "all")
+                    ? allProducts
+                    : allProducts.filter(p => (p.category || "").toLowerCase() === filterCat.toLowerCase());
+
+                const tableBody = document.getElementById("adminProductsTable");
+                const countBadge = document.getElementById("adminProductCountBadge");
+
+                if (countBadge) {
+                    countBadge.innerText = `${allProducts.length} Total (${products.length} Filtered)`;
+                }
+
+                if (!tableBody) return;
+                tableBody.innerHTML = "";
+
+                if (products.length === 0) {
+                    tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align:center; padding:25px; color:#8991a1; font-size:12px;">
+                    No products found in "${filterCat}" category.
+                </td>
+            </tr>
+        `;
+                    return;
+                }
+
+                products.forEach(product => {
+                    tableBody.innerHTML += `
+            <tr>
+                <td>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="${product.image}" alt="${product.name}" style="width:40px; height:40px; object-fit:contain; border-radius:8px; background:#f5f7fb; border:1px solid #e7eaf1;">
+                        <div>
+                            <strong style="font-size:11px; display:block; color:#172033;">${product.name}</strong>
+                            <small style="color:#8991a1; font-size:9px;">ID: #${product.id}</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span style="font-weight:700; color:#6c5ce7; background:#f0efff; padding:4px 9px; border-radius:6px; font-size:10px;">${product.category}</span></td>
+                <td><strong style="color:#172033;">₹${Number(product.price).toLocaleString()}</strong></td>
+                <td><span style="color:#8991a1; text-decoration:line-through;">₹${Number(product.oldPrice || product.price).toLocaleString()}</span></td>
+                <td><span style="color:#f39c12; font-weight:700;">★ ${product.rating || 4.5}</span></td>
+                <td><span style="background:#eafaf6; color:#00a884; font-weight:700; padding:4px 8px; border-radius:6px; font-size:9px;">${product.discount || 'Special'}</span></td>
+                <td>
+                    <button class="action-btn danger" onclick="deleteProduct(${product.id})" title="Delete Product">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+                });
+            }
+
+            function handleProductUpload(event) {
+                event.preventDefault();
+                const name = document.getElementById("prodName").value.trim();
+                const category = document.getElementById("prodCategory").value;
+                const price = parseFloat(document.getElementById("prodPrice").value);
+                const oldPriceVal = document.getElementById("prodOldPrice").value;
+                const oldPrice = oldPriceVal ? parseFloat(oldPriceVal) : Math.round(price * 1.25);
+                const rating = parseFloat(document.getElementById("prodRating").value) || 4.5;
+                const discount = document.getElementById("prodDiscount").value.trim() || "15% OFF";
+                const description = document.getElementById("prodDescription").value.trim() || name;
+
+                const imageUrl = adminUploadedImageBase64 || document.getElementById("prodImageUrl").value.trim() || "https://images.unsplash.com/photo-1523275335684-37898b6baf30";
+
+                const newProduct = {
+                    id: Date.now(),
+                    name,
+                    category,
+                    price,
+                    oldPrice,
+                    rating,
+                    reviews: Math.floor(Math.random() * 150) + 20,
+                    discount,
+                    image: imageUrl,
+                    description
+                };
+
+                const currentList = getAdminProducts();
+                currentList.unshift(newProduct);
+                saveAdminProducts(currentList);
+
+                // Sync to backend if endpoint available
+                fetch("https://ml-based-project-smart-fake-user.onrender.com/api/products", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newProduct)
+                }).catch(() => { });
+
+                // Reset Form
+                document.getElementById("uploadProductForm").reset();
+                adminUploadedImageBase64 = "";
+                document.getElementById("imagePreviewContainer").style.display = "none";
+
+                renderAdminProductsTable();
+                alert(`Product "${name}" uploaded successfully! It is now live on home.html.`);
+            }
+
+            function deleteProduct(id) {
+                const products = getAdminProducts();
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+
+                if (confirm(`Are you sure you want to delete "${product.name}" from store catalog?`)) {
+                    const updated = products.filter(p => p.id !== id);
+                    saveAdminProducts(updated);
+
+                    // Delete from backend API if active
+                    fetch(`https://ml-based-project-smart-fake-user.onrender.com/api/products/${id}`, {
+                        method: "DELETE"
+                    }).catch(() => { });
+
+                    renderAdminProductsTable();
+                    alert(`Product "${product.name}" has been deleted.`);
+                }
+            }
+
+            // Initial render when admin page opens
+            document.addEventListener("DOMContentLoaded", function () {
+                renderAdminProductsTable();
+                if (window.userStore) {
+                    window.userStore.fetchSupabaseUsers(renderAdminUsersTable);
+                } else {
+                    renderAdminUsersTable();
+                }
+            });
+            renderAdminProductsTable();
+            if (window.userStore) {
+                window.userStore.fetchSupabaseUsers(renderAdminUsersTable);
+            } else {
+                renderAdminUsersTable();
+            }
+
+
+        </script>
 
 
 </body>
