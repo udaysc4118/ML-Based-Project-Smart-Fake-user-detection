@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    const SUPABASE_URL = "https://irhbpadlgwdhiidukssc.supabase.co";
+
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyaGJwYWRsZ3dkaGlpZHVrc3NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjM0MDQsImV4cCI6MjEwMTkzOTQwNH0.d2lfYBa2yHYV4cM2fHGGF1Lj5gAMljAYVhMBvE3vaKA";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+</script>
 <head>
 
     <meta charset="UTF-8">
@@ -3142,18 +3154,23 @@
             }
 
             function previewImageFromFile() {
-                const fileInput = document.getElementById("prodImageFile");
-                if (fileInput.files && fileInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        adminUploadedImageBase64 = e.target.result;
-                        document.getElementById("imagePreviewImg").src = e.target.result;
-                        document.getElementById("imagePreviewText").innerText = fileInput.files[0].name;
-                        document.getElementById("imagePreviewContainer").style.display = "flex";
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
-                }
-            }
+    const fileInput = document.getElementById("prodImageFile");
+
+    if (fileInput.files && fileInput.files[0]) {
+
+        const file = fileInput.files[0];
+
+        const previewURL = URL.createObjectURL(file);
+
+        document.getElementById("imagePreviewImg").src = previewURL;
+
+        document.getElementById("imagePreviewText").innerText =
+            file.name;
+
+        document.getElementById("imagePreviewContainer").style.display =
+            "flex";
+    }
+}
 
             function renderAdminProductsTable() {
                 const allProducts = getAdminProducts();
@@ -3211,51 +3228,143 @@
                 });
             }
 
-            function handleProductUpload(event) {
-                event.preventDefault();
-                const name = document.getElementById("prodName").value.trim();
-                const category = document.getElementById("prodCategory").value;
-                const price = parseFloat(document.getElementById("prodPrice").value);
-                const oldPriceVal = document.getElementById("prodOldPrice").value;
-                const oldPrice = oldPriceVal ? parseFloat(oldPriceVal) : Math.round(price * 1.25);
-                const rating = parseFloat(document.getElementById("prodRating").value) || 4.5;
-                const discount = document.getElementById("prodDiscount").value.trim() || "15% OFF";
-                const description = document.getElementById("prodDescription").value.trim() || name;
+           async function handleProductUpload(event) {
+    event.preventDefault();
 
-                const imageUrl = adminUploadedImageBase64 || document.getElementById("prodImageUrl").value.trim() || "https://images.unsplash.com/photo-1523275335684-37898b6baf30";
+    try {
+        const name = document.getElementById("prodName").value.trim();
+        const category = document.getElementById("prodCategory").value;
+        const price = parseFloat(document.getElementById("prodPrice").value);
 
-                const newProduct = {
-                    id: Date.now(),
-                    name,
-                    category,
-                    price,
-                    oldPrice,
-                    rating,
-                    reviews: Math.floor(Math.random() * 150) + 20,
-                    discount,
-                    image: imageUrl,
-                    description
-                };
+        const oldPriceVal = document.getElementById("prodOldPrice").value;
+        const oldPrice = oldPriceVal
+            ? parseFloat(oldPriceVal)
+            : Math.round(price * 1.25);
 
-                const currentList = getAdminProducts();
-                currentList.unshift(newProduct);
-                saveAdminProducts(currentList);
+        const rating =
+            parseFloat(document.getElementById("prodRating").value) || 4.5;
 
-                // Sync to backend if endpoint available
-                fetch("https://ml-based-project-smart-fake-user.onrender.com/api/products", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newProduct)
-                }).catch(() => { });
+        const discount =
+            document.getElementById("prodDiscount").value.trim() || "15% OFF";
 
-                // Reset Form
-                document.getElementById("uploadProductForm").reset();
-                adminUploadedImageBase64 = "";
-                document.getElementById("imagePreviewContainer").style.display = "none";
+        const description =
+            document.getElementById("prodDescription").value.trim() || name;
 
-                renderAdminProductsTable();
-                alert(`Product "${name}" uploaded successfully! It is now live on home.html.`);
+        const fileInput = document.getElementById("prodImageFile");
+
+        let imageUrl =
+            document.getElementById("prodImageUrl").value.trim();
+
+
+        // Upload image to Supabase Storage
+        if (fileInput.files && fileInput.files[0]) {
+
+            const file = fileInput.files[0];
+
+            const fileExt = file.name.split(".").pop();
+
+            const fileName =
+                `product_${Date.now()}_${Math.random()
+                    .toString(36)
+                    .substring(2)}.${fileExt}`;
+
+            console.log("Uploading:", fileName);
+
+            const { data: uploadData, error: uploadError } =
+                await supabaseClient.storage
+                    .from("product-images")
+                    .upload(fileName, file, {
+                        cacheControl: "3600",
+                        upsert: false,
+                        contentType: file.type
+                    });
+
+            if (uploadError) {
+                console.error("Supabase upload error:", uploadError);
+                throw new Error(
+                    "Image upload failed: " + uploadError.message
+                );
             }
+
+            // Get public URL
+            const { data: publicUrlData } =
+                supabaseClient.storage
+                    .from("product-images")
+                    .getPublicUrl(fileName);
+
+            imageUrl = publicUrlData.publicUrl;
+
+            console.log("Image URL:", imageUrl);
+        }
+
+
+        // Fallback image
+        if (!imageUrl) {
+            imageUrl =
+                "https://images.unsplash.com/photo-1523275335684-37898b6baf30";
+        }
+
+
+        // Create product
+        const newProduct = {
+            id: Date.now(),
+            name,
+            category,
+            price,
+            oldPrice,
+            rating,
+            reviews: Math.floor(Math.random() * 150) + 20,
+            discount,
+            image: imageUrl,
+            description
+        };
+
+
+        // Save product
+        const currentList = getAdminProducts();
+
+        currentList.unshift(newProduct);
+
+        saveAdminProducts(currentList);
+
+
+        // Sync with backend
+        await fetch(
+            "https://ml-based-project-smart-fake-user.onrender.com/api/products",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newProduct)
+            }
+        );
+
+
+        // Reset form
+        document.getElementById("uploadProductForm").reset();
+
+        adminUploadedImageBase64 = "";
+
+        document.getElementById("imagePreviewContainer").style.display =
+            "none";
+
+
+        renderAdminProductsTable();
+
+        alert(
+            `Product "${name}" uploaded successfully!\n\nImage saved to Supabase Storage.`
+        );
+
+    } catch (error) {
+
+        console.error("Product upload error:", error);
+
+        alert(
+            "Product upload failed!\n\n" + error.message
+        );
+    }
+}
 
             function deleteProduct(id) {
                 const products = getAdminProducts();
