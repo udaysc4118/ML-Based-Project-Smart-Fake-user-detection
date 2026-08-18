@@ -10,6 +10,10 @@ const CURRENT_USER_KEY = "recomai_current_user";
 const SUPABASE_REST_URL = "https://irhbpadlgwdhiidukssc.supabase.co/rest/v1/app_users";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyaGJwYWRsZ3dkaGlpZHVrc3NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjM0MDQsImV4cCI6MjEwMTkzOTQwNH0.d2lfYBa2yHYV4cM2fHGGF1Lj5gAMljAYVhMBvE3vaKA";
 
+// Supabase Storage bucket used for admin uploaded product images
+const SUPABASE_STORAGE_BUCKET = "product-images";
+const SUPABASE_STORAGE_URL = "https://irhbpadlgwdhiidukssc.supabase.co/storage/v1";
+
 const SUPABASE_HEADERS = {
     "apikey": SUPABASE_ANON_KEY,
     "Authorization": "Bearer " + SUPABASE_ANON_KEY,
@@ -120,6 +124,33 @@ async function fetchSupabaseUsers(callback) {
     const cached = getUsersDB();
     if (callback) callback(cached);
     return cached;
+}
+
+// Upload a product image file to Supabase Storage and return its public URL
+async function uploadProductImage(file) {
+    if (!file) return null;
+
+    const extension = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    const safeName = `product_${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${extension}`;
+    const objectPath = `${SUPABASE_STORAGE_BUCKET}/${safeName}`;
+
+    const res = await fetch(`${SUPABASE_STORAGE_URL}/object/${objectPath}`, {
+        method: "POST",
+        headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+            "Content-Type": file.type || "application/octet-stream",
+            "x-upsert": "true"
+        },
+        body: file
+    });
+
+    if (!res.ok) {
+        const detail = await res.text();
+        throw new Error(`Image upload failed: ${detail}`);
+    }
+
+    return `${SUPABASE_STORAGE_URL}/object/public/${objectPath}`;
 }
 
 // Current Session User Helpers
@@ -363,6 +394,7 @@ window.userStore = {
     getUsersDB,
     saveUsersDB,
     fetchSupabaseUsers,
+    uploadProductImage,
     getCurrentSessionUser,
     setCurrentSessionUser,
     trackUserActivity,
