@@ -3126,15 +3126,22 @@
             }
 
             function saveAdminProducts(list) {
-                localStorage.setItem("recomai_products", JSON.stringify(list));
+                try {
+                    localStorage.setItem("recomai_products", JSON.stringify(list));
+                } catch (e) {
+                    console.error("Error saving products:", e);
+                    alert("Browser storage full. Purane products delete karo ya page refresh karke dobara try karo.");
+                }
             }
 
-            let adminUploadedImageBase64 = "";
+            let adminSelectedImageUrl = "";
+            let adminSelectedImageFile = null;
 
             function previewImageFromUrl() {
                 const url = document.getElementById("prodImageUrl").value.trim();
                 if (url) {
-                    adminUploadedImageBase64 = url;
+                    adminSelectedImageFile = null;
+                    adminSelectedImageUrl = url;
                     document.getElementById("imagePreviewImg").src = url;
                     document.getElementById("imagePreviewText").innerText = "Image URL linked";
                     document.getElementById("imagePreviewContainer").style.display = "flex";
@@ -3144,14 +3151,12 @@
             function previewImageFromFile() {
                 const fileInput = document.getElementById("prodImageFile");
                 if (fileInput.files && fileInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        adminUploadedImageBase64 = e.target.result;
-                        document.getElementById("imagePreviewImg").src = e.target.result;
-                        document.getElementById("imagePreviewText").innerText = fileInput.files[0].name;
-                        document.getElementById("imagePreviewContainer").style.display = "flex";
-                    };
-                    reader.readAsDataURL(fileInput.files[0]);
+                    const file = fileInput.files[0];
+                    adminSelectedImageFile = file;
+                    adminSelectedImageUrl = "";
+                    document.getElementById("imagePreviewImg").src = URL.createObjectURL(file);
+                    document.getElementById("imagePreviewText").innerText = file.name;
+                    document.getElementById("imagePreviewContainer").style.display = "flex";
                 }
             }
 
@@ -3211,8 +3216,9 @@
                 });
             }
 
-            function handleProductUpload(event) {
+            async function handleProductUpload(event) {
                 event.preventDefault();
+                const submitBtn = event.target.querySelector("button[type=submit]");
                 const name = document.getElementById("prodName").value.trim();
                 const category = document.getElementById("prodCategory").value;
                 const price = parseFloat(document.getElementById("prodPrice").value);
@@ -3222,7 +3228,30 @@
                 const discount = document.getElementById("prodDiscount").value.trim() || "15% OFF";
                 const description = document.getElementById("prodDescription").value.trim() || name;
 
-                const imageUrl = adminUploadedImageBase64 || document.getElementById("prodImageUrl").value.trim() || "https://images.unsplash.com/photo-1523275335684-37898b6baf30";
+                let imageUrl = adminSelectedImageUrl || document.getElementById("prodImageUrl").value.trim();
+
+                if (adminSelectedImageFile) {
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.dataset.originalText = submitBtn.innerHTML;
+                        submitBtn.innerHTML = "Uploading image...";
+                    }
+                    try {
+                        imageUrl = await window.userStore.uploadProductImage(adminSelectedImageFile);
+                    } catch (err) {
+                        alert("Image upload failed: " + err.message);
+                        return;
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = submitBtn.dataset.originalText || "Upload Product to Store";
+                        }
+                    }
+                }
+
+                if (!imageUrl) {
+                    imageUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30";
+                }
 
                 const newProduct = {
                     id: Date.now(),
@@ -3250,7 +3279,8 @@
 
                 // Reset Form
                 document.getElementById("uploadProductForm").reset();
-                adminUploadedImageBase64 = "";
+                adminSelectedImageUrl = "";
+                adminSelectedImageFile = null;
                 document.getElementById("imagePreviewContainer").style.display = "none";
 
                 renderAdminProductsTable();
