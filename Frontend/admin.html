@@ -3227,9 +3227,15 @@
         `;
                 });
             }
-
-           async function handleProductUpload(event) {
+           let isProductUploading = false;
+          async function handleProductUpload(event) {
     event.preventDefault();
+
+    if (isProductUploading) {
+        return;
+    }
+
+    isProductUploading = true;
 
     try {
         const name = document.getElementById("prodName").value.trim();
@@ -3357,13 +3363,14 @@
         );
 
     } catch (error) {
+    console.error("Product upload error:", error);
 
-        console.error("Product upload error:", error);
-
-        alert(
-            "Product upload failed!\n\n" + error.message
-        );
-    }
+    alert(
+        "Product upload failed!\n\n" + error.message
+    );
+} finally {
+    isProductUploading = false;
+}
 }
 
             function deleteProduct(id) {
