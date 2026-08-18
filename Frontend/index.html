@@ -755,71 +755,98 @@
             if (password.type === "password") { password.type = "text"; icon.className = "fa-regular fa-eye-slash"; }
             else { password.type = "password"; icon.className = "fa-regular fa-eye"; }
         }
-        function login(event) {
-            event.preventDefault();
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value;
-            const alertBox = document.getElementById("loginAlert");
-            const button = document.getElementById("loginButton");
-            const text = document.getElementById("loginText");
-            if (!email || !password) { showAlert(alertBox, "Please enter your email and password.", "error"); return; }
+        async function login(event) {
+    event.preventDefault();
 
-            // Check if user is blocked in userStore
-            if (loginType === "user" && window.userStore && window.userStore.isUserBlocked(email)) {
-                showAlert(alertBox, "⛔ Your account has been BLOCKED by Admin. Access suspended.", "error");
-                return;
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const alertBox = document.getElementById("loginAlert");
+    const button = document.getElementById("loginButton");
+    const text = document.getElementById("loginText");
+
+    if (!email || !password) {
+        showAlert(alertBox, "Please enter your email and password.", "error");
+        return;
+    }
+
+    if (loginType === "user" && window.userStore?.isUserBlocked(email)) {
+        showAlert(alertBox, "⛔ Your account has been BLOCKED by Admin.", "error");
+        return;
+    }
+
+    button.disabled = true;
+    text.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Authenticating...";
+
+    try {
+        const response = await fetch(
+            "https://ml-based-project-smart-fake-user.onrender.com/api/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                    loginType
+                })
             }
+        );
 
-            button.disabled = true; text.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Authenticating...";
-            fetch("https://ml-based-project-smart-fake-user.onrender.com/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, loginType }) })
-                .then(async (res) => {
-                    const data = await res.json().catch(() => ({}));
-                    button.disabled = false; text.innerHTML = "Sign In";
-                    if (res.ok && data.success) {
-                        if (data.role === "admin") {
-                            showAlert(alertBox, "Admin authentication successful.", "success");
-                            window.location.href = "admin.html";
-                        }
-                        else {
-                            if (window.userStore) {
-                                window.userStore.registerOrUpdateUser({ email, username: data.username || email.split('@')[0] });
-                            }
-                            showAlert(alertBox, "User login successful.", "success");
-                            window.location.href = "home.html";
-                        }
-                    } else {
-                        // Fallback local auth simulation if network fails or test user
-                        if (loginType === "user" && (email === "user@example.com" || email.includes("@"))) {
-                            if (window.userStore && window.userStore.isUserBlocked(email)) {
-                                showAlert(alertBox, "⛔ Your account has been BLOCKED by Admin.", "error");
-                                return;
-                            }
-                            if (window.userStore) {
-                                window.userStore.registerOrUpdateUser({ email, username: email.split('@')[0] });
-                            }
-                            showAlert(alertBox, "User login successful.", "success");
-                            window.location.href = "home.html";
-                            return;
-                        }
-                        showAlert(alertBox, data.message || "Authentication failed.", "error");
-                    }
-                }).catch(() => {
-                    button.disabled = false; text.innerHTML = "Sign In";
-                    if (loginType === "user" && email) {
-                        if (window.userStore && window.userStore.isUserBlocked(email)) {
-                            showAlert(alertBox, "⛔ Your account has been BLOCKED by Admin.", "error");
-                            return;
-                        }
-                        if (window.userStore) {
-                            window.userStore.registerOrUpdateUser({ email, username: email.split('@')[0] });
-                        }
-                        showAlert(alertBox, "User login successful.", "success");
-                        window.location.href = "home.html";
-                        return;
-                    }
-                    showAlert(alertBox, "Network error. Please try again.", "error");
-                });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.success) {
+            showAlert(
+                alertBox,
+                data.message || "Invalid email or password.",
+                "error"
+            );
+            return;
         }
+
+        if (data.role === "admin") {
+            showAlert(alertBox, "Admin authentication successful.", "success");
+
+            setTimeout(() => {
+                window.location.href = "admin.html";
+            }, 500);
+
+            return;
+        }
+
+        // Save logged-in user session
+        if (window.userStore && window.userStore.setCurrentSessionUser) {
+            window.userStore.setCurrentSessionUser({
+                id: data.user?.id,
+                email: data.user?.email || email,
+                username: data.user?.username || data.username || email.split("@")[0],
+                name: data.user?.name || data.username || email.split("@")[0],
+                role: data.role || "user",
+                status: data.user?.status || "Active",
+                loginCount: data.user?.loginCount || 1,
+                totalTimeSpent: data.user?.totalTimeSpent || 0,
+                warnings: data.user?.warnings || []
+            });
+        }
+
+        showAlert(alertBox, "User login successful.", "success");
+
+        setTimeout(() => {
+            window.location.href = "home.html";
+        }, 500);
+
+    } catch (error) {
+        console.error("Login error:", error);
+        showAlert(
+            alertBox,
+            "Unable to connect to server. Please try again.",
+            "error"
+        );
+    } finally {
+        button.disabled = false;
+        text.innerHTML = "Sign In";
+    }
+}
         function hideScreens() {
             document.getElementById("loginScreen").classList.remove("active");
             document.getElementById("forgotScreen").classList.remove("active");
