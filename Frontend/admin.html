@@ -4,13 +4,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-    const SUPABASE_URL = "https://irhbpadlgwdhiidukssc.supabase.co";
+    const STORAGE_SUPABASE_URL = "https://irhbpadlgwdhiidukssc.supabase.co";
 
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyaGJwYWRsZ3dkaGlpZHVrc3NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjM0MDQsImV4cCI6MjEwMTkzOTQwNH0.d2lfYBa2yHYV4cM2fHGGF1Lj5gAMljAYVhMBvE3vaKA";
+    const STORAGE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlyaGJwYWRsZ3dkaGlpZHVrc3NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNjM0MDQsImV4cCI6MjEwMTkzOTQwNH0.d2lfYBa2yHYV4cM2fHGGF1Lj5gAMljAYVhMBvE3vaKA";
 
     const supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        STORAGE_SUPABASE_URL,
+        STORAGE_SUPABASE_ANON_KEY
     );
 </script>
 <head>
@@ -3386,21 +3386,18 @@
             }
 
             // Initial render when admin page opens
-            document.addEventListener("DOMContentLoaded", function () {
-                renderAdminProductsTable();
-                if (window.userStore) {
-                    window.userStore.fetchSupabaseUsers(renderAdminUsersTable);
-                } else {
-                    renderAdminUsersTable();
-                }
-            });
-            renderAdminProductsTable();
-            if (window.userStore) {
-                window.userStore.fetchSupabaseUsers(renderAdminUsersTable);
-            } else {
-                renderAdminUsersTable();
-            }
+           document.addEventListener("DOMContentLoaded", async function () {
+    renderAdminProductsTable();
 
+    if (window.userStore) {
+        await window.userStore.fetchSupabaseUsers(function (users) {
+            console.log("ADMIN USERS LOADED:", users.length);
+            renderAdminUsersTable();
+        });
+    } else {
+        console.error("userStore.js NOT LOADED");
+    }
+});
 
         </script>
 
